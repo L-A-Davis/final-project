@@ -1,6 +1,58 @@
  .App {
   text-align: center;
+
 }
+
+header {
+  color: #1c3151;
+}
+.form {
+    /*border: 3px solid #33BC87;*/
+    text-align: left;
+    line-height: 1.7;
+    height: auto;
+    overflow: auto;
+    margin: 1%;
+    padding: 1%;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+
+.form:hover {
+  -webkit-box-shadow:0 1px 4px rgba(28, 49, 81, 0.7), 0 0 70px rgba(0, 0, 0, 0.1);
+     -moz-box-shadow:0 1px 4px rgba(28, 49, 81, 0.7), 0 0 70px rgba(0, 0, 0, 0.1);
+          box-shadow:0 1px 4px rgba(28, 49, 81, 0.7), 0 0 70px rgba(0, 0, 0, 0.1);
+}
+
+
+form input, form select, {
+    /* width: 100%; */
+    padding: 10px 20px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form input[type=submit] {
+    /* width: 100%; */
+    background-color: #73757a;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form input[type=submit]:hover {
+    background-color: #1c3151;
+}
+
 /*
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -36,7 +88,7 @@ nav ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: #1c3151;
 }
 
 nav li, nav li a {
@@ -49,5 +101,5 @@ nav li, nav li a {
 }
 
 nav li:hover {
-  background-color: #111;
+  background-color: #73757a;
 }

@@ -1,11 +1,15 @@
 import React from 'react';
 
-const myProjects = (props) => {
+const MyProjects = (props) => {
   return (
     <div>
-      Select list
+    <select>
+    {props.projects.map((project) =>
+      <option key={project.id} value={project.id}>{project.name}</option>
+    )}
+    </select>
     </div>
   )
 }
 
-export default myProjects;
+export default MyProjects;

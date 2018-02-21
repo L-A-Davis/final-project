@@ -30,7 +30,7 @@ render(){
   return (
     <div>
     <h2>login....</h2>
-    <form onSubmit={this.handleLogin}>
+    <form className="form" onSubmit={this.handleLogin}>
     <label>Email </label>
       <input value={this.state.email} name="email" type="email" placeholder="Email" onChange={this.onInputChange}/> <br/>
 

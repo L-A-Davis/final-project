@@ -22,7 +22,7 @@ return (
        loggedIn &&
        <div>
          <li><Link to="/profile">Profile</Link></li>
-         <li><MyProjects /></li>
+         <li><MyProjects projects={props.projects} onChange={props.onChange}/></li>
        </div>
      }
      </ul>

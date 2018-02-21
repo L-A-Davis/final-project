@@ -11,6 +11,7 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
 class App extends Component {
   state = {
+    projects: [],
     auth: {
       currentUser: null,
       loggingIn: true
@@ -29,6 +30,7 @@ class App extends Component {
      }
    })
    this.props.history.push('/profile')
+   this.getProjects()
  }
 
  removeLoggedInUser = () => {
@@ -37,6 +39,13 @@ class App extends Component {
     auth: { currentUser: null, loggingIn: false }
   })
   this.props.history.push('/login')
+}
+
+getProjects = () => {
+  adapter.eventHandlers.getProjects()
+  .then(res => this.setState ({
+    projects: res
+  }))
 }
 
 componentDidMount() {
@@ -50,6 +59,7 @@ componentDidMount() {
         loggingIn: false
       })
         console.log(`user: ${user.email}`)
+        this.getProjects()
       } else {
         this.setState({ auth: {
           currentUser: null,
@@ -71,7 +81,9 @@ componentDidMount() {
         <Header />
        <Navbar
            currentUser={this.state.auth.currentUser}
-           logOut={this.removeLoggedInUser} />
+           logOut={this.removeLoggedInUser}
+           projects={this.state.projects}
+           />
       <Switch>
          <Route exact path='/login' render={ (routerProps) => {
            return <Login history={routerProps.history}
