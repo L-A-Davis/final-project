@@ -24,7 +24,7 @@ class ApplicationController < ActionController::API
   # end
 
   def current_user
-    User.find_by(id: user_id_from_token(token))
+    @current_user ||= User.find_by(id: user_id_from_token(token))
   end
 
   def user_id_from_token(token)
@@ -36,7 +36,7 @@ class ApplicationController < ActionController::API
     if (token)
       begin
         JWT.decode(token, secret, true, { algorithm: algorithm })
-      rescue
+      rescue JWT::DecodeError
         return [{}]
       end
     else
@@ -63,8 +63,3 @@ class ApplicationController < ActionController::API
   end
 
 end
-
-# alternative code for current_user
-# @current_user ||= User.find_by(id: user_id_from_token(token))
-# rescue in decode_token:
-#   rescue JWT::DecodeError
