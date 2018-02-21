@@ -38,10 +38,8 @@ end
 
 private
   def model_params
-    params.require(:model).permit(:name, :deal_type, :user_id)
+    params.require(:model).permit(:name, :data, :project_id)
   end
-
-
 
 
 

@@ -33,10 +33,10 @@ def signup
         token: encode_token({'user_id': user.id})
       }
     rescue AuthError => e
-      render json: { error: e.msg }, status: 401
+      render json: { error: "Invalid Passwords"}, status: 401
     end
   else
-    render json: nil
+    render json: { error: "Need all info correct to sign up" }
   end
 
 end
