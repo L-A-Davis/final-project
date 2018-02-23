@@ -53,6 +53,15 @@ form input[type=submit]:hover {
     background-color: #1c3151;
 }
 
+button {
+  color: white;
+  background-color: #73757a;
+}
+
+button:hover {
+  background-color: #1c3151;
+}
+
 /*
 .App-logo {
   animation: App-logo-spin infinite 20s linear;

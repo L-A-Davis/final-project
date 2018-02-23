@@ -46,9 +46,19 @@ const getProjects = () => {
   }).then(res => res.json())
 }
 
+const addProject = (p) => {
+  console.log(p)
+  return fetch(`${API_ROOT}/projects`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({project: {name: p.name, deal_type: p.deal_type, user_id: p.user_id}})
+  }).then(res => res.json())
+}
+
 export default {
   eventHandlers: {
-     getProjects
+     getProjects,
+     addProject
   },
   auth: {
     login,

@@ -1,12 +1,12 @@
 import React from 'react';
 import adapter from '../adapter';
-import SelectCompany from './SelectCompany';
+import SelectCompany from '../components/SelectCompany';
 
 class Signup extends React.Component {
   state = {
     user_name: '',
     email: '',
-    company_id: 1,
+    company_id: '',
     phone: '',
     address: '',
     password: '',

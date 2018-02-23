@@ -5,8 +5,10 @@ import Navbar from './nav/Navbar';
 import Login from './nav/Login';
 import Signup from './nav/Signup';
 import Profile from './nav/Profile';
+import Project from './nav/Project';
 import Header from './components/Header';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+
 
 
 class App extends Component {
@@ -30,7 +32,6 @@ class App extends Component {
      }
    })
    this.props.history.push('/profile')
-   this.getProjects()
  }
 
  removeLoggedInUser = () => {
@@ -41,12 +42,6 @@ class App extends Component {
   this.props.history.push('/login')
 }
 
-getProjects = () => {
-  adapter.eventHandlers.getProjects()
-  .then(res => this.setState ({
-    projects: res
-  }))
-}
 
 componentDidMount() {
   const token = localStorage.getItem('token');
@@ -59,7 +54,7 @@ componentDidMount() {
         loggingIn: false
       })
         console.log(`user: ${user.email}`)
-        this.getProjects()
+
       } else {
         this.setState({ auth: {
           currentUser: null,
@@ -82,7 +77,7 @@ componentDidMount() {
        <Navbar
            currentUser={this.state.auth.currentUser}
            logOut={this.removeLoggedInUser}
-           projects={this.state.projects}
+
            />
       <Switch>
          <Route exact path='/login' render={ (routerProps) => {
@@ -96,8 +91,15 @@ componentDidMount() {
          }} />
 
         <Route exact path='/profile' render={ (routerProps) => {
-            return <Profile auth={this.state.auth}/>
+            return <Profile auth={this.state.auth}
+            history={routerProps.history}/>
         }} />
+
+        <Route exact path='/project' render={ (routerProps) => {
+            return <Profile auth={this.state.auth}
+            history={routerProps.history}/>
+        }} />
+
 
         <Redirect exact from="/" to="/login" />
         <Redirect to="/login" />
@@ -110,6 +112,7 @@ componentDidMount() {
 }
 
 export default withRouter(App);
+
 
 // api source const URL = `https://api.iextrading.com/1.0/stock/`
 

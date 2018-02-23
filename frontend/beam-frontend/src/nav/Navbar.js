@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import MyProjects from './MyProjects';
 
 const Navbar = (props) => {
 
@@ -22,7 +21,6 @@ return (
        loggedIn &&
        <div>
          <li><Link to="/profile">Profile</Link></li>
-         <li><MyProjects projects={props.projects} onChange={props.onChange}/></li>
        </div>
      }
      </ul>
