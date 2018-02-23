@@ -9,11 +9,17 @@ export default function companyBasicInfoReducer(
     companiesData: [],
     selectedCompany: null, loading: false,
     formData: {
+      ProjectId: '',
+      ProjectName: '',
+      Deal_type: '',
+      User_id: ''},
+    BasicInfoFormData: {
       CompanyA_ticker: "",
       CompanyB_ticker: "",
       CompanyA_codename: "",
       CompanyB_codename: "",
-      CompanyA_acquiror: false} },
+      CompanyA_acquiror: false}
+     },
   action
 ) {
   switch (action.type) {

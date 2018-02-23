@@ -47,7 +47,6 @@ const getProjects = () => {
 }
 
 const addProject = (p) => {
-  console.log(p)
   return fetch(`${API_ROOT}/projects`, {
     method: 'POST',
     headers: headers,
