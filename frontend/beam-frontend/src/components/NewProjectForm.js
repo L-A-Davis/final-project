@@ -16,18 +16,18 @@ class NewProjectForm extends React.Component {
 
  handleSubmit = (e) => {
    e.preventDefault();
-   let project = {
+   this.props.addNewProject({
      name: this.props.ProjectName,
      deal_type: this.props.Deal_type,
-     user_id: this.props.currentUser.id
-   }
-   this.props.addNewProject(project)
+     user_id: this.props.currentUser.id,
+   })
    ;
    this.props.updateNewProjectForm({
      ProjectName: '',
      Deal_type: '',
      User_id: '',
    })
+   this.props.exit()
    this.props.history.push('/project')
  }
 
@@ -58,4 +58,4 @@ class NewProjectForm extends React.Component {
  }
 }
 
-export default connect (state => ({ ...state.formData }), { updateNewProjectForm, setProjectInfo, addNewProject })(NewProjectForm);
+export default connect (state => ({ ...state.newProjectFormData }), { updateNewProjectForm, setProjectInfo, addNewProject })(NewProjectForm);

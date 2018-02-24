@@ -5,10 +5,11 @@ import { selectExistingProject } from '../actions'
 class MyProjects extends React.Component {
 
  handleSelection = (event) => {
+   console.log(event.target.value)
    this.props.selectExistingProject({
      id: event.target.value
    })
-   this.props.history.push('/project')
+   this.props.history.push('/projects')
 }
 
 

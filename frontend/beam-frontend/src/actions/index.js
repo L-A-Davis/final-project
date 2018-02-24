@@ -9,11 +9,27 @@ export function setProjectInfo(formData) {
 }
 
 export function updateBasicInfoForm(formData) {
-  return { type: "UPDATE_NEWPROJECT_FORM", payload: formData };
+  return { type: "UPDATE_BASICINFO_FORM", payload: formData };
 }
 
 export function setBasicInfo(formData) {
-  return { type: "SUBMIT_BASICINFO_FORM", payload: formData };
+  return { type: "UPDATE_MODELDATA", payload: formData };
+}
+
+export function setEquityInfo(formData) {
+  return { type: "UPDATE_MODELDATA", payload: formData };
+}
+
+export function updateEquityForm(formData) {
+  return { type: "UPDATE_EQUITYINFO_FORM", payload: formData };
+}
+
+export function setOfferInfo(formData) {
+  return { type: "UPDATE_MODELDATA", payload: formData };
+}
+
+export function updateOfferForm(formData) {
+  return { type: "UPDATE_EQUITYINFO_FORM", payload: formData };
 }
 
 export function selectExistingProject(id) {

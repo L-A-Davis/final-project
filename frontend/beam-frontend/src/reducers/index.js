@@ -6,9 +6,9 @@ export default function companyBasicInfoReducer(
       ProjectName: '',
       Deal_type: '',
       User_id: ''},
-    companiesData: [],
+    modelData: [],
     selectedCompany: null, loading: false,
-    formData: {
+    newProjectFormData: {
       ProjectId: '',
       ProjectName: '',
       Deal_type: '',
@@ -18,7 +18,14 @@ export default function companyBasicInfoReducer(
       CompanyB_ticker: "",
       CompanyA_codename: "",
       CompanyB_codename: "",
-      CompanyA_acquiror: false}
+      CompanyA_acquiror: false},
+    EquityFormData: {
+      CompanyA_currentSharePrice: "",
+      CompanyB_currentSharePrice: "",
+      CompanyA_shares: "",
+      CompanyB_shares: "",
+      CompanyA_dividend: "",
+      CompanyB_dividend: ""}
      },
   action
 ) {
@@ -32,7 +39,7 @@ export default function companyBasicInfoReducer(
     case "COMPANY_LOAD":
       return {
         ...state,
-        companiesData: action.payload,
+        modelData: action.payload,
         loading: false
       };
      case "PROJECTS_LOAD":
@@ -47,43 +54,42 @@ export default function companyBasicInfoReducer(
     case 'REMOVE_COMPANY':
       return state.filter(company => company.id !== action.companyId);
 
-      case "SELECT_COMPANY":
-        return {
-          ...state,
-          formData: action.payload
-        };
+      // case "SELECT_COMPANY":
+      //   return {
+      //     ...state,
+      //     newProjectFormData: action.payload
+      //   };
 
       case "UPDATE_NEWPROJECT_FORM":
         return {
           ...state,
-          formData: {...state.formData, ...action.payload}
+          newProjectFormData: {...state.newProjectFormData, ...action.payload}
         }
+
+        case "UPDATE_BASICINFO_FORM":
+          return {
+            ...state,
+            BasicInfoFormData: {...state.BasicInfoFormData, ...action.payload}
+          }
+
+          case "UPDATE_EQUITYINFO_FORM":
+            return {
+              ...state,
+              EquityFormData: {...state.EquityFormData, ...action.payload}
+            }
 
         // case "SUBMIT_NEWPROJECT_FORM":
         //   return {
         //     ...state,
-        //     selectedProjectData: {...state.selectedProjectData, ...action.payload.selectedProjectData},
-        //     companiesData: {...state.companiesData, ...action.payload.companiesData}
+        //     selectedProjectData: {...state.selectedProjectData, ...action.payload.selectedProjectData}
         //   }
 
           case "SELECT_PROJECT":
+           let projectToSet = state.allProjects.find(project => project.id === parseInt(action.payload.id))
             return {
               ...state,
-              selectedProjectData: state.allProjects.find(project => {
-                if (project.id === action.payload.id) {
-                  return {
-                  ProjectId: project.id,
-                  ProjectName: project.name,
-                  Deal_type: project.deal_type,
-                  User_id: project.user.id
-                }
-              } else {
-                return {
-                ...state,
-                selectedProjectData: {...state.selectedProjectData}
-               }
+              selectedProjectData: projectToSet
               }
-            })}
 
           case "SET_NEW_PROJECT":
            return {
@@ -91,11 +97,16 @@ export default function companyBasicInfoReducer(
                    selectedProjectData: action.payload
                  };
 
+         case "UPDATE_MODELDATA":
+           return {
+             ...state,
+             modelData: {...state.modelData, ...action.payload}
+           }
 
       case "SET_COMPANY":
         return {
           ...state,
-          companiesData: state.companiesData.map(company => {
+          modelData: state.modelData.map(company => {
             if(company.id === action.payload.id) {
               return action.payload
             } else {

@@ -3,6 +3,9 @@ import { Redirect } from 'react-router'
 import WithAuth from '../wrappers/WithAuth'
 import MyProjects from '../components/MyProjects';
 import NewProjectForm from '../components/NewProjectForm';
+import BasicInfoForm from '../components/BasicInfoForm';
+import EquityForm from '../components/EquityForm';
+import OfferForm from '../components/OfferForm';
 import { fetchExistingProjects } from '../actions'
 import { connect } from 'react-redux'
 
@@ -42,6 +45,9 @@ class Profile extends React.Component {
       exit={this.handleNewProjectClick}
       history={this.props.history}/>
       }
+        <BasicInfoForm />
+        <EquityForm />
+        <OfferForm />
       </div>
     </div>
   )

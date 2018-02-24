@@ -49,8 +49,8 @@ const getProjects = () => {
 const addProject = (p) => {
   return fetch(`${API_ROOT}/projects`, {
     method: 'POST',
-    headers: headers,
-    body: JSON.stringify({project: {name: p.name, deal_type: p.deal_type, user_id: p.user_id}})
+    headers: headers(),
+    body: JSON.stringify({project: p})
   }).then(res => res.json())
 }
 
