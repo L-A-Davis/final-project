@@ -25,7 +25,11 @@ export default function companyBasicInfoReducer(
       CompanyA_shares: "",
       CompanyB_shares: "",
       CompanyA_dividend: "",
-      CompanyB_dividend: ""}
+      CompanyB_dividend: ""},
+    OfferFormData: {
+      OfferType: 'SetAmount',
+      OfferMetric: '',
+      Percentage_Stock: ''}
      },
   action
 ) {
@@ -72,11 +76,17 @@ export default function companyBasicInfoReducer(
             BasicInfoFormData: {...state.BasicInfoFormData, ...action.payload}
           }
 
-          case "UPDATE_EQUITYINFO_FORM":
-            return {
-              ...state,
-              EquityFormData: {...state.EquityFormData, ...action.payload}
-            }
+        case "UPDATE_EQUITYINFO_FORM":
+          return {
+            ...state,
+            EquityFormData: {...state.EquityFormData, ...action.payload}
+          }
+
+        case "UPDATE_OFFER_FORM":
+          return {
+            ...state,
+            OfferFormData: {...state.OfferFormData, ...action.payload}
+          }
 
         // case "SUBMIT_NEWPROJECT_FORM":
         //   return {

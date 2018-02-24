@@ -8,12 +8,12 @@ class EquityForm extends React.Component {
  handleChange = (e) => {
    this.props.updateEquityForm({
        ProjectId: this.props.ProjectId,
-       CompanyA_currentSharePrice: this.props.CompanyA_currentSharePrice,
-       CompanyB_currentSharePrice: this.props.CompanyB_currentSharePrice,
-       CompanyA_shares: this.props.CompanyA_shares,
-       CompanyB_shares: this.props.CompanyB_shares,
-       CompanyA_dividend: this.props.CompanyA_dividend,
-       CompanyB_dividend: this.props.CompanyB_dividend,
+       CompanyA_currentSharePrice: this.props.EquityFormData.CompanyA_currentSharePrice,
+       CompanyB_currentSharePrice: this.props.EquityFormData.CompanyB_currentSharePrice,
+       CompanyA_shares: this.props.EquityFormData.CompanyA_shares,
+       CompanyB_shares: this.props.EquityFormData.CompanyB_shares,
+       CompanyA_dividend: this.props.EquityFormData.CompanyA_dividend,
+       CompanyB_dividend: this.props.EquityFormData.CompanyB_dividend,
        [e.target.name]: e.target.value
    })
  }
@@ -23,12 +23,12 @@ class EquityForm extends React.Component {
    this.props.setEquityInfo({
      equityInfoData: {
      ProjectId: this.props.ProjectId,
-     CompanyA_currentSharePrice: this.props.CompanyA_currentSharePrice,
-     CompanyB_currentSharePrice: this.props.CompanyB_currentSharePrice,
-     CompanyA_shares: this.props.CompanyA_shares,
-     CompanyB_shares: this.props.CompanyB_shares,
-     CompanyA_dividend: this.props.CompanyA_dividend,
-     CompanyB_dividend: this.props.CompanyB_dividend
+     CompanyA_currentSharePrice: this.props.EquityFormData.CompanyA_currentSharePrice,
+     CompanyB_currentSharePrice: this.props.EquityFormData.CompanyB_currentSharePrice,
+     CompanyA_shares: this.props.EquityFormData.CompanyA_shares,
+     CompanyB_shares: this.props.EquityFormData.CompanyB_shares,
+     CompanyA_dividend: this.props.EquityFormData.CompanyA_dividend,
+     CompanyB_dividend: this.props.EquityFormData.CompanyB_dividend
    }
    });
    this.props.updateEquityForm({
@@ -66,14 +66,14 @@ class EquityForm extends React.Component {
        <input
           type="number"
           name="CompanyA_currentSharePrice"
-          value={this.props.CompanyA_currentSharePrice}
+          value={this.props.EquityFormData.CompanyA_currentSharePrice}
           onChange={this.handleChange}
           className="form-input-1" />
 
       <input
          type="number"
          name="CompanyB_currentSharePrice"
-         value={this.props.CompanyB_currentSharePrice}
+         value={this.props.EquityFormData.CompanyB_currentSharePrice}
          onChange={this.handleChange}
          className="form-input-2" />
 
@@ -81,14 +81,14 @@ class EquityForm extends React.Component {
          <input
             type="number"
             name="CompanyA_shares"
-            value={this.props.CompanyA_shares}
+            value={this.props.EquityFormData.CompanyA_shares}
             onChange={this.handleChange}
             className="form-input-1"/>
 
         <input
            type="number"
            name="CompanyB_shares"
-           value={this.props.CompanyB_shares}
+           value={this.props.EquityFormData.CompanyB_shares}
            onChange={this.handleChange}
            className="form-input-2"/>
 
@@ -97,14 +97,14 @@ class EquityForm extends React.Component {
        <input
           type="number"
           name="CompanyA_dividend"
-          value={this.props.CompanyA_dividend}
+          value={this.props.EquityFormData.CompanyA_dividend}
           onChange={this.handleChange}
           className="form-input-1"/>
 
       <input
          type="number"
          name="CompanyB_dividend"
-         value={this.props.CompanyB_dividend}
+         value={this.props.EquityFormData.CompanyB_dividend}
          onChange={this.handleChange}
          className="form-input-2"/>
 

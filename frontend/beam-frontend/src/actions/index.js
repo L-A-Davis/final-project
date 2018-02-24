@@ -29,7 +29,7 @@ export function setOfferInfo(formData) {
 }
 
 export function updateOfferForm(formData) {
-  return { type: "UPDATE_EQUITYINFO_FORM", payload: formData };
+  return { type: "UPDATE_OFFER_FORM", payload: formData };
 }
 
 export function selectExistingProject(id) {
