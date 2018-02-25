@@ -74,6 +74,13 @@ button:hover {
   grid-column-gap: 3%;
 }
 
+.seven-columns-form {
+  display: grid;
+  grid-template-columns: 25% 20% 6% 8% 20% 6% 8%;
+  grid-column-gap: 1%;
+}
+
+
 .form-label{
   grid-column-start: 1;
   grid-column-end: 2;
@@ -88,6 +95,30 @@ button:hover {
   grid-column-end: 4;
 }
 
+.form-input-3{
+  grid-column-start: 4;
+  grid-column-end: 5;
+}
+
+.form-input-4{
+  grid-column-start: 5;
+  grid-column-end: 6;
+}
+
+.form-input-5{
+  grid-column-start: 6;
+  grid-column-end: 7;
+}
+
+.form-input-6{
+  grid-column-start: 7;
+  grid-column-end: 8;
+}
+
+.form-input-submit{
+  grid-column-start: 2;
+  grid-column-end: 6;
+}
 
 div.form h3 {
   text-align: center;

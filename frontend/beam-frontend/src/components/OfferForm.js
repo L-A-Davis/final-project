@@ -32,8 +32,8 @@ class OfferForm extends React.Component {
   }
 
   impliedExchangeRatio = (a, b) => {
-    let a_num = parseInt(a)
-    let b_num = parseInt(b)
+    let a_num = parseInt(a, 10)
+    let b_num = parseInt(b, 10)
     let answer = (b_num / a_num)
     if (answer) {
       return answer
@@ -99,7 +99,7 @@ render() {
           name="OfferType"
           value="SetAmount"
           checked={this.props.OfferFormData.OfferType==="SetAmount"}
-          onClick={this.handleChange}
+          onChange={this.handleChange}
           className="form-input-1" />
           Set Amount
         </label>
@@ -110,7 +110,7 @@ render() {
              name="OfferType"
              value="%Premium"
              checked={this.props.OfferFormData.OfferType==="%Premium"}
-             onClick={this.handleChange}
+             onChange={this.handleChange}
              className="form-input-1" />
           % Premium
         </label>
@@ -121,7 +121,7 @@ render() {
             name="OfferType"
             value="ExhangeRatio"
             checked={this.props.OfferFormData.OfferType==="ExhangeRatio"}
-            onClick={this.handleChange}
+            onChange={this.handleChange}
             className="form-input-1" />
           Exchange Ratio
         </label>

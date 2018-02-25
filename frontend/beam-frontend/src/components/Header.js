@@ -3,7 +3,7 @@ import React from 'react'
 const Header = (props) => {
   return (
     <header className="App-header">
-      <h1 className="App-title">Beam Financial Analytics</h1>
+      <h1 className="App-title">Digital Analyst</h1>
     </header>
   )
 }

@@ -29,7 +29,100 @@ export default function companyBasicInfoReducer(
     OfferFormData: {
       OfferType: 'SetAmount',
       OfferMetric: '',
-      Percentage_Stock: ''}
+      Percentage_Stock: ''},
+    CapitalizationFormData: {
+      CompanyA_cash: '',
+      CompanyA_cash_use: false,
+      CompanyA_cash_rate: '',
+      CompanyB_cash: '',
+      CompanyB_cash_use: false,
+      CompanyB_cash_rate: '',
+
+      CompanyA_otherLiquidAssets: '',
+      CompanyA_otherLiquidAssets_use: false,
+      CompanyA_otherLiquidAssets_rate: '',
+      CompanyB_otherLiquidAssets: '',
+      CompanyB_otherLiquidAssets_use: false,
+      CompanyB_otherLiquidAssets_rate: '',
+
+      CompanyA_mortgageDebt: '',
+      CompanyA_mortgageDebt_repay: false,
+      CompanyA_mortgageDebt_rate: '',
+      CompanyB_mortgageDebt: '',
+      CompanyB_mortgageDebt_repay: false,
+      CompanyB_mortgageDebt_rate: '',
+
+      CompanyA_shareOfJVDebt: '',
+      CompanyA_shareOfJVDebt_repay: false,
+      CompanyA_shareOfJVDebt_rate: '',
+      CompanyB_shareOfJVDebt: '',
+      CompanyB_shareOfJVDebt_repay: false,
+      CompanyB_shareOfJVDebt_rate: '',
+
+      CompanyA_bonds: '',
+      CompanyA_bonds_repay: false,
+      CompanyA_bonds_rate: '',
+      CompanyB_bonds: '',
+      CompanyB_bonds_repay: false,
+      CompanyB_bonds_rate: '',
+
+      CompanyA_creditFacility: '',
+      CompanyA_creditFacility_repay: false,
+      CompanyA_creditFacility_rate: '',
+      CompanyB_creditFacility: '',
+      CompanyB_creditFacility_repay: false,
+      CompanyB_creditFacility_rate: '',
+
+      CompanyA_mezzDebt: '',
+      CompanyA_mezzDebt_repay: false,
+      CompanyA_mezzDebt_rate: '',
+      CompanyB_mezzDebt: '',
+      CompanyB_mezzDebt_repay: false,
+      CompanyB_mezzDebt_rate: '',
+
+      CompanyA_preferredEquity: '',
+      CompanyA_preferredEquity_repay: false,
+      CompanyA_preferredEquity_rate: '',
+      CompanyB_preferredEquity: '',
+      CompanyB_preferredEquity_repay: false,
+      CompanyB_preferredEquity_rate: ''
+    },
+    CashFlowFormData: {
+      CompanyA_FFOPerShare_1: "",
+      CompanyB_FFOPerShare_1: "",
+      CompanyA_AFFOPerShare_1: "",
+      CompanyB_AFFOPerShare_1: "",
+      CompanyA_revenue_1: "",
+      CompanyB_revenue_1: "",
+      CompanyA_NOI_1: "",
+      CompanyB_NOI_1: "",
+      CompanyA_GA_1: "",
+      CompanyB_GA_1: "",
+      CompanyA_EBITDA_1: "",
+      CompanyB_EBITDA_1: "",
+      GA_synergies_type: "",
+      GA_synergies_input: ""
+    },
+     TransactionCostsFormData: {
+      Deal_costs_type: "",
+      Deal_costs_input: "",
+      CompanyA_LAO_costs_type: "",
+      CompanyA_LAO_costs_input: "",
+      CompanyB_LAO_costs_type: "",
+      CompanyB_LAO_costs_input: "",
+      Swap_Breakage_type: "",
+      Swap_Breakage_input: "",
+      Debt_Prepayment_type: "",
+      Debt_Prepayment_input: "",
+      Debt_Assumption_type: "",
+      Debt_Assumption_input: "",  
+      Debt_Issuance_type: "",
+      Debt_Issuance_input: "",
+      Bond_Prepayment_input: "",
+      Transfer_Taxes_input: "",
+      Employee_Costs_input: "",
+      Other_Costs_input: ""
+     }
      },
   action
 ) {
@@ -88,6 +181,23 @@ export default function companyBasicInfoReducer(
             OfferFormData: {...state.OfferFormData, ...action.payload}
           }
 
+        case "UPDATE_CAPITALIZATION_FORM":
+          return {
+            ...state,
+            CapitalizationFormData: {...state.CapitalizationFormData, ...action.payload}
+          }
+
+        case "UPDATE_CASHFLOW_FORM":
+          return {
+            ...state,
+            CashFlowFormData: {...state.CashFlowFormData, ...action.payload}
+          }
+
+        case "UPDATE_TRANSACTIONCOSTS_FORM":
+          return {
+            ...state,
+            TransactionCostsFormData: {...state.TransactionCostsFormData, ...action.payload}
+          }
         // case "SUBMIT_NEWPROJECT_FORM":
         //   return {
         //     ...state,
@@ -95,7 +205,7 @@ export default function companyBasicInfoReducer(
         //   }
 
           case "SELECT_PROJECT":
-           let projectToSet = state.allProjects.find(project => project.id === parseInt(action.payload.id))
+           let projectToSet = state.allProjects.find(project => project.id === parseInt(action.payload.id, 10))
             return {
               ...state,
               selectedProjectData: projectToSet

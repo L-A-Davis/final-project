@@ -7,12 +7,6 @@ class BasicInfoForm extends React.Component {
  handleChange = (e) => {
    console.log(e.target.value)
    this.props.updateBasicInfoForm({
-       ProjectId: this.props.ProjectId,
-       CompanyA_ticker: this.props.CompanyA_ticker,
-       CompanyB_ticker: this.props.CompanyB_ticker,
-       CompanyA_codename: this.props.CompanyA_codename,
-       CompanyB_codename: this.props.CompanyB_codename,
-       CompanyA_acquiror: this.props.CompanyA_acquiror,
        [e.target.name]: e.target.value,
        CompanyA_acquiror: e.target.checked
    })
@@ -88,6 +82,7 @@ class BasicInfoForm extends React.Component {
            name="CompanyA_acquiror"
            value={this.props.CompanyA_acquiror}
            onChange={this.handleChange}
+           checked={this.props.CompanyA_acquiror===true}
            className="form-input-1"/> <br/>
         <input
           type="submit"
@@ -101,3 +96,11 @@ class BasicInfoForm extends React.Component {
 }
 
 export default connect (state => ({ ...state.BasicInfoFormData }), { updateBasicInfoForm, setBasicInfo })(BasicInfoForm);
+
+//
+// ProjectId: this.props.ProjectId,
+// CompanyA_ticker: this.props.CompanyA_ticker,
+// CompanyB_ticker: this.props.CompanyB_ticker,
+// CompanyA_codename: this.props.CompanyA_codename,
+// CompanyB_codename: this.props.CompanyB_codename,
+// CompanyA_acquiror: this.props.CompanyA_acquiror,

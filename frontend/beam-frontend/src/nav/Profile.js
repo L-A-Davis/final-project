@@ -6,6 +6,9 @@ import NewProjectForm from '../components/NewProjectForm';
 import BasicInfoForm from '../components/BasicInfoForm';
 import EquityForm from '../components/EquityForm';
 import OfferForm from '../components/OfferForm';
+import CapitalizationForm from '../components/CapitalizationForm';
+import CashFlowForm from '../components/CashFlowForm';
+import TransactionCosts from '../components/TransactionCosts';
 import { fetchExistingProjects } from '../actions'
 import { connect } from 'react-redux'
 
@@ -48,6 +51,9 @@ class Profile extends React.Component {
         <BasicInfoForm />
         <EquityForm />
         <OfferForm />
+        <CapitalizationForm />
+        <CashFlowForm />
+        <TransactionCosts />
       </div>
     </div>
   )

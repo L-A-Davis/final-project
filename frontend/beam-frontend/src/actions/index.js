@@ -32,6 +32,32 @@ export function updateOfferForm(formData) {
   return { type: "UPDATE_OFFER_FORM", payload: formData };
 }
 
+export function setCapitalizationInfo(formData) {
+  return { type: "UPDATE_MODELDATA", payload: formData };
+}
+
+export function updateCapitalizationForm(formData) {
+  return { type: "UPDATE_CAPITALIZATION_FORM", payload: formData };
+}
+
+export function setCashFlowInfo(formData) {
+  return { type: "UPDATE_MODELDATA", payload: formData };
+}
+
+export function updateCashFlowForm(formData) {
+  return { type: "UPDATE_CASHFLOW_FORM", payload: formData };
+}
+export function setTransactionCostsInfo(formData) {
+  return { type: "UPDATE_MODELDATA", payload: formData };
+}
+
+export function updateTransactionCostsForm(formData) {
+  return { type: "UPDATE_TRANSACTIONCOSTS_FORM", payload: formData };
+}
+
+
+
+
 export function selectExistingProject(id) {
   return { type: "SELECT_PROJECT", payload: id };
 }

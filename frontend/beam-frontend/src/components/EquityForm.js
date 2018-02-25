@@ -7,13 +7,6 @@ class EquityForm extends React.Component {
 
  handleChange = (e) => {
    this.props.updateEquityForm({
-       ProjectId: this.props.ProjectId,
-       CompanyA_currentSharePrice: this.props.EquityFormData.CompanyA_currentSharePrice,
-       CompanyB_currentSharePrice: this.props.EquityFormData.CompanyB_currentSharePrice,
-       CompanyA_shares: this.props.EquityFormData.CompanyA_shares,
-       CompanyB_shares: this.props.EquityFormData.CompanyB_shares,
-       CompanyA_dividend: this.props.EquityFormData.CompanyA_dividend,
-       CompanyB_dividend: this.props.EquityFormData.CompanyB_dividend,
        [e.target.name]: e.target.value
    })
  }
@@ -22,7 +15,6 @@ class EquityForm extends React.Component {
    e.preventDefault();
    this.props.setEquityInfo({
      equityInfoData: {
-     ProjectId: this.props.ProjectId,
      CompanyA_currentSharePrice: this.props.EquityFormData.CompanyA_currentSharePrice,
      CompanyB_currentSharePrice: this.props.EquityFormData.CompanyB_currentSharePrice,
      CompanyA_shares: this.props.EquityFormData.CompanyA_shares,
@@ -32,7 +24,6 @@ class EquityForm extends React.Component {
    }
    });
    this.props.updateEquityForm({
-     ProjectId: '',
      CompanyA_currentSharePrice: '',
      CompanyB_currentSharePrice: '',
      CompanyA_shares: '',
