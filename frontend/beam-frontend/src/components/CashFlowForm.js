@@ -15,22 +15,80 @@ class CashFlowForm extends React.Component {
    e.preventDefault();
   const form  = this.props.CashFlowFormData
    this.props.setCashFlowInfo({
-     cashFlowInfoData: {
-       CompanyA_FFOPerShare_1: form.CompanyA_FFOPerShare_1,
-       CompanyB_FFOPerShare_1: form.CompanyB_FFOPerShare_1,
-       CompanyA_AFFOPerShare_1: form.CompanyA_AFFOPerShare_1,
-       CompanyB_AFFOPerShare_1: form.CompanyB_AFFOPerShare_1,
-       CompanyA_revenue_1: form.CompanyA_revenue_1,
-       CompanyB_revenue_1: form.CompanyB_revenue_1,
-       CompanyA_NOI_1: form.CompanyA_NOI_1,
-       CompanyB_NOI_1: form.CompanyB_NOI_1,
-       CompanyA_GA_1: form.CompanyA_GA_1,
-       CompanyB_GA_1: form.CompanyB_GA_1,
-       CompanyA_EBITDA_1: form.CompanyA_EBITDA_1,
-       CompanyB_EBITDA_1: form.CompanyB_EBITDA_1,
-       GA_synergies_type: form.GA_synergies_type,
-       GA_synergies_input: form.GA_synergies_input,
-     }
+     cash_flow_info_datum:[
+        {
+          model_id: this.props.modelData.id,
+          company: "A",
+          item_name: "FFO_Per_Share",
+          amount_year1: form.CompanyA_FFOPerShare_1
+        },
+        {
+          model_id: this.props.modelData.id,
+          company: "B",
+          item_name: "FFO_Per_Share",
+          amount_year1: form.CompanyB_FFOPerShare_1
+        },
+        {
+          model_id: this.props.modelData.id,
+          company: "A",
+          item_name: "AFFO_Per_Share",
+          amount_year1: form.CompanyA_AFFOPerShare_1
+        },
+        {
+          model_id: this.props.modelData.id,
+          company: "B",
+          item_name: "AFFO_Per_Share",
+          amount_year1: form.CompanyB_AFFOPerShare_1
+        },
+        {
+          model_id: this.props.modelData.id,
+          company: "A",
+          item_name: "Revenue",
+          amount_year1: form.CompanyA_revenue_1
+        },
+        {
+          model_id: this.props.modelData.id,
+          company: "B",
+          item_name: "Revenue",
+          amount_year1: form.CompanyB_revenue_1
+        },
+        {
+          model_id: this.props.modelData.id,
+          company: "A",
+          item_name: "NOI",
+          amount_year1: form.CompanyA_NOI_1
+        },
+        {
+          model_id: this.props.modelData.id,
+          company: "B",
+          item_name: "NOI",
+          amount_year1: form.CompanyB_NOI_1
+        },
+        {
+          model_id: this.props.modelData.id,
+          company: "A",
+          item_name: "GA",
+          amount_year1: form.CompanyA_GA_1
+        },
+        {
+          model_id: this.props.modelData.id,
+          company: "B",
+          item_name: "GA",
+          amount_year1: form.CompanyB_GA_1
+        },
+        {
+          model_id: this.props.modelData.id,
+          company: "A",
+          item_name: "EBITDA",
+          amount_year1: form.CompanyA_EBITDA_1
+        },
+        {
+          model_id: this.props.modelData.id,
+          company: "B",
+          item_name: "EBITDA",
+          amount_year1: form.CompanyB_EBITDA_1
+        }
+     ]
      });
      this.props.updateCashFlowForm({
        CompanyA_FFOPerShare_1: "",
@@ -57,16 +115,16 @@ class CashFlowForm extends React.Component {
         <h3>Cash Flow Info</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="three-columns-form">
-       {this.props.modelData.basicInfoData ?
+       {this.props.modelData.basic_info_datum ?
         <label className="form-input-1">
-        {this.props.modelData.basicInfoData.CompanyA_codename} </label>
+        {this.props.modelData.basic_info_datum[0].codename} </label>
 
          :
         <label className="form-input-1">Company A</label> }
 
-        {this.props.modelData.basicInfoData ?
+        {this.props.modelData.basic_info_datum ?
          <label className="form-input-2">
-         {this.props.modelData.basicInfoData.CompanyB_codename} </label>
+         {this.props.modelData.basic_info_datum[1].codename} </label>
 
           :
          <label className="form-input-2">Company B</label> }

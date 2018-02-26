@@ -16,63 +16,152 @@ class CapitalizationForm extends React.Component {
    e.preventDefault();
    const form  = this.props.CapitalizationFormData
    this.props.setCapitalizationInfo({
-     capitalizationInfoData: {
-     CompanyA_cash: form.CompanyA_cash,
-     CompanyA_use: form.CompanyA_cash_use,
-     CompanyA_cash_rate:form.CompanyA_cash_rate,
-     CompanyB_cash: form.CompanyB_cash,
-     CompanyB_cash_use: form.CompanyB_cash_use,
-     CompanyB_cash_rate: form.CompanyB_cash_rate,
-
-     CompanyA_otherLiquidAssets: form.CompanyA_otherLiquidAssets,
-     CompanyA_otherLiquidAssets_use: form.CompanyA_otherLiquidAssets_use,
-     CompanyA_otherLiquidAssets_rate: form.CompanyA_otherLiquidAssets_rate,
-     CompanyB_otherLiquidAssets: form.CompanyB_otherLiquidAssets,
-     CompanyB_otherLiquidAssets_use: form.CompanyB_otherLiquidAssets_use,
-     CompanyB_otherLiquidAssets_rate: form.CompanyB_otherLiquidAssets_rate,
-
-     CompanyA_mortgageDebt: form.CompanyA_mortgageDebt,
-     CompanyA_mortgageDebt_repay: form.CompanyA_mortgageDebt_repay,
-     CompanyA_mortgageDebt_rate: form.CompanyA_mortgageDebt_rate,
-     CompanyB_mortgageDebt: form.CompanyB_mortgageDebt,
-     CompanyB_mortgageDebt_repay: form.CompanyB_mortgageDebt_repay,
-     CompanyB_mortgageDebt_rate: form.CompanyB_mortgageDebt_rate,
-
-     CompanyA_shareOfJVDebt: form.CompanyA_shareOfJVDebt,
-     CompanyA_shareOfJVDebt_repay: form.CompanyA_shareOfJVDebt_repay,
-     CompanyA_shareOfJVDebt_rate: form.CompanyA_shareOfJVDebt_rate,
-     CompanyB_shareOfJVDebt: form.CompanyB_shareOfJVDebt,
-     CompanyB_shareOfJVDebt_repay: form.CompanyB_shareOfJVDebt_repay,
-     CompanyB_shareOfJVDebt_rate: form.CompanyB_shareOfJVDebt_rate,
-
-     CompanyA_bonds: form.CompanyA_bonds,
-     CompanyA_bonds_repay: form.CompanyA_bonds_repay,
-     CompanyA_bonds_rate: form.CompanyA_bonds_rate,
-     CompanyB_bonds: form.CompanyB_bonds,
-     CompanyB_bonds_repay: form.CompanyB_bonds_repay,
-     CompanyB_bonds_rate: form.CompanyB_bonds_rate,
-
-     CompanyA_creditFacility: form.CompanyA_creditFacility,
-     CompanyA_creditFacility_repay: form.CompanyA_creditFacility_repay,
-     CompanyA_creditFacility_rate: form.CompanyA_creditFacility_rate,
-     CompanyB_creditFacility: form.CompanyB_creditFacility,
-     CompanyB_creditFacility_repay: form.CompanyB_creditFacility_repay,
-     CompanyB_creditFacility_rate: form.CompanyB_creditFacility_rate,
-
-     CompanyA_mezzDebt: form.CompanyA_mezzDebt,
-     CompanyA_mezzDebt_repay: form.CompanyA_mezzDebt_repay,
-     CompanyA_mezzDebt_rate: form.CompanyA_mezzDebt_rate,
-     CompanyB_mezzDebt: form.CompanyB_mezzDebt,
-     CompanyB_mezzDebt_repay: form.CompanyB_mezzDebt_repay,
-     CompanyB_mezzDebt_rate: form.CompanyB_mezzDebt_rate,
-
-     CompanyA_preferredEquity: form.CompanyA_preferredEquity,
-     CompanyA_preferredEquity_repay: form.CompanyA_preferredEquity_repay,
-     CompanyA_preferredEquity_rate: form.CompanyA_preferredEquity_rate,
-     CompanyB_preferredEquity: form.CompanyB_preferredEquity,
-     CompanyB_preferredEquity_repay: form.CompanyB_preferredEquity_repay,
-     CompanyB_preferredEquity_rate: form.CompanyB_preferredEquity_rate,
-   }
+     capitalization_info_datum: [
+       {
+         model_id: this.props.modelData.id,
+         company: "A",
+         item_name: "cash_and_equivalents",
+         item_type: "cash",
+         amount: form.CompanyA_cash,
+         repay: form.CompanyA_cash_use,
+         rate: form.CompanyA_cash_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "B",
+         item_name: "cash_and_equivalents",
+         item_type: "cash",
+         amount: form.CompanyB_cash,
+         repay: form.CompanyB_cash_use,
+         rate: form.CompanyB_cash_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "A",
+         item_name: "other_liquid_assets",
+         item_type: "cash",
+         amount: form.CompanyA_otherLiquidAssets,
+         repay: form.CompanyA_otherLiquidAssets_use,
+         rate: form.CompanyA_otherLiquidAssets_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "B",
+         item_name: "other_liquid_assets",
+         item_type: "cash",
+         amount: form.CompanyB_otherLiquidAssets,
+         repay: form.CompanyB_otherLiquidAssets_use,
+         rate: form.CompanyB_otherLiquidAssets_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "A",
+         item_name: "mortgage_debt",
+         item_type: "debt",
+         amount: form.CompanyA_mortgageDebt,
+         repay: form.CompanyA_mortgageDebt_repay,
+         rate: form.CompanyA_mortgageDebt_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "B",
+         item_name: "mortgage_debt",
+         item_type: "debt",
+         amount: form.CompanyB_mortgageDebt,
+         repay: form.CompanyB_mortgageDebt_repay,
+         rate: form.CompanyB_mortgageDebt_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "A",
+         item_name: "share_JV_debt",
+         item_type: "debt",
+         amount: form.CompanyA_shareOfJVDebt,
+         repay: form.CompanyA_shareOfJVDebt_repay,
+         rate: form.CompanyA_shareOfJVDebt_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "B",
+         item_name: "share_JV_debt",
+         item_type: "debt",
+         amount: form.CompanyB_shareOfJVDebt,
+         repay: form.CompanyB_shareOfJVDebt_repay,
+         rate: form.CompanyB_shareOfJVDebt_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "A",
+         item_name: "bonds",
+         item_type: "debt",
+         amount: form.CompanyA_bonds,
+         repay: form.CompanyA_bonds_repay,
+         rate: form.CompanyA_bonds_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "B",
+         item_name: "bonds",
+         item_type: "debt",
+         amount: form.CompanyB_bonds,
+         repay: form.CompanyB_bonds_repay,
+         rate: form.CompanyB_bonds_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "A",
+         item_name: "credit_facility",
+         item_type: "debt",
+         amount: form.CompanyA_creditFacility,
+         repay: form.CompanyA_creditFacility_repay,
+         rate: form.CompanyA_creditFacility_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "B",
+         item_name: "credit_facility",
+         item_type: "debt",
+         amount: form.CompanyB_creditFacility,
+         repay: form.CompanyB_creditFacility_repay,
+         rate: form.CompanyB_creditFacility_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "A",
+         item_name: "mezz_debt",
+         item_type: "debt",
+         amount: form.CompanyA_mezzDebt,
+         repay: form.CompanyA_mezzDebt_repay,
+         rate: form.CompanyA_mezzDebt_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "B",
+         item_name: "mezz_debt",
+         item_type: "debt",
+         amount: form.CompanyB_mezzDebt,
+         repay: form.CompanyB_mezzDebt_repay,
+         rate: form.CompanyB_mezzDebt_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "A",
+         item_name: "preferred_equity",
+         item_type: "preferred",
+         amount: form.CompanyA_preferredEquity,
+         repay: form.CompanyA_preferredEquity_repay,
+         rate: form.CompanyA_preferredEquity_rate,
+       },
+       {
+         model_id: this.props.modelData.id,
+         company: "B",
+         item_name: "preferred_equity",
+         item_type: "preferred",
+         amount: form.CompanyB_preferredEquity,
+         repay: form.CompanyB_preferredEquity_repay,
+         rate: form.CompanyB_preferredEquity_rate,
+       },
+     ]
    });
    this.props.updateCapitalizationForm({
      CompanyA_cash: '',
@@ -140,17 +229,17 @@ class CapitalizationForm extends React.Component {
         <h3>Capitalization Inputs</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="seven-columns-form">
-       {this.props.modelData.basicInfoData ?
+       {this.props.modelData.basic_info_datum ?
         <label className="form-input-1">
-        {this.props.modelData.basicInfoData.CompanyA_codename} </label>
+        {this.props.modelData.basic_info_datum[0].codename} </label>
 
          :
         <label className="form-input-1">Company A</label> }
          <label className="form-input-2">Repay?</label>
          <label className="form-input-3">Rate</label>
-        {this.props.modelData.basicInfoData ?
+        {this.props.modelData.basic_info_datum ?
          <label className="form-input-4">
-         {this.props.modelData.basicInfoData.CompanyB_codename} </label>
+         {this.props.modelData.basic_info_datum[1].codename} </label>
 
           :
          <label className="form-input-4">Company B</label> }

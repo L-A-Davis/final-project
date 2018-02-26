@@ -1,9 +1,14 @@
 import React from 'react'
 import { connect } from "react-redux";
+import { selectExistingModel, fetchModelParts } from '../actions'
 
 class ExistingModelsForProject extends React.Component {
 
-
+  handleSelection = (event) => {
+    console.log(event.target.value)
+    this.props.fetchModelParts(event.target.value)
+    this.props.next()
+ }
 
   render() {
     return (
@@ -13,7 +18,7 @@ class ExistingModelsForProject extends React.Component {
       >
        <option value="" disabled hidden>Select</option>
 
-      { (this.props.allModelsforProject.length > 0) ?
+      { (this.props.allModelsforProject && this.props.allModelsforProject.length > 0) ?
         this.props.allModelsforProject.map((model) =>
         <option key={model.id}
           value={model.id} name={model.name}
@@ -27,4 +32,4 @@ class ExistingModelsForProject extends React.Component {
 }
 
 
-export default connect (state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData }}, )(ExistingModelsForProject)
+export default connect (state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData }}, {selectExistingModel, fetchModelParts})(ExistingModelsForProject)

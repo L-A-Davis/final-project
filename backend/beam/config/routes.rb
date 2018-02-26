@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
 namespace :api do
   namespace :v1 do
     resources :comments
@@ -8,6 +9,12 @@ namespace :api do
     resources :relationships
     resources :users
     resources :companies
+    resources :transaction_costs
+    resources :capitalization_info_data
+    resources :offer_info_data
+    resources :equity_info_data
+    resources :basic_info_data
+    resources :cash_flow_info_data
   end
 end
 

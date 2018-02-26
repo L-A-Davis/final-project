@@ -10,7 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221024956) do
+ActiveRecord::Schema.define(version: 20180226211953) do
+
+  create_table "basic_info_data", force: :cascade do |t|
+    t.integer "model_id"
+    t.string "company"
+    t.string "ticker"
+    t.string "codename"
+    t.boolean "acquiror"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_basic_info_data_on_model_id"
+  end
+
+  create_table "capitalization_info_data", force: :cascade do |t|
+    t.integer "model_id"
+    t.string "company"
+    t.string "item_name"
+    t.string "item_type"
+    t.float "amount"
+    t.boolean "repay"
+    t.float "rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_capitalization_info_data_on_model_id"
+  end
+
+  create_table "cash_flow_info_data", force: :cascade do |t|
+    t.integer "model_id"
+    t.string "company"
+    t.string "item_name"
+    t.float "amount_year1"
+    t.float "amount_year2"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_cash_flow_info_data_on_model_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.string "content"
@@ -28,6 +63,17 @@ ActiveRecord::Schema.define(version: 20180221024956) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "equity_info_data", force: :cascade do |t|
+    t.integer "model_id"
+    t.string "company"
+    t.decimal "currentSharePrice", precision: 10, scale: 2
+    t.float "shares"
+    t.decimal "dividend", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_equity_info_data_on_model_id"
+  end
+
   create_table "models", force: :cascade do |t|
     t.string "name"
     t.integer "project_id"
@@ -36,6 +82,16 @@ ActiveRecord::Schema.define(version: 20180221024956) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_models_on_project_id"
+  end
+
+  create_table "offer_info_data", force: :cascade do |t|
+    t.integer "model_id"
+    t.string "offer_type"
+    t.float "offer_metric"
+    t.decimal "percentage_stock", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_offer_info_data_on_model_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -55,6 +111,16 @@ ActiveRecord::Schema.define(version: 20180221024956) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "transaction_costs", force: :cascade do |t|
+    t.integer "model_id"
+    t.string "name"
+    t.string "input_type"
+    t.float "data_input"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_transaction_costs_on_model_id"
   end
 
   create_table "users", force: :cascade do |t|

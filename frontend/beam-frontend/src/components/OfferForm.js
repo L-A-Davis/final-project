@@ -13,11 +13,12 @@ class OfferForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.setOfferInfo({
-     offerInfoData: {
-      OfferType: this.props.OfferFormData.OfferType,
-      OfferMetric: this.props.OfferFormData.OfferMetric,
-      Percentage_Stock: this.props.OfferFormData.Percentage_Stock
-    }
+     offer_info_datum: [{
+       model_id: this.props.modelData.id,
+       offer_type: this.props.OfferFormData.OfferType,
+       offer_metric: this.props.OfferFormData.OfferMetric,
+       percentage_Stock: this.props.OfferFormData.Percentage_Stock
+     }]
     })
     ;
     this.props.updateOfferForm({
@@ -40,10 +41,10 @@ class OfferForm extends React.Component {
   }
 
 render() {
-  const { equityInfoData, basicInfoData } = { ...this.props.modelData }
+  const { equity_info_datum, basic_info_datum } = { ...this.props.modelData }
   return (
     <div className="form">
-    {equityInfoData ?
+    {equity_info_datum ?
         <div>
        <h3>Offer Support</h3>
 
@@ -58,27 +59,27 @@ render() {
          <tbody>
          <tr>
             <td>Names:</td>
-            <td>{basicInfoData.CompanyA_acquiror ? basicInfoData.CompanyA_codename :
-            basicInfoData.CompanyB_codename} </td>
-            <td> {basicInfoData.CompanyA_acquiror ? basicInfoData.CompanyB_codename :
-            basicInfoData.CompanyA_codename} </td>
+            <td>{basic_info_datum[0].acquiror ? basic_info_datum[0].codename :
+            basic_info_datum[1].codename} </td>
+            <td> {basic_info_datum[0].acquiror ? basic_info_datum[1].codename :
+            basic_info_datum[0].codename} </td>
          </tr>
 
          <tr>
             <td>Current Price:</td>
-            <td>{basicInfoData.CompanyA_acquiror ? equityInfoData.CompanyA_currentSharePrice :
-            equityInfoData.CompanyB_currentSharePrice } </td>
-            <td> {basicInfoData.CompanyA_acquiror ? equityInfoData.CompanyB_currentSharePrice :
-            equityInfoData.CompanyA_currentSharePrice } </td>
+            <td>{basic_info_datum[0].acquiror ? equity_info_datum[0].currentSharePrice :
+            equity_info_datum[1].currentSharePrice } </td>
+            <td> {basic_info_datum[0].acquiror? equity_info_datum[1].currentSharePrice  :
+            equity_info_datum[0].currentSharePrice} </td>
          </tr>
          <tr>
             <td>Exchange Ratio:</td>
             <td></td>
-            <td>     {basicInfoData.CompanyA_acquiror ?
+            <td>     {basic_info_datum[0].acquiror?
 
-                  this.impliedExchangeRatio(equityInfoData.CompanyA_currentSharePrice, equityInfoData.CompanyB_currentSharePrice) :
+                  this.impliedExchangeRatio(equity_info_datum[0].currentSharePrice, equity_info_datum[1].currentSharePrice) :
 
-                  this.impliedExchangeRatio(equityInfoData.CompanyB_currentSharePrice, equityInfoData.CompanyA_currentSharePrice) } </td>
+                  this.impliedExchangeRatio(equity_info_datum[1].currentSharePrice, equity_info_datum[0].currentSharePrice) } </td>
          </tr>
          </tbody>
          </table>
@@ -162,8 +163,8 @@ export default connect (state => {return { modelData: state.modelData, OfferForm
 
 // (
 //  <div>
-//  { basicInfoData ?
-//  <p>{this.props.modelData.basicInfoData.CompanyA_ticker}</p> :
+//  { basic_info_datum ?
+//  <p>{this.props.modelData.basic_info_datum[0].ticker}</p> :
 //  <p>placeholder</p>
 //  }
 //  </div>

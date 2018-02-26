@@ -52,6 +52,12 @@ const getModels = (project_id) => {
   }).then(res => res.json())
 }
 
+const getModelParts = (model_id) => {
+  return fetch(`${API_ROOT}/models/${model_id}`, {
+    headers: headers()
+  }).then(res => res.json())
+}
+
 const addProject = (p) => {
   return fetch(`${API_ROOT}/projects`, {
     method: 'POST',
@@ -60,14 +66,39 @@ const addProject = (p) => {
   }).then(res => res.json())
 }
 
-const saveModel = (p) => {
+const saveModel = (m) => {
   return fetch(`${API_ROOT}/models`, {
     method: 'POST',
     headers: headers(),
-    body: JSON.stringify({model: p})
+    body: JSON.stringify({model: m})
   }).then(res => res.json())
 }
 
+const editModel = (m) => {
+  console.log(m.data)
+  return fetch(`${API_ROOT}/models/${m.id}`, {
+  method: 'PATCH',
+  headers: headers(),
+  body: JSON.stringify({model: {name: m.name, project_id: m.project_id, data: m.data, model_type: m.model_type}})
+}).then(res => res.json())
+}
+
+const saveBasicInfo = (m) => {
+  return fetch(`${API_ROOT}/basic_info_data`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify({basic_info_datum: {model_id: m.model_id, company: m.company, ticker: m.ticker, codename: m.codename, acquiror: m.acquiror}})
+  }).then(res => res.json())
+}
+
+const editBasicInfo = (m) => {
+  console.log(m.data)
+  return fetch(`${API_ROOT}/basic_info_data/${m.id}`, {
+  method: 'PATCH',
+  headers: headers(),
+  body: JSON.stringify({basic_info_datum: {model_id: m.model_id, company: m.company, ticker: m.ticker, codename: m.codename, acquiror: m.acquiror}})
+}).then(res => res.json())
+}
 
 
 export default {
@@ -75,7 +106,11 @@ export default {
      getProjects,
      addProject,
      saveModel,
-     getModels
+     getModels,
+     getModelParts,
+     editModel,
+     saveBasicInfo,
+     editBasicInfo
   },
   auth: {
     login,

@@ -14,14 +14,18 @@ class EquityForm extends React.Component {
  handleSubmit = (e) => {
    e.preventDefault();
    this.props.setEquityInfo({
-     equityInfoData: {
-     CompanyA_currentSharePrice: this.props.EquityFormData.CompanyA_currentSharePrice,
-     CompanyB_currentSharePrice: this.props.EquityFormData.CompanyB_currentSharePrice,
-     CompanyA_shares: this.props.EquityFormData.CompanyA_shares,
-     CompanyB_shares: this.props.EquityFormData.CompanyB_shares,
-     CompanyA_dividend: this.props.EquityFormData.CompanyA_dividend,
-     CompanyB_dividend: this.props.EquityFormData.CompanyB_dividend
-   }
+     equity_info_datum: [
+       {  company: "A",
+          currentSharePrice: this.props.EquityFormData.CompanyA_currentSharePrice,
+          shares: this.props.EquityFormData.CompanyA_shares,
+          dividend: this.props.EquityFormData.CompanyA_dividend,
+          model_id: this.props.modelData.id},
+       { company: "B",
+          currentSharePrice: this.props.EquityFormData.CompanyB_currentSharePrice,
+          shares: this.props.EquityFormData.CompanyB_shares,
+          dividend: this.props.EquityFormData.CompanyB_dividend,
+          model_id: this.props.modelData.id}
+     ]
    });
    this.props.updateEquityForm({
      CompanyA_currentSharePrice: '',
@@ -40,16 +44,16 @@ class EquityForm extends React.Component {
         <h3>Equity Info</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="three-columns-form">
-       {(this.props.modelData != null || this.props.modelData.basicInfoData) ?
+       {(this.props.modelData != null || this.props.modelData.basic_info_datum) ?
         <label className="form-input-1">
-        {this.props.modelData.basicInfoData.CompanyA_codename} </label>
+        {this.props.modelData.basic_info_datum[0].codename} </label>
 
          :
         <label className="form-input-1">Company A</label> }
 
-        {(this.props.modelData.basicInfoData != null || this.props.modelData.basicInfoData) ?
+        {(this.props.modelData.basic_info_datum != null || this.props.modelData.basic_info_datum) ?
          <label className="form-input-2">
-         {this.props.modelData.basicInfoData.CompanyB_codename} </label>
+         {this.props.modelData.basic_info_datum[1].codename} </label>
 
           :
          <label className="form-input-2">Company B</label> }

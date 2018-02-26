@@ -38,7 +38,7 @@ end
 
 private
   def model_params
-    params.require(:model).permit(:name, :data, :project_id)
+    params.require(:model).permit(:name, :project_id, :model_type, :data)
   end
 
 

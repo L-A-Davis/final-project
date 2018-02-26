@@ -19,26 +19,74 @@ class TransactionCosts extends React.Component {
    e.preventDefault();
    const form = this.props.TransactionCostsFormData
    this.props.setTransactionCostsInfo({
-     TransactionCostsInfoData: {
-       Deal_costs_type: form.Deal_costs_type,
-       Deal_costs_input: form.Deal_costs_input,
-       CompanyA_LAO_costs_type: form.CompanyA_LAO_costs_type,
-       CompanyA_LAO_costs_input: form.CompanyA_LAO_costs_input,
-       CompanyB_LAO_costs_type: form.CompanyB_LAO_costs_type,
-       CompanyB_LAO_costs_input: form.CompanyB_LAO_costs_input,
-       Swap_Breakage_type: form.Swap_Breakage_type,
-       Swap_Breakage_input: form.Swap_Breakage_input,
-       Debt_Prepayment_type: form.Debt_Prepayment_type,
-       Debt_Prepayment_input: form.Debt_Prepayment_input,
-       Debt_Assumption_type: form.Debt_Assumption_type,
-       Debt_Assumption_input: form.Debt_Assumption_input,
-       Debt_Issuance_type: form.Debt_Issuance_type,
-       Debt_Issuance_input: form.Debt_Issuance_input,
-       Bond_Prepayment_input: form.Bond_Prepayment_input,
-       Transfer_Taxes_input: form.Transfer_Taxes_input,
-       Employee_Costs_input: form.Employee_Costs_input,
-       Other_Costs_input: form.Other_Costs_input
-     }
+     transaction_cost: [
+       {
+         model_id: this.props.modelData.id,
+         name: "Overall_deal_costs",
+         input_type: form.Deal_costs_type,
+         data_input: form.Deal_costs_input
+       },
+       {
+         model_id: this.props.modelData.id,
+         name: "CompanyA_LAO_costs",
+         input_type: form.CompanyA_LAO_costs_type,
+         data_input: form.CompanyA_LAO_costs_input
+       },
+       {
+         model_id: this.props.modelData.id,
+         name: "CompanyB_LAO_costs",
+         input_type: form.CompanyB_LAO_costs_type,
+         data_input: form.CompanyB_LAO_costs_input
+       },
+       {
+         model_id: this.props.modelData.id,
+         name: "swap_breakage_costs",
+         input_type: form.Swap_Breakage_type,
+         data_input: form.Swap_Breakage_input
+       },
+       {
+         model_id: this.props.modelData.id,
+         name: "debt_prepayment_costs",
+         input_type: form.Debt_Prepayment_type,
+         data_input: form.Debt_Prepayment_input
+       },
+       {
+         model_id: this.props.modelData.id,
+         name: "debt_assumption_costs",
+         input_type: form.Debt_Assumption_type,
+         data_input: form.Debt_Assumption_input
+       },
+       {
+         model_id: this.props.modelData.id,
+         name: "debt_issuance_costs",
+         input_type: form.Debt_Issuance_type,
+         data_input: form.Debt_Issuance_input
+       },
+       {
+         model_id: this.props.modelData.id,
+         name: "bond_prepayment_costs",
+         input_type: "setAmount",
+         data_input: form.Bond_Prepayment_input
+       },
+       {
+         model_id: this.props.modelData.id,
+         name: "transfer_taxes",
+         input_type: "setAmount",
+         data_input: form.Transfer_Taxes_input
+       },
+       {
+         model_id: this.props.modelData.id,
+         name: "employee_costs",
+         input_type: "setAmount",
+         data_input: form.Employee_Costs_input
+       },
+       {
+         model_id: this.props.modelData.id,
+         name: "other_costs",
+         input_type: "setAmount",
+         data_input: form.Other_Costs_input
+       }
+     ]
      });
      this.props.updateTransactionCostsForm({
        Deal_costs_type: "",

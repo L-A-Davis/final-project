@@ -23,6 +23,14 @@ class Project extends React.Component {
     })
   }
 
+ handleExistingModelSelection = () => {
+   this.setState({
+     showExistingModelList: false,
+     showNewModelButton: false,
+     showNewModelForm: true
+   })
+ }
+
   componentDidMount() {
     this.props.fetchExistingModels(this.props.selectedProjectData.id)
   }
@@ -34,7 +42,7 @@ class Project extends React.Component {
      {this.state.showExistingModelList &&
         <div>
           <h3> Select an Existing Model </h3>
-          <ExistingModelsForProject />
+          <ExistingModelsForProject next={this.handleExistingModelSelection} />
         </div>
       }
      {this.state.showNewModelButton &&

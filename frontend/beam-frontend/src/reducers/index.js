@@ -8,8 +8,10 @@ export default function companyBasicInfoReducer(
       Deal_type: '',
       User_id: ''},
     modelData: {
+      id: '',
       project_id: '',
       name: '',
+      model_type: '',
       data: []
     },
     selectedCompany: null, loading: false,
@@ -155,6 +157,11 @@ export default function companyBasicInfoReducer(
              allModelsforProject: action.payload
            };
 
+   case "MODEL_PARTS_LOAD":
+    return {
+            ...state,
+            modelData: action.payload,
+          };
     //
     // case 'ADD_COMPANY':
     //   return state.concat(action.company);
@@ -219,32 +226,50 @@ export default function companyBasicInfoReducer(
          let projectToSet = state.allProjects.find(project => project.id === parseInt(action.payload.id, 10))
           return {
             ...state,
-            selectedProjectData: projectToSet,
-              modelData: {
-                project_id: projectToSet.ProjectId
-              }
+            selectedProjectData: projectToSet
             }
+
+      case "SELECT_MODEL":
+       let modelToSet = state.allModelsforProject.find(model => model.id === parseInt(action.payload.id, 10))
+       let data2 = modelToSet.data
+       modelToSet.data = data2
+        return {
+          ...state,
+          modelData: {...state.modelData, ...modelToSet,
+          project_id: state.selectedProjectData.id}
+          }
 
         case "SET_NEW_PROJECT":
          return {
                  ...state,
-                 selectedProjectData: action.payload,
-                 modelData: {
-                   project_id: projectToSet.ProjectId
-                 }
+                 selectedProjectData: action.payload
                };
 
        case "UPDATE_MODELDATA":
          return {
            ...state,
-           modelData: {...state.modelData.data, ...action.payload}
+           modelData: {...state.modelData, ...action.payload}
          }
+
+       case "UPDATE_BASICINFO_DATA":
+         return {
+           ...state,
+           modelData: {...state.modelData,
+           basic_info_datum: action.payload}
+         }
+
 
        case "SET_NEW_MODEL":
         return {
                 ...state,
                 modelData: action.payload
               };
+
+      case "EDIT_MODEL":
+       return {
+               ...state,
+               modelData: action.payload
+             };
       //
       // case "SET_COMPANY":
       //   return {
@@ -262,3 +287,17 @@ export default function companyBasicInfoReducer(
       return state;
   }
 }
+// case "UPDATE_MODELDATA":
+//   return {
+//     ...state,
+//     modelData: {...state.modelData,
+//     data:      {...state.modelData.data, ...action.payload}}
+//   }
+
+//
+// case "UPDATE_BASICINFO_DATA":
+//   return {
+//     ...state,
+//     modelData: {...state.modelData,
+//     basic_info_datum:      {...state.modelData.basic_info_datum, ...action.payload}}
+//   }
