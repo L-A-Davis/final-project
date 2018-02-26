@@ -115,7 +115,7 @@ export default function companyBasicInfoReducer(
       Debt_Prepayment_type: "",
       Debt_Prepayment_input: "",
       Debt_Assumption_type: "",
-      Debt_Assumption_input: "",  
+      Debt_Assumption_input: "",
       Debt_Issuance_type: "",
       Debt_Issuance_input: "",
       Bond_Prepayment_input: "",
@@ -204,24 +204,30 @@ export default function companyBasicInfoReducer(
         //     selectedProjectData: {...state.selectedProjectData, ...action.payload.selectedProjectData}
         //   }
 
-          case "SELECT_PROJECT":
-           let projectToSet = state.allProjects.find(project => project.id === parseInt(action.payload.id, 10))
-            return {
-              ...state,
-              selectedProjectData: projectToSet
-              }
+        case "SELECT_PROJECT":
+         let projectToSet = state.allProjects.find(project => project.id === parseInt(action.payload.id, 10))
+          return {
+            ...state,
+            selectedProjectData: projectToSet
+            }
 
-          case "SET_NEW_PROJECT":
-           return {
-                   ...state,
-                   selectedProjectData: action.payload
-                 };
+        case "SET_NEW_PROJECT":
+         return {
+                 ...state,
+                 selectedProjectData: action.payload
+               };
 
-         case "UPDATE_MODELDATA":
-           return {
-             ...state,
-             modelData: {...state.modelData, ...action.payload}
-           }
+       case "UPDATE_MODELDATA":
+         return {
+           ...state,
+           modelData: {...state.modelData, ...action.payload}
+         }
+
+       case "SET_NEW_MODEL":
+        return {
+                ...state,
+                modelData: action.payload
+              };
 
       case "SET_COMPANY":
         return {

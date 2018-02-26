@@ -5,33 +5,31 @@ import { updateBasicInfoForm, setBasicInfo } from '../actions'
 class BasicInfoForm extends React.Component {
 
  handleChange = (e) => {
-   console.log(e.target.value)
    this.props.updateBasicInfoForm({
-       [e.target.name]: e.target.value,
-       CompanyA_acquiror: e.target.checked
+    [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
    })
  }
 
  handleSubmit = (e) => {
    e.preventDefault();
+    const form  = this.props.BasicInfoFormData
    this.props.setBasicInfo({
      basicInfoData: {
-     ProjectId: this.props.ProjectId,
-     CompanyA_ticker: this.props.CompanyA_ticker,
-     CompanyB_ticker: this.props.CompanyB_ticker,
-     CompanyA_codename: this.props.CompanyA_codename,
-     CompanyB_codename: this.props.CompanyB_codename,
-     CompanyA_acquiror: this.props.CompanyA_acquiror
+     CompanyA_ticker: form.CompanyA_ticker,
+     CompanyB_ticker: form.CompanyB_ticker,
+     CompanyA_codename: form.CompanyA_codename,
+     CompanyB_codename: form.CompanyB_codename,
+     CompanyA_acquiror: form.CompanyA_acquiror
    }
    });
    this.props.updateBasicInfoForm({
-     ProjectId: '',
      CompanyA_ticker: '',
      CompanyB_ticker: '',
      CompanyA_codename: '',
      CompanyB_codename: '',
      CompanyA_acquiror: false,
    })
+   this.props.next()
  }
 
  render() {
@@ -46,7 +44,7 @@ class BasicInfoForm extends React.Component {
        <input
           type="text"
           name="CompanyA_ticker"
-          value={this.props.CompanyA_ticker}
+          value={this.props.BasicInfoFormData.CompanyA_ticker}
           onChange={this.handleChange}
           placeholder="ticker"
           className="form-input-1" />
@@ -54,7 +52,7 @@ class BasicInfoForm extends React.Component {
       <input
          type="text"
          name="CompanyB_ticker"
-         value={this.props.CompanyB_ticker}
+         value={this.props.BasicInfoFormData.CompanyB_ticker}
          onChange={this.handleChange}
          placeholder="ticker"
          className="form-input-2" />
@@ -63,7 +61,7 @@ class BasicInfoForm extends React.Component {
          <input
             type="text"
             name="CompanyA_codename"
-            value={this.props.CompanyA_codename}
+            value={this.props.BasicInfoFormData.CompanyA_codename}
             onChange={this.handleChange}
             placeholder="code name"
             className="form-input-1"/>
@@ -71,7 +69,7 @@ class BasicInfoForm extends React.Component {
         <input
            type="text"
            name="CompanyB_codename"
-           value={this.props.CompanyB_codename}
+           value={this.props.BasicInfoFormData.CompanyB_codename}
            onChange={this.handleChange}
            placeholder="code name"
            className="form-input-2"/>
@@ -80,9 +78,10 @@ class BasicInfoForm extends React.Component {
         <input
            type="checkbox"
            name="CompanyA_acquiror"
-           value={this.props.CompanyA_acquiror}
+           value={this.props.BasicInfoFormData.CompanyA_acquiror}
+
            onChange={this.handleChange}
-           checked={this.props.CompanyA_acquiror===true}
+           checked={this.props.BasicInfoFormData.CompanyA_acquiror===true}
            className="form-input-1"/> <br/>
         <input
           type="submit"
@@ -95,7 +94,7 @@ class BasicInfoForm extends React.Component {
  }
 }
 
-export default connect (state => ({ ...state.BasicInfoFormData }), { updateBasicInfoForm, setBasicInfo })(BasicInfoForm);
+export default connect (state => {return {BasicInfoFormData: state.BasicInfoFormData, selectedProjectData: state.selectedProjectData }}, { updateBasicInfoForm, setBasicInfo })(BasicInfoForm);
 
 //
 // ProjectId: this.props.ProjectId,
@@ -104,3 +103,4 @@ export default connect (state => ({ ...state.BasicInfoFormData }), { updateBasic
 // CompanyA_codename: this.props.CompanyA_codename,
 // CompanyB_codename: this.props.CompanyB_codename,
 // CompanyA_acquiror: this.props.CompanyA_acquiror,
+ // ProjectId: this.props.selectedProjectData.ProjectId,

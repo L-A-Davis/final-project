@@ -131,6 +131,7 @@ class CapitalizationForm extends React.Component {
      CompanyB_preferredEquity_repay: false,
      CompanyB_preferredEquity_rate: ''
    })
+   this.props.next()
  }
 
  render() {

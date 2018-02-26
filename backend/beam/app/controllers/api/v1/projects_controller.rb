@@ -1,5 +1,6 @@
 class Api::V1::ProjectsController < ApplicationController
-  def index
+
+def index
   @projects = Project.all
   render json: @projects
 end
@@ -41,3 +42,6 @@ private
   end
 
 end
+
+
+# @projects = Project.all.filter(p => p.user_id == @current_user.id)

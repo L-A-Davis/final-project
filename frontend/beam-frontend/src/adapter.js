@@ -54,10 +54,21 @@ const addProject = (p) => {
   }).then(res => res.json())
 }
 
+const saveModel = (p) => {
+  return fetch(`${API_ROOT}/models`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify({model: p})
+  }).then(res => res.json())
+}
+
+
+
 export default {
   eventHandlers: {
      getProjects,
-     addProject
+     addProject,
+     saveModel
   },
   auth: {
     login,

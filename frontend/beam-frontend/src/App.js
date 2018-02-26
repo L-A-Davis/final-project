@@ -96,7 +96,7 @@ componentDidMount() {
         }} />
 
         <Route exact path='/project' render={ (routerProps) => {
-            return <Profile auth={this.state.auth}
+            return <Project auth={this.state.auth}
             history={routerProps.history}/>
         }} />
 

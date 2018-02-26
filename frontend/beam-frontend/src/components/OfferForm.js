@@ -5,11 +5,7 @@ import { updateOfferForm, setOfferInfo } from '../actions'
 class OfferForm extends React.Component {
 
   handleChange = (e) => {
-    console.log(e.target.value)
     this.props.updateOfferForm({
-        OfferType: this.props.OfferFormData.OfferType,
-        OfferMetric: this.props.OfferFormData.OfferMetric,
-        Percentage_Stock: this.props.OfferFormData.Percentage_Stock,
         [e.target.name]: e.target.value
     })
   }
@@ -29,6 +25,7 @@ class OfferForm extends React.Component {
       OfferMetric: '',
       Percentage_Stock: '',
     })
+    this.props.next()
   }
 
   impliedExchangeRatio = (a, b) => {

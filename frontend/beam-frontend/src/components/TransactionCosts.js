@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateTransactionCostsForm, setTransactionCostsInfo } from '../actions'
+import SaveModelButton from './SaveModelButton'
 
 let input_types = [{id: "percentage", name: "Percentage of Item"}, {id: "setAmount", name: "Set Dollar Amount"}]
 
@@ -59,6 +60,7 @@ class TransactionCosts extends React.Component {
        Employee_Costs_input: "",
        Other_Costs_input: ""
    })
+   this.props.next()
   }
 
 
@@ -279,6 +281,7 @@ class TransactionCosts extends React.Component {
 
 
       </form>
+      <SaveModelButton/>
     </div>
    </div>
    )

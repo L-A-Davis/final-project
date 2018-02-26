@@ -48,6 +48,7 @@ class CashFlowForm extends React.Component {
        GA_synergies_type: '',
        GA_synergies_input: ""
      })
+     this.props.next()
     }
 
  render() {

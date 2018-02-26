@@ -31,6 +31,7 @@ class EquityForm extends React.Component {
      CompanyA_dividend: '',
      CompanyB_dividend: ''
    })
+   this.props.next()
  }
 
  render() {
@@ -39,14 +40,14 @@ class EquityForm extends React.Component {
         <h3>Equity Info</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="three-columns-form">
-       {this.props.modelData.basicInfoData ?
+       {(this.props.modelData != null || this.props.modelData.basicInfoData) ?
         <label className="form-input-1">
         {this.props.modelData.basicInfoData.CompanyA_codename} </label>
 
          :
         <label className="form-input-1">Company A</label> }
 
-        {this.props.modelData.basicInfoData ?
+        {(this.props.modelData.basicInfoData != null || this.props.modelData.basicInfoData) ?
          <label className="form-input-2">
          {this.props.modelData.basicInfoData.CompanyB_codename} </label>
 

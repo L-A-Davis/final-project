@@ -77,3 +77,11 @@ export function addNewProject(project) {
     })
   }
 }
+
+export function saveModel(info) {
+  return dispatch => {
+    adapter.eventHandlers.saveModel(info).then(resp => {
+      dispatch({ type: 'SET_NEW_MODEL', payload: resp.data})
+    })
+  }
+}

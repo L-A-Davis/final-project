@@ -9,7 +9,7 @@ class MyProjects extends React.Component {
    this.props.selectExistingProject({
      id: event.target.value
    })
-   this.props.history.push('/projects')
+   this.props.history.push('/project')
 }
 
 
@@ -22,13 +22,16 @@ class MyProjects extends React.Component {
     >
      <option value="" disabled hidden>Select</option>
 
-    {this.props.projects.map((project) =>
+    { this.props.projects.status !== 500 ?
+      this.props.projects.map((project) =>
       <option key={project.id}
         value={project.id} name={project.name}
         deal_type={project.deal_type}
         user_id={project.user.id}
         >{project.name}</option>
-    )}
+        )
+        : null
+     }
     </select>
     </div>
   )
@@ -36,3 +39,6 @@ class MyProjects extends React.Component {
 }
 
 export default connect (state => ({ ...state.selectedProjectData }), { selectExistingProject })(MyProjects);
+
+
+   // this.props.history.push(`/project/${project.id}`)
