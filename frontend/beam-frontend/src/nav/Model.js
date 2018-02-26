@@ -20,12 +20,13 @@ class Model extends React.Component {
     showCapitalizationForm: false,
     showCashFlowForm: false,
     showTransactionCosts: false,
-    showOutputs: false
+    showOutputs: false,
+    showButtons: true
   }
 
  componentDidMount () {
-   (this.props.selectedProjectData &&
-   this.props.selectedProjectData.models.length > 0) ?
+   (this.props.allModelsforProject &&
+   this.props.allModelsforProject.length > 0) ?
    this.handleExistingModel() :
    this.setState({
      showBasicInfoForm: true
@@ -34,7 +35,7 @@ class Model extends React.Component {
 
  handleExistingModel = () => {
    this.setState({
-     showBasicInfoForm: false,
+     showBasicInfoForm: true,
      showOutputs: true
    })
  }
@@ -91,7 +92,18 @@ class Model extends React.Component {
   render () {
   return (
     <div>
+      <h2>{this.props.modelData.name}</h2>
       <div>
+      {this.state.showButtons &&
+        <div>
+           <button> Basic Info Form </button> <br/>
+           <button> Equity Info Form </button> <br/>
+           <button> Offer Inputs </button> <br/>
+           <button> Capitalization </button> <br/>
+           <button> Cash Flow Inputs </button> <br/>
+           <button> Transaction Costs </button> <br/>
+          </div>
+      }
       { this.state.showBasicInfoForm &&
         <BasicInfoForm next={this.handleBasicInfoFormSubmission}/>
       }
@@ -125,4 +137,4 @@ class Model extends React.Component {
  }
 }
 
- export default connect((state)=> ({state: state}), { })(WithAuth(Model))
+ export default connect(state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData }}, { })(WithAuth(Model))

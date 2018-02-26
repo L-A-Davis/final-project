@@ -158,10 +158,18 @@ export default function companyBasicInfoReducer(
            };
 
    case "MODEL_PARTS_LOAD":
+   let basic_data = action.payload.basic_info_datum
     return {
             ...state,
             modelData: action.payload,
-          };
+            BasicInfoFormData: {
+              CompanyA_ticker: basic_data[0].ticker,
+              CompanyB_ticker: basic_data[1].ticker,
+              CompanyA_codename: basic_data[0].codename,
+              CompanyB_codename: basic_data[1].codename,
+              CompanyA_acquiror: basic_data[0].acquiror
+        }
+      }
     //
     // case 'ADD_COMPANY':
     //   return state.concat(action.company);
@@ -255,7 +263,7 @@ export default function companyBasicInfoReducer(
          return {
            ...state,
            modelData: {...state.modelData,
-           basic_info_datum: action.payload}
+           basic_info_datum: {...state.modelData.basic_info_datum, ...action.payload}}
          }
 
 
