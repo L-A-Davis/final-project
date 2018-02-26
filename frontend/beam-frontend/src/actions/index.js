@@ -62,10 +62,18 @@ export function selectExistingProject(id) {
   return { type: "SELECT_PROJECT", payload: id };
 }
 
-export function fetchExistingProjects() {
+export function fetchExistingProjects(id) {
   return dispatch => {
-  adapter.eventHandlers.getProjects().then(data => {
-      dispatch({ type: "PROJECTS_LOAD", payload: data });
+  adapter.eventHandlers.getProjects(id).then(data => {
+      dispatch({ type: "PROJECTS_LOAD", payload: data.projects });
+    });
+  };
+}
+
+export function fetchExistingModels(id) {
+  return dispatch => {
+  adapter.eventHandlers.getModels(id).then(data => {
+      dispatch({ type: "MODELS_LOAD", payload: data.models });
     });
   };
 }

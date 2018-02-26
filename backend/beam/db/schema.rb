@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20180221024956) do
     t.string "name"
     t.integer "project_id"
     t.string "data"
+    t.string "model_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_models_on_project_id"

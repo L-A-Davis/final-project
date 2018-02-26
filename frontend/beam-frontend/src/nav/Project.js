@@ -4,6 +4,7 @@ import WithAuth from '../wrappers/WithAuth'
 import { connect } from 'react-redux'
 import Model from './Model'
 import ExistingModelsForProject from '../components/ExistingModelsForProject'
+import { fetchExistingModels } from '../actions'
 
 
 class Project extends React.Component {
@@ -21,6 +22,11 @@ class Project extends React.Component {
       showNewModelForm: !this.state.showNewModelForm
     })
   }
+
+  componentDidMount() {
+    this.props.fetchExistingModels(this.props.selectedProjectData.id)
+  }
+
 
   render () {
   return (
@@ -49,4 +55,5 @@ class Project extends React.Component {
  }
 }
 
- export default connect((state)=> ({state: state}), { })(WithAuth(Project))
+
+ export default connect(state=> {return {allModelsforProject: state.allModelsforProject, selectedProjectData: state.selectedProjectData}}, { fetchExistingModels })(WithAuth(Project))

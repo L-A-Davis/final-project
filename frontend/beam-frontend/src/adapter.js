@@ -40,8 +40,14 @@ const getLoggedInUser = () => {
   }).then(res => res.json())
 }
 
-const getProjects = () => {
-  return fetch(`${API_ROOT}/projects`, {
+const getProjects = (user_id) => {
+  return fetch(`${API_ROOT}/users/${user_id}`, {
+    headers: headers()
+  }).then(res => res.json())
+}
+
+const getModels = (project_id) => {
+  return fetch(`${API_ROOT}/projects/${project_id}`, {
     headers: headers()
   }).then(res => res.json())
 }
@@ -68,7 +74,8 @@ export default {
   eventHandlers: {
      getProjects,
      addProject,
-     saveModel
+     saveModel,
+     getModels
   },
   auth: {
     login,

@@ -16,7 +16,7 @@ class Profile extends React.Component {
 
 
  componentDidMount() {
-   this.props.fetchExistingProjects()
+   this.props.fetchExistingProjects(this.props.auth.currentUser.id)
  }
 
  handleNewProjectClick = () => {
@@ -31,7 +31,7 @@ class Profile extends React.Component {
     <div>
       <div>
       <p>Select an Existing Project or Start One: </p>
-      { this.props.allProjects && 
+      { this.props.allProjects &&
       <MyProjects projects={this.props.allProjects}
       currentUser={this.props.auth.currentUser}
       history={this.props.history}

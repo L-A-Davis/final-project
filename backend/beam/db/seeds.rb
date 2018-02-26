@@ -33,8 +33,13 @@ phone: Faker::PhoneNumber.cell_phone,
 address: Faker::Address.street_address)
 
 Project.create(name: "Potomac", deal_type: "merger", user_id: 1)
+Project.create(name: "Valley Forge", deal_type: "merger", user_id: 2)
+Project.create(name: "Skyscraper", deal_type: "merger", user_id: 1)
 
-Model.create(name: "prelim merger", project_id: 1, data: "{}")
+Model.create(name: "Potomac 2.26.18 Model draft", project_id: 1, data: "{}", model_type: "prelim_merger")
+Model.create(name: "Valley Forge First Model", project_id: 2, data: "{}", model_type: "prelim_merger")
+Model.create(name: "Potomac Redo 2.26", project_id: 1, data: "{}", model_type: "prelim_merger")
+
 
 Relationship.create(follower_id: 1, followed_id: 2)
 Relationship.create(follower_id: 1, followed_id: 3)

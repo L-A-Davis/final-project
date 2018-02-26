@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 class ExistingModelsForProject extends React.Component {
 
+
+
   render() {
     return (
       <select
@@ -11,8 +13,8 @@ class ExistingModelsForProject extends React.Component {
       >
        <option value="" disabled hidden>Select</option>
 
-      { (this.props.selectedProjectData.status !== 500 && this.props.selectedProjectData.models) ?
-        this.props.selectedProjectData.models.map((model) =>
+      { (this.props.allModelsforProject.length > 0) ?
+        this.props.allModelsforProject.map((model) =>
         <option key={model.id}
           value={model.id} name={model.name}
           >{model.name}</option>
@@ -25,4 +27,4 @@ class ExistingModelsForProject extends React.Component {
 }
 
 
-export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData }}, )(ExistingModelsForProject)
+export default connect (state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData }}, )(ExistingModelsForProject)

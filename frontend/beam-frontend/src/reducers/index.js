@@ -1,12 +1,17 @@
 export default function companyBasicInfoReducer(
   state = {
     allProjects: [],
+    allModelsforProject: [],
     selectedProjectData: {
       ProjectId: '',
       ProjectName: '',
       Deal_type: '',
       User_id: ''},
-    modelData: [],
+    modelData: {
+      project_id: '',
+      name: '',
+      data: []
+    },
     selectedCompany: null, loading: false,
     newProjectFormData: {
       ProjectId: '',
@@ -128,28 +133,34 @@ export default function companyBasicInfoReducer(
 ) {
   switch (action.type) {
 
-    case "COMPANIES_LOADING":
-      return {
-        ...state,
-        loading: true
-      }
-    case "COMPANY_LOAD":
-      return {
-        ...state,
-        modelData: action.payload,
-        loading: false
-      };
+    // case "COMPANIES_LOADING":
+    //   return {
+    //     ...state,
+    //     loading: true
+    //   }
+    // case "COMPANY_LOAD":
+    //   return {
+    //     ...state,
+    //     modelData: action.payload,
+    //     loading: false
+    //   };
      case "PROJECTS_LOAD":
       return {
               ...state,
               allProjects: action.payload
             };
+    case "MODELS_LOAD":
+     return {
+             ...state,
+             allModelsforProject: action.payload
+           };
 
-    case 'ADD_COMPANY':
-      return state.concat(action.company);
-
-    case 'REMOVE_COMPANY':
-      return state.filter(company => company.id !== action.companyId);
+    //
+    // case 'ADD_COMPANY':
+    //   return state.concat(action.company);
+    //
+    // case 'REMOVE_COMPANY':
+    //   return state.filter(company => company.id !== action.companyId);
 
       // case "SELECT_COMPANY":
       //   return {
@@ -208,19 +219,25 @@ export default function companyBasicInfoReducer(
          let projectToSet = state.allProjects.find(project => project.id === parseInt(action.payload.id, 10))
           return {
             ...state,
-            selectedProjectData: projectToSet
+            selectedProjectData: projectToSet,
+              modelData: {
+                project_id: projectToSet.ProjectId
+              }
             }
 
         case "SET_NEW_PROJECT":
          return {
                  ...state,
-                 selectedProjectData: action.payload
+                 selectedProjectData: action.payload,
+                 modelData: {
+                   project_id: projectToSet.ProjectId
+                 }
                };
 
        case "UPDATE_MODELDATA":
          return {
            ...state,
-           modelData: {...state.modelData, ...action.payload}
+           modelData: {...state.modelData.data, ...action.payload}
          }
 
        case "SET_NEW_MODEL":
@@ -228,18 +245,18 @@ export default function companyBasicInfoReducer(
                 ...state,
                 modelData: action.payload
               };
-
-      case "SET_COMPANY":
-        return {
-          ...state,
-          modelData: state.modelData.map(company => {
-            if(company.id === action.payload.id) {
-              return action.payload
-            } else {
-              return company
-          }
-        })
-      }
+      //
+      // case "SET_COMPANY":
+      //   return {
+      //     ...state,
+      //     modelData: state.modelData.map(company => {
+      //       if(company.id === action.payload.id) {
+      //         return action.payload
+      //       } else {
+      //         return company
+      //     }
+      //   })
+      // }
 
     default:
       return state;

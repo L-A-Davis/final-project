@@ -1,6 +1,6 @@
 import React from 'react';
 
-let deal_types = [{id: "prelim_merger", name: "Preliminary Merger Analytics"}, {id: "fairness", name: "Fairness Opinion Metrics"}]
+let deal_types = [{id: "merger", name: "Public Company Merger"}, {id: "lbo", name: "Privitization"}]
 
 
 const ProjectTypeSelect = (props) => {

@@ -4,6 +4,7 @@ class CreateModels < ActiveRecord::Migration[5.1]
       t.string :name
       t.references :project, foreign_key: true
       t.string :data
+      t.string :model_type
 
       t.timestamps
     end
