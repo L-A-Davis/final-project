@@ -12,8 +12,11 @@
 
 ActiveRecord::Schema.define(version: 20180226211953) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "basic_info_data", force: :cascade do |t|
-    t.integer "model_id"
+    t.bigint "model_id"
     t.string "company"
     t.string "ticker"
     t.string "codename"
@@ -24,7 +27,7 @@ ActiveRecord::Schema.define(version: 20180226211953) do
   end
 
   create_table "capitalization_info_data", force: :cascade do |t|
-    t.integer "model_id"
+    t.bigint "model_id"
     t.string "company"
     t.string "item_name"
     t.string "item_type"
@@ -37,7 +40,7 @@ ActiveRecord::Schema.define(version: 20180226211953) do
   end
 
   create_table "cash_flow_info_data", force: :cascade do |t|
-    t.integer "model_id"
+    t.bigint "model_id"
     t.string "company"
     t.string "item_name"
     t.float "amount_year1"
@@ -49,8 +52,8 @@ ActiveRecord::Schema.define(version: 20180226211953) do
 
   create_table "comments", force: :cascade do |t|
     t.string "content"
-    t.integer "user_id"
-    t.integer "model_id"
+    t.bigint "user_id"
+    t.bigint "model_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["model_id"], name: "index_comments_on_model_id"
@@ -64,7 +67,7 @@ ActiveRecord::Schema.define(version: 20180226211953) do
   end
 
   create_table "equity_info_data", force: :cascade do |t|
-    t.integer "model_id"
+    t.bigint "model_id"
     t.string "company"
     t.decimal "currentSharePrice", precision: 10, scale: 2
     t.float "shares"
@@ -76,7 +79,7 @@ ActiveRecord::Schema.define(version: 20180226211953) do
 
   create_table "models", force: :cascade do |t|
     t.string "name"
-    t.integer "project_id"
+    t.bigint "project_id"
     t.string "data"
     t.string "model_type"
     t.datetime "created_at", null: false
@@ -85,7 +88,7 @@ ActiveRecord::Schema.define(version: 20180226211953) do
   end
 
   create_table "offer_info_data", force: :cascade do |t|
-    t.integer "model_id"
+    t.bigint "model_id"
     t.string "offer_type"
     t.float "offer_metric"
     t.decimal "percentage_stock", precision: 10, scale: 2
@@ -97,7 +100,7 @@ ActiveRecord::Schema.define(version: 20180226211953) do
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.string "deal_type"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_projects_on_user_id"
@@ -114,7 +117,7 @@ ActiveRecord::Schema.define(version: 20180226211953) do
   end
 
   create_table "transaction_costs", force: :cascade do |t|
-    t.integer "model_id"
+    t.bigint "model_id"
     t.string "name"
     t.string "input_type"
     t.float "data_input"
@@ -126,7 +129,7 @@ ActiveRecord::Schema.define(version: 20180226211953) do
   create_table "users", force: :cascade do |t|
     t.string "user_name"
     t.string "email"
-    t.integer "company_id"
+    t.bigint "company_id"
     t.string "phone"
     t.string "address"
     t.string "password_digest"
@@ -135,4 +138,15 @@ ActiveRecord::Schema.define(version: 20180226211953) do
     t.index ["company_id"], name: "index_users_on_company_id"
   end
 
+  add_foreign_key "basic_info_data", "models"
+  add_foreign_key "capitalization_info_data", "models"
+  add_foreign_key "cash_flow_info_data", "models"
+  add_foreign_key "comments", "models"
+  add_foreign_key "comments", "users"
+  add_foreign_key "equity_info_data", "models"
+  add_foreign_key "models", "projects"
+  add_foreign_key "offer_info_data", "models"
+  add_foreign_key "projects", "users"
+  add_foreign_key "transaction_costs", "models"
+  add_foreign_key "users", "companies"
 end
