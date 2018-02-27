@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { saveModel, editModel } from '../actions'
+import { addNewModel, editModel } from '../actions'
 
 class SaveModelButton extends React.Component {
 
  handleModelSave = () => {
    (this.props.modelData.id > 0) ?
    this.props.editModel(this.props.modelData) :
-   this.props.saveModel({
+   this.props.addNewModel({
      name: this.props.modelData.name,
      data: this.props.modelData.data,
      project_id: this.props.modelData.project_id,
@@ -24,4 +24,4 @@ class SaveModelButton extends React.Component {
 }
 
 
-export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData }}, { saveModel, editModel })(SaveModelButton)
+export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData }}, { addNewModel, editModel })(SaveModelButton)

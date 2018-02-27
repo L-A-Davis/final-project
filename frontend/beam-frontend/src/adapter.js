@@ -92,7 +92,6 @@ const saveBasicInfo = (m) => {
 }
 
 const editBasicInfo = (m) => {
-  console.log(m.data)
   return fetch(`${API_ROOT}/basic_info_data/${m.id}`, {
   method: 'PATCH',
   headers: headers(),

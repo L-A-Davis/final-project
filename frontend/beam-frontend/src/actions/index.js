@@ -8,6 +8,11 @@ export function setProjectInfo(formData) {
   return { type: "SUBMIT_NEWPROJECT_FORM", payload: formData };
 }
 
+export function updateNewModelForm(formData) {
+  return { type: "UPDATE_NEWMODEL_FORM", payload: formData };
+}
+
+
 export function updateBasicInfoForm(formData) {
   return { type: "UPDATE_BASICINFO_FORM", payload: formData };
 }
@@ -23,7 +28,7 @@ export function resetBasicInfo(formData) {
 export function newBasicInfo(formData) {
   return dispatch => {
     adapter.eventHandlers.saveBasicInfo(formData).then(resp => {
-      dispatch({ type: 'UPDATE_BASICINFO_DATA', payload: resp})
+      dispatch({ type: 'SAVE_BASICINFO_DATA', payload: resp})
     })
   }
 }
@@ -110,7 +115,7 @@ export function addNewProject(project) {
   }
 }
 
-export function saveModel(info) {
+export function addNewModel(info) {
   return dispatch => {
     adapter.eventHandlers.saveModel(info).then(resp => {
       dispatch({ type: 'SET_NEW_MODEL', payload: resp})

@@ -5,6 +5,7 @@ import { updateBasicInfoForm, resetBasicInfo, newBasicInfo } from '../actions'
 class BasicInfoForm extends React.Component {
 
  handleChange = (e) => {
+   console.log(this.props.BasicInfoFormData)
    this.props.updateBasicInfoForm({
     [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
    })
@@ -12,7 +13,7 @@ class BasicInfoForm extends React.Component {
 
  handleDataSave = (data) =>{
    for (let i = 0; i< data.length; i++){
-     if (this.props.modelData.basic_info_datum.length > 0) {
+     if (data[i].id !== "") {
      this.props.resetBasicInfo(data[i])
    } else {
      this.props.newBasicInfo(data[i])
@@ -20,20 +21,19 @@ class BasicInfoForm extends React.Component {
   }
  }
 
-
  handleSubmit = (e) => {
    e.preventDefault();
    const form  = this.props.BasicInfoFormData
    let info = [
    {
-     id: this.props.modelData.basic_info_datum[0].id,
+     id: form.CompanyA_id,
      company: "A",
      ticker: form.CompanyA_ticker,
      codename: form.CompanyA_codename,
      acquiror: form.CompanyA_acquiror,
      model_id: this.props.modelData.id},
    {
-     id: this.props.modelData.basic_info_datum[1].id,
+     id: form.CompanyB_id,
      company: "B",
      ticker: form.CompanyB_ticker,
      codename: form.CompanyB_codename,
@@ -42,6 +42,8 @@ class BasicInfoForm extends React.Component {
    ]
    this.handleDataSave(info)
    this.props.updateBasicInfoForm({
+     CompanyA_id: '',
+     CompanyB_id: '',
      CompanyA_ticker: '',
      CompanyB_ticker: '',
      CompanyA_codename: '',
@@ -54,7 +56,8 @@ class BasicInfoForm extends React.Component {
  render() {
    return (
      <div className="form">
-        <h3>Model Starting Point</h3>
+        <button onClick={this.props.exit}>X</button>
+        <h3>Company Inputs</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="three-columns-form">
         <label className="form-input-1">Company A</label>

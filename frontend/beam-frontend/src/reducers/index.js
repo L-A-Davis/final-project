@@ -3,9 +3,9 @@ export default function companyBasicInfoReducer(
     allProjects: [],
     allModelsforProject: [],
     selectedProjectData: {
-      ProjectId: '',
-      ProjectName: '',
-      Deal_type: '',
+      id: '',
+      name: '',
+      deal_type: '',
       User_id: ''},
     modelData: {
       id: '',
@@ -16,11 +16,18 @@ export default function companyBasicInfoReducer(
     },
     selectedCompany: null, loading: false,
     newProjectFormData: {
-      ProjectId: '',
-      ProjectName: '',
-      Deal_type: '',
+      id: '',
+      name: '',
+      deal_type: '',
       User_id: ''},
+    newModelFormData: {
+      project_id: '',
+      name: '',
+      model_type: '',
+    },
     BasicInfoFormData: {
+      CompanyA_id: "",
+      CompanyB_id: "",
       CompanyA_ticker: "",
       CompanyB_ticker: "",
       CompanyA_codename: "",
@@ -163,6 +170,8 @@ export default function companyBasicInfoReducer(
             ...state,
             modelData: action.payload,
             BasicInfoFormData: {
+              CompanyA_id: basic_data[0].id,
+              CompanyB_id: basic_data[1].id,
               CompanyA_ticker: basic_data[0].ticker,
               CompanyB_ticker: basic_data[1].ticker,
               CompanyA_codename: basic_data[0].codename,
@@ -187,6 +196,12 @@ export default function companyBasicInfoReducer(
         return {
           ...state,
           newProjectFormData: {...state.newProjectFormData, ...action.payload}
+        }
+
+      case "UPDATE_NEWMODEL_FORM":
+        return {
+          ...state,
+          newModelFormData: {...state.newModelFormData, ...action.payload}
         }
 
         case "UPDATE_BASICINFO_FORM":
@@ -237,15 +252,15 @@ export default function companyBasicInfoReducer(
             selectedProjectData: projectToSet
             }
 
-      case "SELECT_MODEL":
-       let modelToSet = state.allModelsforProject.find(model => model.id === parseInt(action.payload.id, 10))
-       let data2 = modelToSet.data
-       modelToSet.data = data2
-        return {
-          ...state,
-          modelData: {...state.modelData, ...modelToSet,
-          project_id: state.selectedProjectData.id}
-          }
+      // case "SELECT_MODEL":
+      //  let modelToSet = state.allModelsforProject.find(model => model.id === parseInt(action.payload.id, 10))
+      //  let data2 = modelToSet.data
+      //  modelToSet.data = data2
+      //   return {
+      //     ...state,
+      //     modelData: {...state.modelData, ...modelToSet,
+      //     project_id: state.selectedProjectData.id}
+      //     }
 
         case "SET_NEW_PROJECT":
          return {
@@ -263,8 +278,22 @@ export default function companyBasicInfoReducer(
          return {
            ...state,
            modelData: {...state.modelData,
-           basic_info_datum: {...state.modelData.basic_info_datum, ...action.payload}}
+           basic_info_datum: state.modelData.basic_info_datum.map(item => {
+             if(item.id === action.payload.id) {
+               return action.payload
+             } else {
+               return item
+             }
+           })
+           }
          }
+
+       case "SAVE_BASICINFO_DATA":
+         return {
+           ...state,
+           modelData: {...state.modelData,
+            basic_info_datum:[      ...state.modelData.basic_info_datum, {...action.payload}]}
+          }
 
 
        case "SET_NEW_MODEL":
@@ -309,3 +338,11 @@ export default function companyBasicInfoReducer(
 //     modelData: {...state.modelData,
 //     basic_info_datum:      {...state.modelData.basic_info_datum, ...action.payload}}
 //   }
+
+
+// case "SAVE_BASICINFO_DATA":
+//   return {
+//     ...state,
+//     modelData: {...state.modelData,
+//     basic_info_datum:[      {...state.modelData.basic_info_datum {...action.payload}}]}
+//    }

@@ -44,7 +44,8 @@ render() {
   const { equity_info_datum, basic_info_datum } = { ...this.props.modelData }
   return (
     <div className="form">
-    {equity_info_datum ?
+    <button onClick={this.props.exit}>X</button>
+    {equity_info_datum.length > 0 ?
         <div>
        <h3>Offer Support</h3>
 

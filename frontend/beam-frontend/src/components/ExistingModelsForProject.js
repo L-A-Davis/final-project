@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { selectExistingModel, fetchModelParts } from '../actions'
+import { fetchModelParts } from '../actions'
 
 class ExistingModelsForProject extends React.Component {
 
@@ -32,4 +32,4 @@ class ExistingModelsForProject extends React.Component {
 }
 
 
-export default connect (state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData }}, {selectExistingModel, fetchModelParts})(ExistingModelsForProject)
+export default connect (state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData }}, { fetchModelParts})(ExistingModelsForProject)

@@ -8,7 +8,7 @@ const ModelTypeSelect = (props) => {
 
     <select
        onChange={props.handleChange}
-       name="Model_type"
+       name="model_type"
        defaultValue=""
        >
         <option value="" disabled hidden>Select</option>

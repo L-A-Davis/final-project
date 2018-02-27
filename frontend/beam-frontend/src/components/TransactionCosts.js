@@ -116,6 +116,7 @@ class TransactionCosts extends React.Component {
  render() {
    return (
      <div className="form">
+     <button onClick={this.props.exit}>X</button>
         <h3>TransactionCosts Info</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="three-columns-form">

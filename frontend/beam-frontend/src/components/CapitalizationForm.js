@@ -226,6 +226,7 @@ class CapitalizationForm extends React.Component {
  render() {
    return (
      <div className="form">
+     <button onClick={this.props.exit}>X</button>
         <h3>Capitalization Inputs</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="seven-columns-form">

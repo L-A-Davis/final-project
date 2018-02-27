@@ -7,9 +7,6 @@ class NewProjectForm extends React.Component {
 
  handleChange = (e) => {
    this.props.updateNewProjectForm({
-       ProjectName: this.props.ProjectName,
-       Deal_type: this.props.Deal_type,
-       User_id: this.props.currentUser.id,
        [e.target.name]: e.target.value
    })
  }

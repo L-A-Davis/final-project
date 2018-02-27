@@ -12,24 +12,16 @@ class Project extends React.Component {
   state = {
     showExistingModelList: true,
     showNewModelButton: true,
-    showNewModelForm: false
+    showModel: false
   }
 
-  handleNewModelClick = () => {
+  handleSelection = () => {
     this.setState({
       showExistingModelList: !this.state.showExistingModelList,
       showNewModelButton: !this.state.showNewModelButton,
-      showNewModelForm: !this.state.showNewModelForm
+      showModel: !this.state.showNewModelForm
     })
   }
-
- handleExistingModelSelection = () => {
-   this.setState({
-     showExistingModelList: false,
-     showNewModelButton: false,
-     showNewModelForm: true
-   })
- }
 
   componentDidMount() {
     this.props.fetchExistingModels(this.props.selectedProjectData.id)
@@ -42,16 +34,16 @@ class Project extends React.Component {
      {this.state.showExistingModelList &&
         <div>
           <h3> Select an Existing Model </h3>
-          <ExistingModelsForProject next={this.handleExistingModelSelection} />
+          <ExistingModelsForProject next={this.handleSelection}/>
         </div>
       }
      {this.state.showNewModelButton &&
        <div>
          <h3> Or Start a New One </h3>
-         <button onClick={this.handleNewModelClick}>Start Here</button>
+         <button onClick={this.handleSelection}>Start Here</button>
        </div>
      }
-      {this.state.showNewModelForm &&
+      {this.state.showModel &&
         <div>
           <Model auth={this.props.auth}
           history={this.props.history}/>

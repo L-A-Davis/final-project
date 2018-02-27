@@ -41,10 +41,11 @@ class EquityForm extends React.Component {
  render() {
    return (
      <div className="form">
+     <button onClick={this.props.exit}>X</button>
         <h3>Equity Info</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="three-columns-form">
-       {(this.props.modelData != null || this.props.modelData.basic_info_datum) ?
+       {(this.props.modelData != null|| this.props.modelData.basic_info_datum.length > 0) ?
         <label className="form-input-1">
         {this.props.modelData.basic_info_datum[0].codename} </label>
 
