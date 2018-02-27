@@ -41,15 +41,6 @@ class BasicInfoForm extends React.Component {
      model_id: this.props.modelData.id}
    ]
    this.handleDataSave(info)
-   this.props.updateBasicInfoForm({
-     CompanyA_id: '',
-     CompanyB_id: '',
-     CompanyA_ticker: '',
-     CompanyB_ticker: '',
-     CompanyA_codename: '',
-     CompanyB_codename: '',
-     CompanyA_acquiror: false,
-   })
    this.props.next()
  }
 
@@ -126,3 +117,13 @@ export default connect (state => {return {BasicInfoFormData: state.BasicInfoForm
 // CompanyB_codename: this.props.CompanyB_codename,
 // CompanyA_acquiror: this.props.CompanyA_acquiror,
  // ProjectId: this.props.modelData.ProjectId,
+ //
+ // this.props.updateBasicInfoForm({
+ //   CompanyA_id: '',
+ //   CompanyB_id: '',
+ //   CompanyA_ticker: '',
+ //   CompanyB_ticker: '',
+ //   CompanyA_codename: '',
+ //   CompanyB_codename: '',
+ //   CompanyA_acquiror: false,
+ // })

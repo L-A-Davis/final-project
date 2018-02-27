@@ -39,7 +39,7 @@ class Api::V1::EquityInfoDataController < ApplicationController
 
   private
     def equity_info_datum_params
-      params.require(:equity_info_data).permit(:model_id, :company, :currentSharePrice, :shares, :dividend)
+      params.require(:equity_info_datum).permit(:model_id, :company, :currentSharePrice, :shares, :dividend)
     end
 
 end

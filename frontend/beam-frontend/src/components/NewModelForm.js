@@ -19,12 +19,7 @@ class NewModelForm extends React.Component {
       model_type: this.props.newModelFormData.model_type,
       project_id: this.props.selectedProjectData.id,
     })
-    ;
-    this.props.updateNewModelForm({
-      name: '',
-      model_type: '',
-      project_id: ''
-    })
+     this.props.next()
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { updateOfferForm, setOfferInfo } from '../actions'
+import { updateOfferForm, resetOfferInfo, newOfferInfo } from '../actions'
 
 class OfferForm extends React.Component {
 
@@ -10,22 +10,28 @@ class OfferForm extends React.Component {
     })
   }
 
+
+   handleDataSave = (data) =>{
+     for (let i = 0; i< data.length; i++){
+       if (data[i].id !== "") {
+       this.props.resetOfferInfo(data[i])
+     } else {
+       this.props.newOfferInfo(data[i])
+     }
+    }
+   }
+
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.setOfferInfo({
-     offer_info_datum: [{
-       model_id: this.props.modelData.id,
-       offer_type: this.props.OfferFormData.OfferType,
-       offer_metric: this.props.OfferFormData.OfferMetric,
-       percentage_Stock: this.props.OfferFormData.Percentage_Stock
-     }]
-    })
-    ;
-    this.props.updateOfferForm({
-      OfferType: '',
-      OfferMetric: '',
-      Percentage_Stock: '',
-    })
+    let info = [{
+      id: this.props.OfferFormData.Offer_id,
+      model_id: this.props.modelData.id,
+      offer_type: this.props.OfferFormData.OfferType,
+      offer_metric: this.props.OfferFormData.OfferMetric,
+      percentage_Stock: this.props.OfferFormData.Percentage_Stock
+    }]
+    console.log(info)
+    this.handleDataSave(info)
     this.props.next()
   }
 
@@ -41,11 +47,12 @@ class OfferForm extends React.Component {
   }
 
 render() {
+  console.log('re-rendering',this.props)
   const { equity_info_datum, basic_info_datum } = { ...this.props.modelData }
   return (
     <div className="form">
     <button onClick={this.props.exit}>X</button>
-    {equity_info_datum.length > 0 ?
+    {equity_info_datum.length === 2 ?
         <div>
        <h3>Offer Support</h3>
 
@@ -159,7 +166,7 @@ render() {
 
 }
 
-export default connect (state => {return { modelData: state.modelData, OfferFormData: state.OfferFormData }}, { updateOfferForm, setOfferInfo })(OfferForm);
+export default connect (state => {return { modelData: state.modelData, OfferFormData: state.OfferFormData }}, { updateOfferForm, resetOfferInfo, newOfferInfo })(OfferForm);
 
 
 // (

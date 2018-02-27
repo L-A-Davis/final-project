@@ -99,6 +99,70 @@ const editBasicInfo = (m) => {
 }).then(res => res.json())
 }
 
+const saveEquityInfo = (m) => {
+  return fetch(`${API_ROOT}/equity_info_data`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify({equity_info_datum: {model_id: m.model_id, company: m.company, currentSharePrice: m.currentSharePrice, shares: m.shares, dividend: m.dividend}})
+  }).then(res => res.json())
+}
+
+const editEquityInfo = (m) => {
+  return fetch(`${API_ROOT}/equity_info_data/${m.id}`, {
+  method: 'PATCH',
+  headers: headers(),
+  body: JSON.stringify({equity_info_datum: {model_id: m.model_id, company: m.company, currentSharePrice: m.currentSharePrice, shares: m.shares, dividend: m.dividend}})
+}).then(res => res.json())
+}
+
+const saveOfferInfo = (m) => {
+  return fetch(`${API_ROOT}/offer_info_data`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify({offer_info_datum: {model_id: m.model_id, offer_type: m.offer_type, offer_metric: m.offer_metric, percentage_stock: m.percentage_stock}})
+  }).then(res => res.json())
+}
+
+const editOfferInfo = (m) => {
+  return fetch(`${API_ROOT}/offer_info_data/${m.id}`, {
+  method: 'PATCH',
+  headers: headers(),
+  body: JSON.stringify({offer_info_datum: {model_id: m.model_id, offer_type: m.offer_type, offer_metric: m.offer_metric, percentage_stock: m.percentage_stock}})
+}).then(res => res.json())
+}
+
+const saveCapitalizationInfo = (m) => {
+  return fetch(`${API_ROOT}/capitalization_info_data`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify({capitalization_info_datum: {model_id: m.model_id, company: m.company, item_name: m.item_name, item_type: m.item_type, repay: m.repay, rate: m.rate, amount: m.amount}})
+  }).then(res => res.json())
+}
+
+const editCapitalizationInfo = (m) => {
+  return fetch(`${API_ROOT}/capitalization_info_data/${m.id}`, {
+  method: 'PATCH',
+  headers: headers(),
+  body: JSON.stringify({capitalization_info_datum: {model_id: m.model_id, company: m.company, item_name: m.item_name, item_type: m.item_type, repay: m.repay, rate: m.rate, amount: m.amount}})
+}).then(res => res.json())
+}
+
+
+const saveCashFlowInfo = (m) => {
+  return fetch(`${API_ROOT}/cash_flow_info_data`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify({cash_flow_info_datum: {model_id: m.model_id, company: m.company, item_name: m.item_name, amount_year1: m.amount_year1}})
+  }).then(res => res.json())
+}
+
+const editCashFlowInfo = (m) => {
+  return fetch(`${API_ROOT}/cash_flow_info_data/${m.id}`, {
+  method: 'PATCH',
+  headers: headers(),
+  body: JSON.stringify({cash_flow_info_datum: {model_id: m.model_id, company: m.company, item_name: m.item_name, amount_year1: m.amount_year1}})
+}).then(res => res.json())
+}
 
 export default {
   eventHandlers: {
@@ -109,7 +173,15 @@ export default {
      getModelParts,
      editModel,
      saveBasicInfo,
-     editBasicInfo
+     editBasicInfo,
+     saveEquityInfo,
+     editEquityInfo,
+     saveOfferInfo,
+     editOfferInfo,
+     saveCapitalizationInfo,
+     editCapitalizationInfo,
+     saveCashFlowInfo,
+     editCashFlowInfo
   },
   auth: {
     login,

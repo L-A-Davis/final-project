@@ -39,7 +39,7 @@ class Api::V1::CapitalizationInfoDataController < ApplicationController
 
     private
       def capitalization_info_datum_params
-        params.require(:capitalization_info_data).permit(:model_id, :company, :item_name, :item_type, :repay, :rate)
+        params.require(:capitalization_info_datum).permit(:model_id, :company, :item_name, :item_type, :repay, :rate, :amount)
       end
 
 

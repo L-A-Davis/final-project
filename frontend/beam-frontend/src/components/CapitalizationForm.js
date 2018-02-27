@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { updateCapitalizationForm, setCapitalizationInfo } from '../actions'
+import { updateCapitalizationForm, resetCapitalizationInfo, newCapitalizationInfo } from '../actions'
 
 
 class CapitalizationForm extends React.Component {
@@ -11,215 +11,183 @@ class CapitalizationForm extends React.Component {
   })
  }
 
+ handleDataSave = (data) =>{
+   for (let i = 0; i< data.length; i++){
+     if (data[i].id !== "") {
+     this.props.resetCapitalizationInfo(data[i])
+   } else {
+     this.props.newCapitalizationInfo(data[i])
+   }
+  }
+ }
+
 
  handleSubmit = (e) => {
    e.preventDefault();
    const form  = this.props.CapitalizationFormData
-   this.props.setCapitalizationInfo({
-     capitalization_info_datum: [
+   let info =  [
        {
+         id: form.CompanyA_cash_id,
          model_id: this.props.modelData.id,
          company: "A",
          item_name: "cash_and_equivalents",
          item_type: "cash",
-         amount: form.CompanyA_cash,
-         repay: form.CompanyA_cash_use,
-         rate: form.CompanyA_cash_rate,
+         amount: form.CompanyA_cash || 0,
+         repay: form.CompanyA_cash_use || false,
+         rate: form.CompanyA_cash_rate || 0,
        },
        {
+         id: form.CompanyB_cash_id,
          model_id: this.props.modelData.id,
          company: "B",
          item_name: "cash_and_equivalents",
          item_type: "cash",
-         amount: form.CompanyB_cash,
-         repay: form.CompanyB_cash_use,
-         rate: form.CompanyB_cash_rate,
+         amount: form.CompanyB_cash || 0,
+         repay: form.CompanyB_cash_use || false ,
+         rate: form.CompanyB_cash_rate || 0,
        },
        {
+         id: form.CompanyA_otherLiquidAssets_id,
          model_id: this.props.modelData.id,
          company: "A",
          item_name: "other_liquid_assets",
          item_type: "cash",
-         amount: form.CompanyA_otherLiquidAssets,
-         repay: form.CompanyA_otherLiquidAssets_use,
-         rate: form.CompanyA_otherLiquidAssets_rate,
+         amount: form.CompanyA_otherLiquidAssets || 0,
+         repay: form.CompanyA_otherLiquidAssets_use || false ,
+         rate: form.CompanyA_otherLiquidAssets_rate || 0,
        },
        {
+         id: form.CompanyB_otherLiquidAssets_id,
          model_id: this.props.modelData.id,
          company: "B",
          item_name: "other_liquid_assets",
          item_type: "cash",
-         amount: form.CompanyB_otherLiquidAssets,
-         repay: form.CompanyB_otherLiquidAssets_use,
-         rate: form.CompanyB_otherLiquidAssets_rate,
+         amount: form.CompanyB_otherLiquidAssets || 0,
+         repay: form.CompanyB_otherLiquidAssets_use || false ,
+         rate: form.CompanyB_otherLiquidAssets_rate || 0,
        },
        {
+         id: form.CompanyA_mortgageDebt_id,
          model_id: this.props.modelData.id,
          company: "A",
          item_name: "mortgage_debt",
          item_type: "debt",
-         amount: form.CompanyA_mortgageDebt,
-         repay: form.CompanyA_mortgageDebt_repay,
-         rate: form.CompanyA_mortgageDebt_rate,
+         amount: form.CompanyA_mortgageDebt || 0,
+         repay: form.CompanyA_mortgageDebt_repay || false ,
+         rate: form.CompanyA_mortgageDebt_rate || 0,
        },
        {
+         id: form.CompanyB_mortgageDebt_id,
          model_id: this.props.modelData.id,
          company: "B",
          item_name: "mortgage_debt",
          item_type: "debt",
-         amount: form.CompanyB_mortgageDebt,
-         repay: form.CompanyB_mortgageDebt_repay,
-         rate: form.CompanyB_mortgageDebt_rate,
+         amount: form.CompanyB_mortgageDebt || 0,
+         repay: form.CompanyB_mortgageDebt_repay || false ,
+         rate: form.CompanyB_mortgageDebt_rate || 0,
        },
        {
+         id: form.CompanyA_shareOfJVDebt_id,
          model_id: this.props.modelData.id,
          company: "A",
          item_name: "share_JV_debt",
          item_type: "debt",
-         amount: form.CompanyA_shareOfJVDebt,
-         repay: form.CompanyA_shareOfJVDebt_repay,
-         rate: form.CompanyA_shareOfJVDebt_rate,
+         amount: form.CompanyA_shareOfJVDebt || 0,
+         repay: form.CompanyA_shareOfJVDebt_repay || false ,
+         rate: form.CompanyA_shareOfJVDebt_rate || 0,
        },
        {
+         id: form.CompanyB_shareOfJVDebt_id,
          model_id: this.props.modelData.id,
          company: "B",
          item_name: "share_JV_debt",
          item_type: "debt",
-         amount: form.CompanyB_shareOfJVDebt,
-         repay: form.CompanyB_shareOfJVDebt_repay,
-         rate: form.CompanyB_shareOfJVDebt_rate,
+         amount: form.CompanyB_shareOfJVDebt || 0,
+         repay: form.CompanyB_shareOfJVDebt_repay || false ,
+         rate: form.CompanyB_shareOfJVDebt_rate || 0,
        },
        {
+         id: form.CompanyA_bonds_id,
          model_id: this.props.modelData.id,
          company: "A",
          item_name: "bonds",
          item_type: "debt",
-         amount: form.CompanyA_bonds,
-         repay: form.CompanyA_bonds_repay,
-         rate: form.CompanyA_bonds_rate,
+         amount: form.CompanyA_bonds || 0,
+         repay: form.CompanyA_bonds_repay || false,
+         rate: form.CompanyA_bonds_rate || 0,
        },
        {
+         id: form.CompanyB_bonds_id,
          model_id: this.props.modelData.id,
          company: "B",
          item_name: "bonds",
          item_type: "debt",
-         amount: form.CompanyB_bonds,
-         repay: form.CompanyB_bonds_repay,
-         rate: form.CompanyB_bonds_rate,
+         amount: form.CompanyB_bonds || 0,
+         repay: form.CompanyB_bonds_repay || false ,
+         rate: form.CompanyB_bonds_rate || 0,
        },
        {
+         id: form.CompanyA_creditFacility_id,
          model_id: this.props.modelData.id,
          company: "A",
          item_name: "credit_facility",
          item_type: "debt",
-         amount: form.CompanyA_creditFacility,
-         repay: form.CompanyA_creditFacility_repay,
-         rate: form.CompanyA_creditFacility_rate,
+         amount: form.CompanyA_creditFacility || 0,
+         repay: form.CompanyA_creditFacility_repay || false,
+         rate: form.CompanyA_creditFacility_rate || 0,
        },
        {
+         id: form.CompanyB_creditFacility_id,
          model_id: this.props.modelData.id,
          company: "B",
          item_name: "credit_facility",
          item_type: "debt",
-         amount: form.CompanyB_creditFacility,
-         repay: form.CompanyB_creditFacility_repay,
-         rate: form.CompanyB_creditFacility_rate,
+         amount: form.CompanyB_creditFacility || 0,
+         repay: form.CompanyB_creditFacility_repay || false,
+         rate: form.CompanyB_creditFacility_rate || 0,
        },
        {
+         id: form.CompanyA_mezzDebt_id,
          model_id: this.props.modelData.id,
          company: "A",
          item_name: "mezz_debt",
          item_type: "debt",
-         amount: form.CompanyA_mezzDebt,
-         repay: form.CompanyA_mezzDebt_repay,
-         rate: form.CompanyA_mezzDebt_rate,
+         amount: form.CompanyA_mezzDebt || 0,
+         repay: form.CompanyA_mezzDebt_repay || false,
+         rate: form.CompanyA_mezzDebt_rate || 0,
        },
        {
+         id: form.CompanyB_mezzDebt_id,
          model_id: this.props.modelData.id,
          company: "B",
          item_name: "mezz_debt",
          item_type: "debt",
-         amount: form.CompanyB_mezzDebt,
-         repay: form.CompanyB_mezzDebt_repay,
-         rate: form.CompanyB_mezzDebt_rate,
+         amount: form.CompanyB_mezzDebt || 0,
+         repay: form.CompanyB_mezzDebt_repay || false,
+         rate: form.CompanyB_mezzDebt_rate || 0,
        },
        {
+         id: form.CompanyA_preferredEquity_id,
          model_id: this.props.modelData.id,
          company: "A",
          item_name: "preferred_equity",
          item_type: "preferred",
-         amount: form.CompanyA_preferredEquity,
-         repay: form.CompanyA_preferredEquity_repay,
-         rate: form.CompanyA_preferredEquity_rate,
+         amount: form.CompanyA_preferredEquity || 0,
+         repay: form.CompanyA_preferredEquity_repay || false,
+         rate: form.CompanyA_preferredEquity_rate || 0,
        },
        {
+         id: form.CompanyB_preferredEquity_id,
          model_id: this.props.modelData.id,
          company: "B",
          item_name: "preferred_equity",
          item_type: "preferred",
-         amount: form.CompanyB_preferredEquity,
-         repay: form.CompanyB_preferredEquity_repay,
-         rate: form.CompanyB_preferredEquity_rate,
+         amount: form.CompanyB_preferredEquity || 0,
+         repay: form.CompanyB_preferredEquity_repay || false,
+         rate: form.CompanyB_preferredEquity_rate || 0,
        },
-     ]
-   });
-   this.props.updateCapitalizationForm({
-     CompanyA_cash: '',
-     CompanyA_cash_use: false,
-     CompanyA_cash_rate: '',
-     CompanyB_cash: '',
-     CompanyB_cash_use: false,
-     CompanyB_cash_rate: '',
-
-     CompanyA_otherLiquidAssets: '',
-     CompanyA_otherLiquidAssets_use: false,
-     CompanyA_otherLiquidAssets_rate: '',
-     CompanyB_otherLiquidAssets: '',
-     CompanyB_otherLiquidAssets_use: false,
-     CompanyB_otherLiquidAssets_rate: '',
-
-     CompanyA_mortgageDebt: '',
-     CompanyA_mortgageDebt_repay: false,
-     CompanyA_mortgageDebt_rate: '',
-     CompanyB_mortgageDebt: '',
-     CompanyB_mortgageDebt_repay: false,
-     CompanyB_mortgageDebt_rate: '',
-
-     CompanyA_shareOfJVDebt: '',
-     CompanyA_shareOfJVDebt_repay: false,
-     CompanyA_shareOfJVDebt_rate: '',
-     CompanyB_shareOfJVDebt: '',
-     CompanyB_shareOfJVDebt_repay: false,
-     CompanyB_shareOfJVDebt_rate: '',
-
-     CompanyA_bonds: '',
-     CompanyA_bonds_repay: false,
-     CompanyA_bonds_rate: '',
-     CompanyB_bonds: '',
-     CompanyB_bonds_repay: false,
-     CompanyB_bonds_rate: '',
-
-     CompanyA_creditFacility: '',
-     CompanyA_creditFacility_repay: false,
-     CompanyA_creditFacility_rate: '',
-     CompanyB_creditFacility: '',
-     CompanyB_creditFacility_repay: false,
-     CompanyB_creditFacility_rate: '',
-
-     CompanyA_mezzDebt: '',
-     CompanyA_mezzDebt_repay: false,
-     CompanyA_mezzDebt_rate: '',
-     CompanyB_mezzDebt: '',
-     CompanyB_mezzDebt_repay: false,
-     CompanyB_mezzDebt_rate: '',
-
-     CompanyA_preferredEquity: '',
-     CompanyA_preferredEquity_repay: false,
-     CompanyA_preferredEquity_rate: '',
-     CompanyB_preferredEquity: '',
-     CompanyB_preferredEquity_repay: false,
-     CompanyB_preferredEquity_rate: ''
-   })
+     ];
+   this.handleDataSave(info)
    this.props.next()
  }
 
@@ -735,7 +703,7 @@ class CapitalizationForm extends React.Component {
  }
 }
 
-export default connect (state => {return {CapitalizationFormData: state.CapitalizationFormData, modelData: state.modelData }}, { updateCapitalizationForm, setCapitalizationInfo })(CapitalizationForm);
+export default connect (state => {return {CapitalizationFormData: state.CapitalizationFormData, modelData: state.modelData }}, { updateCapitalizationForm, resetCapitalizationInfo, newCapitalizationInfo })(CapitalizationForm);
 
 
 //

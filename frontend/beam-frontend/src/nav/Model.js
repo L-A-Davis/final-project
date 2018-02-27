@@ -56,11 +56,10 @@ handleButtonClick = (e) =>{
   })
 }
 
-
   handleNewModelSubmission = () => {
     this.setState({
-      showNewModelForm: !this.state.showNewModelForm,
-      completedNewModelForm: !this.state.completedNewModelForm,
+      showNewModelForm: false,
+      completedNewModelForm: true,
       showBasicInfoForm: !this.state.showBasicInfoForm,
     })
   }

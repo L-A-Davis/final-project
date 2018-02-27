@@ -39,8 +39,9 @@ class Api::V1::TransactionCostsController < ApplicationController
 
   private
     def transaction_cost_params
-      params.require(:offer_info_data).permit(:model_id, :name, :input_type, :data_input)
+      params.require(:transaction_cost).permit(:model_id, :name, :input_type, :data_input)
     end
+
 
 
 end

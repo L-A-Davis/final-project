@@ -33,37 +33,91 @@ export function newBasicInfo(formData) {
   }
 }
 
-export function setEquityInfo(formData) {
-  return { type: "UPDATE_MODELDATA", payload: formData };
-}
 
 export function updateEquityForm(formData) {
   return { type: "UPDATE_EQUITYINFO_FORM", payload: formData };
 }
 
-export function setOfferInfo(formData) {
-  return { type: "UPDATE_MODELDATA", payload: formData };
+export function resetEquityInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.editEquityInfo(formData).then(resp => {
+      dispatch({ type: 'UPDATE_EQUITY_DATA', payload: resp})
+    })
+  }
 }
+
+export function newEquityInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.saveEquityInfo(formData).then(resp => {
+      dispatch({ type: 'SAVE_EQUITY_DATA', payload: resp})
+    })
+  }
+}
+
 
 export function updateOfferForm(formData) {
   return { type: "UPDATE_OFFER_FORM", payload: formData };
 }
 
-export function setCapitalizationInfo(formData) {
-  return { type: "UPDATE_MODELDATA", payload: formData };
+export function resetOfferInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.editOfferInfo(formData).then(resp => {
+      dispatch({ type: 'UPDATE_OFFER_DATA', payload: resp})
+    })
+  }
+}
+
+export function newOfferInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.saveOfferInfo(formData).then(resp => {
+      dispatch({ type: 'SAVE_OFFER_DATA', payload: resp})
+    })
+  }
 }
 
 export function updateCapitalizationForm(formData) {
   return { type: "UPDATE_CAPITALIZATION_FORM", payload: formData };
 }
 
-export function setCashFlowInfo(formData) {
-  return { type: "UPDATE_MODELDATA", payload: formData };
+export function resetCapitalizationInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.editCapitalizationInfo(formData).then(resp => {
+      dispatch({ type: 'UPDATE_CAPITALIZATION_DATA', payload: resp})
+    })
+  }
 }
+
+export function newCapitalizationInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.saveCapitalizationInfo(formData).then(resp => {
+      dispatch({ type: 'SAVE_CAPITALIZATION_DATA', payload: resp})
+    })
+  }
+}
+
 
 export function updateCashFlowForm(formData) {
   return { type: "UPDATE_CASHFLOW_FORM", payload: formData };
 }
+
+
+export function resetCashFlowInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.editCashFlowInfo(formData).then(resp => {
+      dispatch({ type: 'UPDATE_CASHFLOW_DATA', payload: resp})
+    })
+  }
+}
+
+export function newCashFlowInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.saveCashFlowInfo(formData).then(resp => {
+      dispatch({ type: 'SAVE_CASHFLOW_DATA', payload: resp})
+    })
+  }
+}
+
+
 export function setTransactionCostsInfo(formData) {
   return { type: "UPDATE_MODELDATA", payload: formData };
 }
@@ -78,9 +132,9 @@ export function selectExistingProject(id) {
   return { type: "SELECT_PROJECT", payload: id };
 }
 
-export function selectExistingModel(id) {
-  return { type: "SELECT_MODEL", payload: id };
-}
+// export function selectExistingModel(id) {
+//   return { type: "SELECT_MODEL", payload: id };
+// }
 
 export function fetchExistingProjects(id) {
   return dispatch => {

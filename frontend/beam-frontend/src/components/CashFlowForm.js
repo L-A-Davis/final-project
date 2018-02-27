@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { updateCashFlowForm, setCashFlowInfo } from '../actions'
+import { updateCashFlowForm, resetCashFlowInfo, newCashFlowInfo } from '../actions'
 
 
 class CashFlowForm extends React.Component {
@@ -11,101 +11,107 @@ class CashFlowForm extends React.Component {
    })
  }
 
+ handleDataSave = (data) =>{
+   for (let i = 0; i< data.length; i++){
+     if (data[i].id !== "") {
+     this.props.resetCashFlowInfo(data[i])
+   } else {
+     this.props.newCashFlowInfo(data[i])
+   }
+  }
+ }
+
+
  handleSubmit = (e) => {
    e.preventDefault();
   const form  = this.props.CashFlowFormData
-   this.props.setCashFlowInfo({
-     cash_flow_info_datum:[
+  let info = [
         {
+          id: form.CompanyA_FFOPerShare_id,
           model_id: this.props.modelData.id,
           company: "A",
           item_name: "FFO_Per_Share",
           amount_year1: form.CompanyA_FFOPerShare_1
         },
         {
+          id: form.CompanyB_FFOPerShare_id,
           model_id: this.props.modelData.id,
           company: "B",
           item_name: "FFO_Per_Share",
           amount_year1: form.CompanyB_FFOPerShare_1
         },
         {
+          id: form.CompanyA_AFFOPerShare_id,
           model_id: this.props.modelData.id,
           company: "A",
           item_name: "AFFO_Per_Share",
-          amount_year1: form.CompanyA_AFFOPerShare_1
+          amount_year1: form.CompanyA_AFFOPerShare_1 || 0
         },
         {
+          id: form.CompanyB_AFFOPerShare_id,
           model_id: this.props.modelData.id,
           company: "B",
           item_name: "AFFO_Per_Share",
-          amount_year1: form.CompanyB_AFFOPerShare_1
+          amount_year1: form.CompanyB_AFFOPerShare_1 || 0
         },
         {
+          id: form.CompanyA_revenue_id,
           model_id: this.props.modelData.id,
           company: "A",
           item_name: "Revenue",
-          amount_year1: form.CompanyA_revenue_1
+          amount_year1: form.CompanyA_revenue_1 || 0
         },
         {
+          id: form.CompanyB_revenue_id,
           model_id: this.props.modelData.id,
           company: "B",
           item_name: "Revenue",
-          amount_year1: form.CompanyB_revenue_1
+          amount_year1: form.CompanyB_revenue_1 || 0
         },
         {
+          id: form.CompanyA_NOI_id,
           model_id: this.props.modelData.id,
           company: "A",
           item_name: "NOI",
-          amount_year1: form.CompanyA_NOI_1
+          amount_year1: form.CompanyA_NOI_1 || 0
         },
         {
+          id: form.CompanyB_NOI_id,
           model_id: this.props.modelData.id,
           company: "B",
           item_name: "NOI",
-          amount_year1: form.CompanyB_NOI_1
+          amount_year1: form.CompanyB_NOI_1 || 0
         },
         {
+          id: form.CompanyA_GA_id,
           model_id: this.props.modelData.id,
           company: "A",
           item_name: "GA",
           amount_year1: form.CompanyA_GA_1
         },
         {
+          id: form.CompanyB_GA_id,
           model_id: this.props.modelData.id,
           company: "B",
           item_name: "GA",
           amount_year1: form.CompanyB_GA_1
         },
         {
+          id: form.CompanyA_EBITDA_id,
           model_id: this.props.modelData.id,
           company: "A",
           item_name: "EBITDA",
-          amount_year1: form.CompanyA_EBITDA_1
+          amount_year1: form.CompanyA_EBITDA_1 || 0
         },
         {
+          id: form.CompanyB_EBITDA_id,
           model_id: this.props.modelData.id,
           company: "B",
           item_name: "EBITDA",
-          amount_year1: form.CompanyB_EBITDA_1
+          amount_year1: form.CompanyB_EBITDA_1 || 0
         }
      ]
-     });
-     this.props.updateCashFlowForm({
-       CompanyA_FFOPerShare_1: "",
-       CompanyB_FFOPerShare_1: "",
-       CompanyA_AFFOPerShare_1: "",
-       CompanyB_AFFOPerShare_1: "",
-       CompanyA_revenue_1: "",
-       CompanyB_revenue_1: "",
-       CompanyA_NOI_1: "",
-       CompanyB_NOI_1: "",
-       CompanyA_GA_1: "",
-       CompanyB_GA_1: "",
-       CompanyA_EBITDA_1: "",
-       CompanyB_EBITDA_1: "",
-       GA_synergies_type: '',
-       GA_synergies_input: ""
-     })
+     this.handleDataSave(info)
      this.props.next()
     }
 
@@ -273,4 +279,4 @@ class CashFlowForm extends React.Component {
  }
 }
 
-export default connect (state => {return {CashFlowFormData: state.CashFlowFormData, modelData: state.modelData }}, { updateCashFlowForm, setCashFlowInfo })(CashFlowForm);
+export default connect (state => {return {CashFlowFormData: state.CashFlowFormData, modelData: state.modelData }}, { updateCashFlowForm, resetCashFlowInfo, newCashFlowInfo })(CashFlowForm);

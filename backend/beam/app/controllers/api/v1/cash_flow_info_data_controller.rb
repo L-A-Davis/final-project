@@ -1,4 +1,4 @@
-class CashFlowInfoDataController < ApplicationController
+class Api::V1::CashFlowInfoDataController < ApplicationController
 
     def index
     @cashflow_info_data = CashFlowInfoDatum.all
@@ -38,7 +38,7 @@ class CashFlowInfoDataController < ApplicationController
 
   private
     def cashflow_info_datum_params
-      params.require(:cashflow_info_data).permit(:model_id, :company, :item_name, :amount_year1, :amount_year2)
+      params.require(:cash_flow_info_datum).permit(:model_id, :company, :item_name, :amount_year1, :amount_year2)
     end
 
 end

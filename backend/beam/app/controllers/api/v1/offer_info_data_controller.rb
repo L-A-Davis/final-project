@@ -38,7 +38,7 @@ class Api::V1::OfferInfoDataController < ApplicationController
 
   private
     def offer_info_datum_params
-      params.require(:offer_info_data).permit(:model_id, :offer_type, :offer_metric, :percentage_stock)
+      params.require(:offer_info_datum).permit(:model_id, :offer_type, :offer_metric, :percentage_stock)
     end
 
 

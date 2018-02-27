@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { updateEquityForm, setEquityInfo } from '../actions'
+import { updateEquityForm, resetEquityInfo, newEquityInfo } from '../actions'
 
 
 class EquityForm extends React.Component {
@@ -11,30 +11,33 @@ class EquityForm extends React.Component {
    })
  }
 
+ handleDataSave = (data) =>{
+   for (let i = 0; i< data.length; i++){
+     if (data[i].id !== "") {
+     this.props.resetEquityInfo(data[i])
+   } else {
+     this.props.newEquityInfo(data[i])
+   }
+  }
+ }
+
  handleSubmit = (e) => {
    e.preventDefault();
-   this.props.setEquityInfo({
-     equity_info_datum: [
-       {  company: "A",
-          currentSharePrice: this.props.EquityFormData.CompanyA_currentSharePrice,
-          shares: this.props.EquityFormData.CompanyA_shares,
-          dividend: this.props.EquityFormData.CompanyA_dividend,
-          model_id: this.props.modelData.id},
-       { company: "B",
-          currentSharePrice: this.props.EquityFormData.CompanyB_currentSharePrice,
-          shares: this.props.EquityFormData.CompanyB_shares,
-          dividend: this.props.EquityFormData.CompanyB_dividend,
-          model_id: this.props.modelData.id}
-     ]
-   });
-   this.props.updateEquityForm({
-     CompanyA_currentSharePrice: '',
-     CompanyB_currentSharePrice: '',
-     CompanyA_shares: '',
-     CompanyB_shares: '',
-     CompanyA_dividend: '',
-     CompanyB_dividend: ''
-   })
+   let info = [
+     {  company: "A",
+        id: this.props.EquityFormData.CompanyA_id,
+        currentSharePrice: this.props.EquityFormData.CompanyA_currentSharePrice,
+        shares: this.props.EquityFormData.CompanyA_shares,
+        dividend: this.props.EquityFormData.CompanyA_dividend,
+        model_id: this.props.modelData.id},
+     { company: "B",
+        id: this.props.EquityFormData.CompanyB_id,
+        currentSharePrice: this.props.EquityFormData.CompanyB_currentSharePrice,
+        shares: this.props.EquityFormData.CompanyB_shares,
+        dividend: this.props.EquityFormData.CompanyB_dividend,
+        model_id: this.props.modelData.id}
+   ]
+   this.handleDataSave(info)
    this.props.next()
  }
 
@@ -45,14 +48,14 @@ class EquityForm extends React.Component {
         <h3>Equity Info</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="three-columns-form">
-       {(this.props.modelData != null|| this.props.modelData.basic_info_datum.length > 0) ?
+       {(this.props.modelData.basic_info_datum.length === 2) ?
         <label className="form-input-1">
         {this.props.modelData.basic_info_datum[0].codename} </label>
 
          :
         <label className="form-input-1">Company A</label> }
 
-        {(this.props.modelData.basic_info_datum != null || this.props.modelData.basic_info_datum) ?
+        {(this.props.modelData.basic_info_datum.length === 2)  ?
          <label className="form-input-2">
          {this.props.modelData.basic_info_datum[1].codename} </label>
 
@@ -116,4 +119,4 @@ class EquityForm extends React.Component {
  }
 }
 
-export default connect (state => {return {EquityFormData: state.EquityFormData, modelData: state.modelData }}, { updateEquityForm, setEquityInfo })(EquityForm);
+export default connect (state => {return {EquityFormData: state.EquityFormData, modelData: state.modelData }}, { updateEquityForm, resetEquityInfo, newEquityInfo })(EquityForm);
