@@ -4,7 +4,7 @@ import WithAuth from '../wrappers/WithAuth'
 import MyProjects from '../components/MyProjects';
 import NewProjectForm from '../components/NewProjectForm';
 import Project from './Project'
-import { fetchExistingProjects } from '../actions'
+import { fetchExistingProjects, resetModelData } from '../actions'
 import { connect } from 'react-redux'
 
 class Profile extends React.Component {
@@ -17,6 +17,7 @@ class Profile extends React.Component {
 
  componentDidMount() {
    this.props.fetchExistingProjects(this.props.auth.currentUser.id)
+   this.props.resetModelData()
  }
 
  handleNewProjectClick = () => {
@@ -43,7 +44,8 @@ class Profile extends React.Component {
       { this.state.showNewProjectForm &&
       <NewProjectForm currentUser={this.props.auth.currentUser}
       exit={this.handleNewProjectClick}
-      history={this.props.history}/>
+      history={this.props.history}
+      />
       }
 
       </div>
@@ -52,4 +54,4 @@ class Profile extends React.Component {
  }
 }
 
- export default connect((state)=> ({allProjects: state.allProjects}), { fetchExistingProjects })(WithAuth(Profile))
+ export default connect(state=> {return {allProjects: state.allProjects, modelData: state.modelData}}, { fetchExistingProjects, resetModelData })(WithAuth(Profile))

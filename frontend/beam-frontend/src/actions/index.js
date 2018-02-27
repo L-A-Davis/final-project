@@ -118,14 +118,25 @@ export function newCashFlowInfo(formData) {
 }
 
 
-export function setTransactionCostsInfo(formData) {
-  return { type: "UPDATE_MODELDATA", payload: formData };
-}
-
-export function updateTransactionCostsForm(formData) {
+export function updateTransactionCostForm(formData) {
   return { type: "UPDATE_TRANSACTIONCOSTS_FORM", payload: formData };
 }
 
+export function resetTransactionCostInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.editTransactionCostInfo(formData).then(resp => {
+      dispatch({ type: 'UPDATE_TRANSACTIONCOSTS_DATA', payload: resp})
+    })
+  }
+}
+
+export function newTransactionCostInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.saveTransactionCostInfo(formData).then(resp => {
+      dispatch({ type: 'SAVE_TRANSACTIONCOSTS_DATA', payload: resp})
+    })
+  }
+}
 
 
 export function selectExistingProject(id) {
@@ -177,10 +188,16 @@ export function addNewModel(info) {
   }
 }
 
+
 export function editModel(info) {
   return dispatch => {
     adapter.eventHandlers.editModel(info).then(resp => {
       dispatch({ type: 'EDIT_MODEL', payload: resp})
     })
   }
+}
+
+
+export function resetModelData() {
+  return { type: "RESET_MODEL_DATA", payload: "" };
 }

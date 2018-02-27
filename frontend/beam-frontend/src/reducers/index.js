@@ -156,23 +156,36 @@ export default function companyBasicInfoReducer(
       GA_synergies_input: ""
     },
      TransactionCostsFormData: {
+      Deal_costs_id: "",
       Deal_costs_type: "",
       Deal_costs_input: "",
+      CompanyA_LAO_costs_id: "",
       CompanyA_LAO_costs_type: "",
       CompanyA_LAO_costs_input: "",
+      CompanyB_LAO_costs_id: "",
       CompanyB_LAO_costs_type: "",
       CompanyB_LAO_costs_input: "",
+
+      Swap_Breakage_id: "",
       Swap_Breakage_type: "",
       Swap_Breakage_input: "",
+      Debt_Prepayment_id: "",
       Debt_Prepayment_type: "",
       Debt_Prepayment_input: "",
+      Debt_Assumption_id: "",
       Debt_Assumption_type: "",
       Debt_Assumption_input: "",
+      Debt_Issuance_id: "",
       Debt_Issuance_type: "",
       Debt_Issuance_input: "",
+
+      Bond_Prepayment_id: "",
       Bond_Prepayment_input: "",
+      Transfer_Taxes_id: "",
       Transfer_Taxes_input: "",
+      Employee_Costs_id: "",
       Employee_Costs_input: "",
+      Other_Costs_id: "",
       Other_Costs_input: ""
      }
      },
@@ -277,6 +290,32 @@ export default function companyBasicInfoReducer(
        let EBITDA_CompanyA_data = cash_flow_data.find(item => item.item_name === "EBITDA" && item.company === "A" ) || {id: "", company: "", item_name: "", amount_year1: ""}
 
         let EBITDA_CompanyB_data = cash_flow_data.find(item => item.item_name === "EBITDA" && item.company === "B" ) || {id: "", company: "", item_name: "", amount_year1: ""}
+
+
+    let cost_data = action.payload.transaction_cost
+
+    let deal_costs_data = cost_data.find(item => item.name === "Overall_deal_costs") || {id: "", name: "", item_type: "", data_input: ""}
+
+    let LAO_CompanyA_data = cost_data.find(item => item.name === "CompanyA_LAO_costs") || {id: "", name: "", item_type: "", data_input: ""}
+
+    let LAO_CompanyB_data = cost_data.find(item => item.name === "CompanyB_LAO_costs") || {id: "", name: "", item_type: "", data_input: ""}
+
+    let swap_breakage_data = cost_data.find(item => item.name === "swap_breakage_costs") || {id: "", name: "", item_type: "", data_input: ""}
+
+    let debt_prepayment_data = cost_data.find(item => item.name === "debt_prepayment_costs") || {id: "", name: "", item_type: "", data_input: ""}
+
+    let debt_assumption_data = cost_data.find(item => item.name === "debt_assumption_costs") || {id: "", name: "", item_type: "", data_input: ""}
+
+    let debt_issuance_data = cost_data.find(item => item.name === "debt_issuance_costs") || {id: "", name: "", item_type: "", data_input: ""}
+
+    let bond_prepayment_data = cost_data.find(item => item.name === "bond_prepayment_costs") || {id: "", name: "", item_type: "", data_input: ""}
+
+    let transfer_taxes_data = cost_data.find(item => item.name === "transfer_taxes") || {id: "", name: "", item_type: "", data_input: ""}
+
+    let employee_costs_data = cost_data.find(item => item.name === "employee_costs") || {id: "", name: "", item_type: "", data_input: ""}
+
+    let other_costs_data = cost_data.find(item => item.name === "other_costs") || {id: "", name: "", item_type: "", data_input: ""}
+
 
     return {
             ...state,
@@ -407,7 +446,41 @@ export default function companyBasicInfoReducer(
               CompanyA_EBITDA_1: EBITDA_CompanyA_data.amount_year1,
               CompanyB_EBITDA_id: EBITDA_CompanyB_data.id,
               CompanyB_EBITDA_1: EBITDA_CompanyB_data.id,
+            },
+            TransactionCostsFormData: {
+             Deal_costs_id: deal_costs_data.id,
+             Deal_costs_type: deal_costs_data.input_type,
+             Deal_costs_input: deal_costs_data.data_input,
+             CompanyA_LAO_costs_id: LAO_CompanyA_data.id,
+             CompanyA_LAO_costs_type: LAO_CompanyA_data.input_type,
+             CompanyA_LAO_costs_input: LAO_CompanyA_data.data_input,
+             CompanyB_LAO_costs_id: LAO_CompanyB_data.id,
+             CompanyB_LAO_costs_type: LAO_CompanyB_data.input_type,
+             CompanyB_LAO_costs_input: LAO_CompanyB_data.data_input,
+
+             Swap_Breakage_id: swap_breakage_data.id,
+             Swap_Breakage_type: swap_breakage_data.input_type,
+             Swap_Breakage_input: swap_breakage_data.data_input,
+             Debt_Prepayment_id: debt_prepayment_data.id,
+             Debt_Prepayment_type: debt_prepayment_data.input_type,
+             Debt_Prepayment_input: debt_prepayment_data.data_input,
+             Debt_Assumption_id: debt_assumption_data.id,
+             Debt_Assumption_type: debt_assumption_data.input_type,
+             Debt_Assumption_input: debt_assumption_data.data_input,
+             Debt_Issuance_id: debt_issuance_data.id,
+             Debt_Issuance_type: debt_issuance_data.input_type,
+             Debt_Issuance_input: debt_issuance_data.data_input,
+
+             Bond_Prepayment_id: bond_prepayment_data.id,
+             Bond_Prepayment_input: bond_prepayment_data.data_input,
+             Transfer_Taxes_id: transfer_taxes_data.id,
+             Transfer_Taxes_input: transfer_taxes_data.data_input,
+             Employee_Costs_id: employee_costs_data.id,
+             Employee_Costs_input: employee_costs_data.data_input,
+             Other_Costs_id: other_costs_data.id,
+             Other_Costs_input: other_costs_data.data_input
             }
+
             }
 
             // :model_id, :company, :item_name, :item_type, :repay, :rate
@@ -612,6 +685,28 @@ export default function companyBasicInfoReducer(
            cash_flow_info_datum:[      ...state.modelData.cash_flow_info_datum, {...action.payload}]}
          }
 
+     case "UPDATE_TRANSACTIONCOSTS_DATA":
+       return {
+         ...state,
+         modelData: {...state.modelData,
+         transaction_cost: state.modelData.transaction_cost.map(item => {
+           if(item.id === action.payload.id) {
+             return action.payload
+           } else {
+             return item
+           }
+         })
+         }
+       }
+
+   case "SAVE_TRANSACTIONCOSTS_DATA":
+     return {
+       ...state,
+       modelData: {...state.modelData,
+        transaction_cost:[      ...state.modelData.transaction_cost, {...action.payload}]}
+      }
+
+
        case "SET_NEW_MODEL":
         return {
                 ...state,
@@ -623,6 +718,14 @@ export default function companyBasicInfoReducer(
                ...state,
                modelData: action.payload
              };
+
+       case "RESET_MODEL_DATA":
+        return {
+                ...state,
+                modelData: {},
+                allModelsforProject: [],
+                selectedProjectData: {}
+              };
       //
       // case "SET_COMPANY":
       //   return {

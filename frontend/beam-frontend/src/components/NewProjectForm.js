@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { updateNewProjectForm, setProjectInfo, addNewProject } from '../actions'
+import { updateNewProjectForm, setProjectInfo, addNewProject, resetModelData } from '../actions'
 import ProjectTypeSelect from './ProjectTypeSelect';
 
 class NewProjectForm extends React.Component {
@@ -13,6 +13,7 @@ class NewProjectForm extends React.Component {
 
  handleSubmit = (e) => {
    e.preventDefault();
+   this.props.resetModelData()
    this.props.addNewProject({
      name: this.props.ProjectName,
      deal_type: this.props.Deal_type,
@@ -55,4 +56,4 @@ class NewProjectForm extends React.Component {
  }
 }
 
-export default connect (state => ({ ...state.newProjectFormData }), { updateNewProjectForm, setProjectInfo, addNewProject })(NewProjectForm);
+export default connect (state => ({ ...state.newProjectFormData }), { updateNewProjectForm, setProjectInfo, addNewProject, resetModelData })(NewProjectForm);

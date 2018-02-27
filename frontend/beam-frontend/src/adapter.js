@@ -164,6 +164,24 @@ const editCashFlowInfo = (m) => {
 }).then(res => res.json())
 }
 
+const saveTransactionCostInfo = (m) => {
+  return fetch(`${API_ROOT}/transaction_costs`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify({transaction_cost: {model_id: m.model_id, name: m.name, input_type: m.input_type, data_input: m.data_input}})
+  }).then(res => res.json())
+}
+
+
+const editTransactionCostInfo = (m) => {
+  return fetch(`${API_ROOT}/transaction_costs/${m.id}`, {
+  method: 'PATCH',
+  headers: headers(),
+  body: JSON.stringify({transaction_cost: {model_id: m.model_id, name: m.name, input_type: m.input_type, data_input: m.data_input}})
+}).then(res => res.json())
+}
+
+
 export default {
   eventHandlers: {
      getProjects,
@@ -181,7 +199,9 @@ export default {
      saveCapitalizationInfo,
      editCapitalizationInfo,
      saveCashFlowInfo,
-     editCashFlowInfo
+     editCashFlowInfo,
+     saveTransactionCostInfo,
+     editTransactionCostInfo
   },
   auth: {
     login,
