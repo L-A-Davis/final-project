@@ -185,9 +185,9 @@ export default function companyBasicInfoReducer(
       Other_Costs_input: ""
     },
     TransactionAdjustmentsFormData: {
-     GA_synergies_id: "",
-     GA_synergies_type: "",
-     GA_synergies_input: "",
+     Synergies_id: "",
+     Synergies_type: "",
+     Synergies_input: "",
      New_financing_1_id: "",
      New_financing_1_rate: "",
      New_financing_1_amount: "",
@@ -339,7 +339,17 @@ export default function companyBasicInfoReducer(
 
     let other_costs_data = cost_data.find(item => item.name === "other_costs") || {id: "", name: "", item_type: "", data_input: ""}
 
-   // add transaction adjustments
+   let new_financing_data = action.payload.new_financing_info_datum
+
+   let new_financing_1_data = new_financing_data.find(item => item.item_name === "New_financing_1") || {id: "", item_name: "", item_type: "", amount: "", rate: ""}
+
+   let new_financing_2_data = new_financing_data.find(item => item.item_name === "New_financing_2") || {id: "", item_name: "", item_type: "", amount: "", rate: ""}
+
+   let new_financing_3_data = new_financing_data.find(item => item.item_name === "New_financing_3") || {id: "", item_name: "", item_type: "", amount: "", rate: ""}
+
+    let synergies_data = action.payload.synergies_info_datum
+
+    let synergies_1_data = synergies_data.find(item => item.item_name === "GA_synergies") || {id: "", item_name: "", item_type: "", input_amount: ""}
 
     return {
             ...state,
@@ -504,6 +514,23 @@ export default function companyBasicInfoReducer(
              Other_Costs_id: other_costs_data.id,
              Other_Costs_input: other_costs_data.data_input
            },
+       TransactionAdjustmentsFormData: {
+            Synergies_id: synergies_1_data.id,
+            Synergies_type: synergies_1_data.item_type,
+            Synergies_input: synergies_1_data.input_amount,
+            New_financing_1_id: new_financing_1_data.id,
+            New_financing_1_rate: new_financing_1_data.rate,
+            New_financing_1_amount: new_financing_1_data.amount,
+            New_financing_1_type_of: new_financing_1_data.item_type,
+            New_financing_2_id: new_financing_2_data.id,
+            New_financing_2_rate: new_financing_2_data.rate,
+            New_financing_2_amount: new_financing_2_data.amount,
+            New_financing_2_type_of: new_financing_2_data.item_type,
+            New_financing_3_id: new_financing_3_data.id,
+            New_financing_3_rate: new_financing_3_data.rate,
+            New_financing_3_amount: new_financing_3_data.amount,
+            New_financing_3_type_of: new_financing_3_data.item_type
+          },
 
            FormCompletedStatus:{
              newModelFormData: true,
@@ -513,7 +540,7 @@ export default function companyBasicInfoReducer(
              CapitalizationFormData: capitalization_data.length > 0 ? true : false,
              CashFlowFormData: cash_flow_data.length > 0 ? true : false,
              TransactionCostsFormData: cost_data.length > 0 ? true : false,
-             TransactionAdjustmentsFormData: false,
+             TransactionAdjustmentsFormData: (new_financing_data.length > 0 && synergies_data.length > 0) ? true : false,
            }
 
 }
@@ -581,6 +608,12 @@ export default function companyBasicInfoReducer(
             ...state,
             TransactionCostsFormData: {...state.TransactionCostsFormData, ...action.payload}
           }
+
+      case "UPDATE_TRANSACTIONADJUSTMENTS_FORM":
+        return {
+          ...state,
+          TransactionAdjustmentsFormData: {...state.TransactionAdjustmentsFormData, ...action.payload}
+        }
         // case "SUBMIT_NEWPROJECT_FORM":
         //   return {
         //     ...state,
@@ -741,6 +774,51 @@ export default function companyBasicInfoReducer(
        modelData: {...state.modelData,
         transaction_cost:[      ...state.modelData.transaction_cost, {...action.payload}]}
       }
+
+
+      case "UPDATE_SYNERGIES_DATA":
+        return {
+          ...state,
+          modelData: {...state.modelData,
+          synergies_info_datum: state.modelData.synergies_info_datum.map(item => {
+            if(item.id === action.payload.id) {
+              return action.payload
+            } else {
+              return item
+            }
+          })
+          }
+        }
+
+    case "SAVE_SYNERGIES_DATA":
+      return {
+        ...state,
+        modelData: {...state.modelData,
+         synergies_info_datum:[      ...state.modelData.synergies_info_datum, {...action.payload}]}
+       }
+
+
+     case "UPDATE_NEWFINANCING_DATA":
+       return {
+         ...state,
+         modelData: {...state.modelData,
+         new_financing_info_datum: state.modelData.new_financing_info_datum.map(item => {
+           if(item.id === action.payload.id) {
+             return action.payload
+           } else {
+             return item
+           }
+         })
+         }
+       }
+
+   case "SAVE_NEWFINANCING_DATA":
+     return {
+       ...state,
+       modelData: {...state.modelData,
+        new_financing_info_datum:[      ...state.modelData.new_financing_info_datum, {...action.payload}]}
+      }
+
 
 
        case "SET_NEW_MODEL":

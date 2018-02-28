@@ -9,7 +9,7 @@ import OfferForm from '../components/OfferForm';
 import CapitalizationForm from '../components/CapitalizationForm';
 import CashFlowForm from '../components/CashFlowForm';
 import TransactionCosts from '../components/TransactionCosts';
-import SaveModelButton from '../components/SaveModelButton'
+import TransactionAdjustments from '../components/TransactionAdjustments';
 import Outputs from '../components/Outputs'
 import { changeCompletedStatus } from '../actions'
 
@@ -129,7 +129,8 @@ handleButtonClick = (e) =>{
       <h2>{this.props.modelData.name}</h2>
       <div>
       {this.state.showButtons &&
-        <div className="allButtonHolder">
+        <div className="allButtonHolder form">
+             <h3> Input Status </h3>
             <div className="buttonAndCheckBoxHolder">
                 <h4>Form</h4><h4>Completed?</h4>
             </div>
@@ -260,6 +261,10 @@ handleButtonClick = (e) =>{
       }
       { this.state.showTransactionCosts &&
         <TransactionCosts next={this.handleTransactionCostsSubmission}
+        exit={this.handleExit} />
+      }
+      { this.state.showTransactionAdjustments &&
+        <TransactionAdjustments next={this.handleTransactionAdjustmentsSubmission}
         exit={this.handleExit} />
       }
       {

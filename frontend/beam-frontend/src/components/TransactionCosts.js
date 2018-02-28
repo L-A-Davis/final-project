@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateTransactionCostForm, resetTransactionCostInfo, newTransactionCostInfo } from '../actions'
-import SaveModelButton from './SaveModelButton'
 
 let input_types = [{id: "percentage", name: "Percentage of Item"}, {id: "setAmount", name: "Set Dollar Amount"}]
 
@@ -117,7 +116,7 @@ class TransactionCosts extends React.Component {
    return (
      <div className="form">
      <button onClick={this.props.exit}>X</button>
-        <h3>TransactionCosts Info</h3>
+        <h3>Transaction Costs Info</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="three-columns-form">
 
@@ -334,13 +333,12 @@ class TransactionCosts extends React.Component {
 
         <input
           type="submit"
-          value="Save TransactionCosts Info"
+          value="Save Transaction Costs Info"
           className="form-input-1" />
 
 
 
       </form>
-      <SaveModelButton/>
     </div>
    </div>
    )

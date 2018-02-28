@@ -246,28 +246,6 @@ class CashFlowForm extends React.Component {
           step= "any"/>
 
 
-       <label className="form-label">Synergies:</label>
-
-       <select
-          onChange={this.handleChange}
-          className="form-input-1"
-          name="GA_synergies_type"
-          defaultValue=""
-          >
-           <option value="" disabled hidden>Select</option>
-           <option value="PercentofTarget">% of Target</option>
-           <option value="PercentofAcquiror">% of Acquiror</option>
-           <option value="SetAmount">Set Amount</option>
-       </select>
-
-      <input
-         type="number"
-         name="GA_synergies_input"
-         value={this.props.CashFlowFormData.GA_synergies_input}
-         onChange={this.handleChange}
-         className="form-input-2"
-         step= "any"/>
-
         <input
           type="submit"
           value="Save Cash Flow Info"

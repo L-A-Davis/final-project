@@ -7,4 +7,6 @@ class ModelSerializer < ActiveModel::Serializer
   has_many :offer_info_datum
   has_many :transaction_cost
   has_many :cash_flow_info_datum
+  has_many :new_financing_info_datum
+  has_many :synergies_info_datum
 end

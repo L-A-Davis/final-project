@@ -138,6 +138,44 @@ export function newTransactionCostInfo(formData) {
   }
 }
 
+export function updateTransactionAdjustmentsForm(formData) {
+  return { type: "UPDATE_TRANSACTIONADJUSTMENTS_FORM", payload: formData };
+}
+
+
+export function resetSynergiesInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.editSynergiesInfo(formData).then(resp => {
+      dispatch({ type: 'UPDATE_SYNERGIES_DATA', payload: resp})
+    })
+  }
+}
+
+export function newSynergiesInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.saveSynergiesInfo(formData).then(resp => {
+      dispatch({ type: 'SAVE_SYNERGIES_DATA', payload: resp})
+    })
+  }
+}
+
+export function resetNewFinancingInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.editNewFinancingInfo(formData).then(resp => {
+      dispatch({ type: 'UPDATE_NEWFINANCING_DATA', payload: resp})
+    })
+  }
+}
+
+export function newNewFinancingInfo(formData) {
+  return dispatch => {
+    adapter.eventHandlers.saveNewFinancingInfo(formData).then(resp => {
+      dispatch({ type: 'SAVE_NEWFINANCING_DATA', payload: resp})
+    })
+  }
+}
+
+
 
 export function selectExistingProject(id) {
   return { type: "SELECT_PROJECT", payload: id };

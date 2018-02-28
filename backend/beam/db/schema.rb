@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180226211953) do
+ActiveRecord::Schema.define(version: 20180228151138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,17 @@ ActiveRecord::Schema.define(version: 20180226211953) do
     t.index ["project_id"], name: "index_models_on_project_id"
   end
 
+  create_table "new_financing_info_data", force: :cascade do |t|
+    t.bigint "model_id"
+    t.string "item_name"
+    t.string "item_type"
+    t.float "amount"
+    t.float "rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_new_financing_info_data_on_model_id"
+  end
+
   create_table "offer_info_data", force: :cascade do |t|
     t.bigint "model_id"
     t.string "offer_type"
@@ -114,6 +125,16 @@ ActiveRecord::Schema.define(version: 20180226211953) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "synergies_info_data", force: :cascade do |t|
+    t.bigint "model_id"
+    t.string "item_name"
+    t.string "input_type"
+    t.float "input_amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_synergies_info_data_on_model_id"
   end
 
   create_table "transaction_costs", force: :cascade do |t|
@@ -145,8 +166,10 @@ ActiveRecord::Schema.define(version: 20180226211953) do
   add_foreign_key "comments", "users"
   add_foreign_key "equity_info_data", "models"
   add_foreign_key "models", "projects"
+  add_foreign_key "new_financing_info_data", "models"
   add_foreign_key "offer_info_data", "models"
   add_foreign_key "projects", "users"
+  add_foreign_key "synergies_info_data", "models"
   add_foreign_key "transaction_costs", "models"
   add_foreign_key "users", "companies"
 end

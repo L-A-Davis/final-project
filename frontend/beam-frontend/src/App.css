@@ -81,7 +81,8 @@ button:hover {
 
 .modelFormButton[data-status="true"] {
   color: black;
-  background-color: #f2f4f7;
+  background-color: white;
+  /* background-color: #f2f4f7; */
   border: none;
 }
 
@@ -104,15 +105,15 @@ button:hover {
 
 .formCheckBoxHolder label {
 	display: block;
-	width: 15px;
-	height: 15px;
+	width: 17px;
+	height: 17px;
 	border-radius: 100px;
 
 	transition: all .5s ease;
   	/* cursor: pointer; */
 	position: absolute;
-	top: 3.2px;
-	left: 3.2px;
+	top: 3px;
+	left: 2px;
 	z-index: 1;
 
 	background: #333;
@@ -137,10 +138,13 @@ button:hover {
 }
 
 .allButtonHolder{
-  width: 100%;
+  width: 40%;
   display: grid;
   grid-template-columns: 100%;
   justify-items: center;
+  float: left;
+  margin: 0 400px;
+  /* get better way to center this box */
 }
 
 .three-columns-form {
@@ -161,6 +165,11 @@ button:hover {
   grid-column-gap: 1%;
 }
 
+.five-columns-form {
+  display: grid;
+  grid-template-columns: 25% 20% 20% 20% 10%;
+  grid-column-gap: 1%;
+}
 
 .form-label{
   grid-column-start: 1;

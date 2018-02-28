@@ -181,6 +181,37 @@ const editTransactionCostInfo = (m) => {
 }).then(res => res.json())
 }
 
+const saveSynergiesInfo = (m) => {
+  return fetch(`${API_ROOT}/synergies_info_data`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify({synergies_info_datum: {model_id: m.model_id, item_name: m.item_name, input_type: m.input_type, input_amount: m.input_amount}})
+  }).then(res => res.json())
+}
+
+const editSynergiesInfo = (m) => {
+  return fetch(`${API_ROOT}/synergies_info_data/${m.id}`, {
+  method: 'PATCH',
+  headers: headers(),
+  body: JSON.stringify({synergies_info_datum: {model_id: m.model_id, item_name: m.item_name, input_type: m.input_type, input_amount: m.input_amount}})
+}).then(res => res.json())
+}
+
+const saveNewFinancingInfo = (m) => {
+  return fetch(`${API_ROOT}/new_financing_info_data`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify({new_financing_info_datum: {model_id: m.model_id, item_name: m.item_name, item_type: m.item_type, amount: m.amount, rate: m.rate}})
+  }).then(res => res.json())
+}
+
+const editNewFinancingInfo = (m) => {
+  return fetch(`${API_ROOT}/new_financing_info_data/${m.id}`, {
+  method: 'PATCH',
+  headers: headers(),
+  body: JSON.stringify({new_financing_info_datum: {model_id: m.model_id, item_name: m.item_name, item_type: m.item_type, amount: m.amount, rate: m.rate}})
+}).then(res => res.json())
+}
 
 export default {
   eventHandlers: {
@@ -201,7 +232,11 @@ export default {
      saveCashFlowInfo,
      editCashFlowInfo,
      saveTransactionCostInfo,
-     editTransactionCostInfo
+     editTransactionCostInfo,
+     saveSynergiesInfo,
+     editSynergiesInfo,
+     saveNewFinancingInfo,
+     editNewFinancingInfo
   },
   auth: {
     login,
