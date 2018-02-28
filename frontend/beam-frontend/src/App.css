@@ -8,10 +8,11 @@ header {
   height: 2em;
   z-index: 1;
   position: relative;
+  margin-top: 0;
 
 }
 
-.form {
+.form, .outputholder {
     /*border: 3px solid #33BC87;*/
     text-align: left;
     line-height: 1.7;
@@ -26,7 +27,7 @@ header {
 }
 
 
-.form:hover {
+.form:hover, .outputholder:hover {
   -webkit-box-shadow:0 1px 4px rgba(28, 49, 81, 0.7), 0 0 70px rgba(0, 0, 0, 0.1);
      -moz-box-shadow:0 1px 4px rgba(28, 49, 81, 0.7), 0 0 70px rgba(0, 0, 0, 0.1);
           box-shadow:0 1px 4px rgba(28, 49, 81, 0.7), 0 0 70px rgba(0, 0, 0, 0.1);
@@ -238,6 +239,10 @@ div.form h3 {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 } */
+
+.App-title {
+  margin-top: 0;
+}
 
 header {
     text-align: center;

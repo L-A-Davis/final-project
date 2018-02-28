@@ -11,7 +11,7 @@ import CashFlowForm from '../components/CashFlowForm';
 import TransactionCosts from '../components/TransactionCosts';
 import TransactionAdjustments from '../components/TransactionAdjustments';
 import Outputs from '../components/Outputs'
-import { changeCompletedStatus, showOutputs } from '../actions'
+import { changeCompletedStatus, handleShowOutputs } from '../actions'
 
 class Model extends React.Component {
 
@@ -58,17 +58,36 @@ handleButtonClick = (e) =>{
   }
 }
 
- // check completed status?
+ handleStatusCheck = (current_form) =>{
+   let forms = this.props.FormCompletedStatus
+   let array_of_names = ["newModelFormData", "BasicInfoFormData", "EquityFormData", "OfferFormData", "CapitalizationFormData", "CashFlowFormData", "TransactionCostsFormData", "TransactionAdjustmentsFormData" ]
+   let completed = []
+   for (let i =0; i < array_of_names.length; i++) {
+     if (i === current_form) {
+       completed.push("true")
+     } else if (forms[i] === true ){
+       completed.push("true")
+     } else {
+
+     }
+   }
+     completed.length === array_of_names.length ? this.props.handleShowOutputs() : null
+ }
+
 
   handleNewModelSubmission = () => {
-    this.props.changeCompletedStatus("newModelFormData")
+    let form = "newModelFormData"
+    this.props.changeCompletedStatus(form)
+    this.handleStatusCheck(form)
     this.setState({
       showNewModelForm: false,
       showBasicInfoForm: true,
     })
   }
   handleBasicInfoFormSubmission = () => {
-    this.props.changeCompletedStatus("BasicInfoFormData")
+    let form = "BasicInfoFormData"
+    this.props.changeCompletedStatus(form)
+    this.handleStatusCheck(form)
     this.setState({
       showBasicInfoForm: false,
       showEquityForm: true
@@ -76,7 +95,9 @@ handleButtonClick = (e) =>{
   }
 
   handleEquityFormSubmission = () => {
-    this.props.changeCompletedStatus("EquityFormData")
+    let form = "EquityFormData"
+    this.props.changeCompletedStatus(form)
+    this.handleStatusCheck(form)
     this.setState({
       showEquityForm: false,
       showOfferForm: true
@@ -84,7 +105,9 @@ handleButtonClick = (e) =>{
   }
 
   handleOfferFormSubmission = () => {
-    this.props.changeCompletedStatus("OfferFormData")
+    let form = "OfferFormData"
+    this.props.changeCompletedStatus(form)
+    this.handleStatusCheck(form)
     this.setState({
       showOfferForm: false,
       showCapitalizationForm: true
@@ -92,7 +115,9 @@ handleButtonClick = (e) =>{
   }
 
   handleCapitalizationFormSubmission = () => {
-    this.props.changeCompletedStatus("CapitalizationFormData")
+    let form = "CapitalizationFormData"
+    this.props.changeCompletedStatus(form)
+    this.handleStatusCheck(form)
     this.setState({
       showCapitalizationForm: false,
       showCashFlowForm: true
@@ -100,7 +125,9 @@ handleButtonClick = (e) =>{
   }
 
   handleCashFlowFormSubmission = () => {
-    this.props.changeCompletedStatus("CashFlowFormData")
+    let form = "CashFlowFormData"
+    this.props.changeCompletedStatus(form)
+    this.handleStatusCheck(form)
     this.setState({
       showCashFlowForm: false,
       showTransactionCosts: true
@@ -108,7 +135,9 @@ handleButtonClick = (e) =>{
   }
 
   handleTransactionCostsSubmission = () => {
-    this.props.changeCompletedStatus("TransactionCostsFormData")
+    let form = "TransactionCostsFormData"
+    this.props.changeCompletedStatus(form)
+    this.handleStatusCheck(form)
     this.setState({
       showTransactionCosts: false,
       showTransactionAdjustments: true
@@ -117,21 +146,21 @@ handleButtonClick = (e) =>{
 
 
   handleTransactionAdjustmentsSubmission = () => {
-    this.props.changeCompletedStatus("TransactionAdjustmentsFormData")
+    let form = "TransactionAdjustmentsFormData"
+    this.props.changeCompletedStatus(form)
+    this.handleStatusCheck(form)
     this.setState({
-      showTransactionAdjustments: false,
-      showButtons: false,
-      showOutputs: true
+      showTransactionAdjustments: false
     })
   }
-// add transaction adjustments to status above
 
   render () {
+    console.log(this.state.showButtons, this.props.showOutputs)
   return (
     <div>
       <h2>{this.props.modelData.name}</h2>
       <div>
-      {this.state.showButtons &&
+      {(this.state.showButtons && !this.props.showOutputs) &&
         <div className="allButtonHolder form">
              <h3> Input Status </h3>
             <div className="buttonAndCheckBoxHolder">
@@ -271,7 +300,7 @@ handleButtonClick = (e) =>{
         exit={this.handleExit} />
       }
       {
-        this.state.showOutputs &&
+        this.props.showOutputs &&
         <Outputs />
       }
       </div>
@@ -281,7 +310,7 @@ handleButtonClick = (e) =>{
  }
 }
 
- export default connect(state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData, FormCompletedStatus: state.FormCompletedStatus }}, { changeCompletedStatus, showOutputs })(WithAuth(Model))
+ export default connect(state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData, FormCompletedStatus: state.FormCompletedStatus, showOutputs: state.showOutputs }}, { changeCompletedStatus, handleShowOutputs })(WithAuth(Model))
 
 
  // handleSetUp = () => {

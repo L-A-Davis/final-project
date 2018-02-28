@@ -248,6 +248,6 @@ export function changeCompletedStatus(form_name) {
   return { type: "CHANGE_FORM_STATUS", payload: form_name };
 }
 
-export function showOutputs() {
+export function handleShowOutputs() {
   return { type: "SHOW_OUTPUTS", payload: "" };
 }
