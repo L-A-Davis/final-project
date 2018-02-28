@@ -151,10 +151,6 @@ export default function companyBasicInfoReducer(
       CompanyB_EBITDA_id: "",
       CompanyB_EBITDA_1: "",
     },
-     TransactionAdjustmentsForm: {
-      GA_synergies_type: "",
-      GA_synergies_input: ""
-    },
      TransactionCostsFormData: {
       Deal_costs_id: "",
       Deal_costs_type: "",
@@ -187,7 +183,34 @@ export default function companyBasicInfoReducer(
       Employee_Costs_input: "",
       Other_Costs_id: "",
       Other_Costs_input: ""
-     }
+    },
+    TransactionAdjustmentsFormData: {
+     GA_synergies_id: "",
+     GA_synergies_type: "",
+     GA_synergies_input: "",
+     New_financing_1_id: "",
+     New_financing_1_rate: "",
+     New_financing_1_amount: "",
+     New_financing_1_type_of: "",
+     New_financing_2_id: "",
+     New_financing_2_rate: "",
+     New_financing_2_amount: "",
+     New_financing_2_type_of: "",
+     New_financing_3_id: "",
+     New_financing_3_rate: "",
+     New_financing_3_amount: "",
+     New_financing_3_type_of: ""
+   },
+    FormCompletedStatus:{
+      newModelFormData: false,
+      BasicInfoFormData: false,
+      EquityFormData: false,
+      OfferFormData: false,
+      CapitalizationFormData: false,
+      CashFlowFormData: false,
+      TransactionCostsFormData: false,
+      TransactionAdjustmentsFormData: false,
+    }
      },
   action
 ) {
@@ -316,6 +339,7 @@ export default function companyBasicInfoReducer(
 
     let other_costs_data = cost_data.find(item => item.name === "other_costs") || {id: "", name: "", item_type: "", data_input: ""}
 
+   // add transaction adjustments
 
     return {
             ...state,
@@ -479,11 +503,23 @@ export default function companyBasicInfoReducer(
              Employee_Costs_input: employee_costs_data.data_input,
              Other_Costs_id: other_costs_data.id,
              Other_Costs_input: other_costs_data.data_input
-            }
+           },
 
-            }
+           FormCompletedStatus:{
+             newModelFormData: true,
+             BasicInfoFormData: basic_data.length > 0 ? true : false,
+             EquityFormData: equity_data.length > 0 ? true : false,
+             OfferFormData: offer_data.length > 0 ? true : false,
+             CapitalizationFormData: capitalization_data.length > 0 ? true : false,
+             CashFlowFormData: cash_flow_data.length > 0 ? true : false,
+             TransactionCostsFormData: cost_data.length > 0 ? true : false,
+             TransactionAdjustmentsFormData: false,
+           }
 
-            // :model_id, :company, :item_name, :item_type, :repay, :rate
+}
+
+ // add transaction adjustments to status above
+
     //
     // case 'ADD_COMPANY':
     //   return state.concat(action.company);
@@ -726,6 +762,204 @@ export default function companyBasicInfoReducer(
                 allModelsforProject: [],
                 selectedProjectData: {}
               };
+
+      case "CLEAR_FORMS":
+       return {
+            ...state,
+            newModelFormData: {
+              project_id: '',
+              name: '',
+              model_type: '',
+            },
+            BasicInfoFormData: {
+              CompanyA_id: "",
+              CompanyB_id: "",
+              CompanyA_ticker: "",
+              CompanyB_ticker: "",
+              CompanyA_codename: "",
+              CompanyB_codename: "",
+              CompanyA_acquiror: false},
+            EquityFormData: {
+              CompanyA_id: "",
+              CompanyB_id: "",
+              CompanyA_currentSharePrice: "",
+              CompanyB_currentSharePrice: "",
+              CompanyA_shares: "",
+              CompanyB_shares: "",
+              CompanyA_dividend: "",
+              CompanyB_dividend: ""},
+            OfferFormData: {
+              Offer_id: "",
+              OfferType: 'SetAmount',
+              OfferMetric: '',
+              Percentage_Stock: ''},
+            CapitalizationFormData: {
+              CompanyA_cash_id: "",
+              CompanyA_cash: '',
+              CompanyA_cash_use: false,
+              CompanyA_cash_rate: '',
+              CompanyB_cash_id: "",
+              CompanyB_cash: '',
+              CompanyB_cash_use: false,
+              CompanyB_cash_rate: '',
+
+              CompanyA_otherLiquidAssets_id: "",
+              CompanyA_otherLiquidAssets: '',
+              CompanyA_otherLiquidAssets_use: false,
+              CompanyA_otherLiquidAssets_rate: '',
+              CompanyB_otherLiquidAssets_id: "",
+              CompanyB_otherLiquidAssets: '',
+              CompanyB_otherLiquidAssets_use: false,
+              CompanyB_otherLiquidAssets_rate: '',
+
+              CompanyA_mortgageDebt_id: "",
+              CompanyA_mortgageDebt: '',
+              CompanyA_mortgageDebt_repay: false,
+              CompanyA_mortgageDebt_rate: '',
+              CompanyB_mortgageDebt_id: "",
+              CompanyB_mortgageDebt: '',
+              CompanyB_mortgageDebt_repay: false,
+              CompanyB_mortgageDebt_rate: '',
+
+              CompanyA_shareOfJVDebt_id: "",
+              CompanyA_shareOfJVDebt: '',
+              CompanyA_shareOfJVDebt_repay: false,
+              CompanyA_shareOfJVDebt_rate: '',
+              CompanyB_shareOfJVDebt_id: "",
+              CompanyB_shareOfJVDebt: '',
+              CompanyB_shareOfJVDebt_repay: false,
+              CompanyB_shareOfJVDebt_rate: '',
+
+              CompanyA_bonds_id: "",
+              CompanyA_bonds: '',
+              CompanyA_bonds_repay: false,
+              CompanyA_bonds_rate: '',
+              CompanyB_bonds_id: "",
+              CompanyB_bonds: '',
+              CompanyB_bonds_repay: false,
+              CompanyB_bonds_rate: '',
+
+              CompanyA_creditFacility_id: "",
+              CompanyA_creditFacility: '',
+              CompanyA_creditFacility_repay: false,
+              CompanyA_creditFacility_rate: '',
+              CompanyB_creditFacility_id: "",
+              CompanyB_creditFacility: '',
+              CompanyB_creditFacility_repay: false,
+              CompanyB_creditFacility_rate: '',
+
+              CompanyA_mezzDebt_id: "",
+              CompanyA_mezzDebt: '',
+              CompanyA_mezzDebt_repay: false,
+              CompanyA_mezzDebt_rate: '',
+              CompanyB_mezzDebt_id: "",
+              CompanyB_mezzDebt: '',
+              CompanyB_mezzDebt_repay: false,
+              CompanyB_mezzDebt_rate: '',
+
+              CompanyA_preferredEquity_id: "",
+              CompanyA_preferredEquity: '',
+              CompanyA_preferredEquity_repay: false,
+              CompanyA_preferredEquity_rate: '',
+              CompanyB_preferredEquity_id: '',
+              CompanyB_preferredEquity: '',
+              CompanyB_preferredEquity_repay: false,
+              CompanyB_preferredEquity_rate: ''
+            },
+            CashFlowFormData: {
+              CompanyA_FFOPerShare_id: "",
+              CompanyA_FFOPerShare_1: "",
+              CompanyB_FFOPerShare_id: "",
+              CompanyB_FFOPerShare_1: "",
+
+              CompanyA_AFFOPerShare_id: "",
+              CompanyA_AFFOPerShare_1: "",
+              CompanyB_AFFOPerShare_id: "",
+              CompanyB_AFFOPerShare_1: "",
+
+              CompanyA_revenue_id: "",
+              CompanyA_revenue_1: "",
+              CompanyB_revenue_id: "",
+              CompanyB_revenue_1: "",
+
+              CompanyA_NOI_id: "",
+              CompanyA_NOI_1: "",
+              CompanyB_NOI_id: "",
+              CompanyB_NOI_1: "",
+
+              CompanyA_GA_id: "",
+              CompanyA_GA_1: "",
+              CompanyB_GA_id: "",
+              CompanyB_GA_1: "",
+
+              CompanyA_EBITDA_id: "",
+              CompanyA_EBITDA_1: "",
+              CompanyB_EBITDA_id: "",
+              CompanyB_EBITDA_1: "",
+            },
+             TransactionCostsFormData: {
+              Deal_costs_id: "",
+              Deal_costs_type: "",
+              Deal_costs_input: "",
+              CompanyA_LAO_costs_id: "",
+              CompanyA_LAO_costs_type: "",
+              CompanyA_LAO_costs_input: "",
+              CompanyB_LAO_costs_id: "",
+              CompanyB_LAO_costs_type: "",
+              CompanyB_LAO_costs_input: "",
+
+              Swap_Breakage_id: "",
+              Swap_Breakage_type: "",
+              Swap_Breakage_input: "",
+              Debt_Prepayment_id: "",
+              Debt_Prepayment_type: "",
+              Debt_Prepayment_input: "",
+              Debt_Assumption_id: "",
+              Debt_Assumption_type: "",
+              Debt_Assumption_input: "",
+              Debt_Issuance_id: "",
+              Debt_Issuance_type: "",
+              Debt_Issuance_input: "",
+
+              Bond_Prepayment_id: "",
+              Bond_Prepayment_input: "",
+              Transfer_Taxes_id: "",
+              Transfer_Taxes_input: "",
+              Employee_Costs_id: "",
+              Employee_Costs_input: "",
+              Other_Costs_id: "",
+              Other_Costs_input: ""
+            },
+            TransactionAdjustmentsFormData: {
+                 GA_synergies_id: "",
+                 GA_synergies_type: "",
+                 GA_synergies_input: "",
+                 New_financing_1_id: "",
+                 New_financing_1_rate: "",
+                 New_financing_1_amount: "",
+                 New_financing_1_type_of: "",
+                 New_financing_2_id: "",
+                 New_financing_2_rate: "",
+                 New_financing_2_amount: "",
+                 New_financing_2_type_of: "",
+                 New_financing_3_id: "",
+                 New_financing_3_rate: "",
+                 New_financing_3_amount: "",
+                 New_financing_3_type_of: ""
+               },
+               FormCompletedStatus:{
+                 newModelFormData: false,
+                 BasicInfoFormData: false,
+                 EquityFormData: false,
+                 OfferFormData: false,
+                 CapitalizationFormData: false,
+                 CashFlowFormData: false,
+                 TransactionCostsFormData: false,
+                 TransactionAdjustmentsFormData: false,
+               }
+       }
+
+
       //
       // case "SET_COMPANY":
       //   return {
@@ -738,6 +972,13 @@ export default function companyBasicInfoReducer(
       //     }
       //   })
       // }
+      case "CHANGE_FORM_STATUS":
+        return {
+          ...state,
+          FormCompletedStatus: {...state.FormCompletedStatus,
+          [action.payload]: true}
+        }
+
 
     default:
       return state;

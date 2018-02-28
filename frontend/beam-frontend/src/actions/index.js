@@ -201,3 +201,11 @@ export function editModel(info) {
 export function resetModelData() {
   return { type: "RESET_MODEL_DATA", payload: "" };
 }
+
+export function resetFormData() {
+  return { type: "CLEAR_FORMS", payload: "" };
+}
+
+export function changeCompletedStatus(form_name) {
+  return { type: "CHANGE_FORM_STATUS", payload: form_name };
+}

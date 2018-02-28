@@ -30,12 +30,12 @@ render(){
   return (
     <div>
     <h2>login....</h2>
-    <form className="form" onSubmit={this.handleLogin}>
+    <form className="form two-columns-form login" onSubmit={this.handleLogin}>
     <label>Email </label>
-      <input value={this.state.email} name="email" type="email" placeholder="Email" onChange={this.onInputChange}/> <br/>
+      <input value={this.state.email} name="email" type="email" placeholder="Email" onChange={this.onInputChange}/>
 
       <label>Password </label>
-      <input value={this.state.password} name="password" type="password" placeholder="Password" onChange={this.onInputChange}/> <br/>
+      <input value={this.state.password} name="password" type="password" placeholder="Password" onChange={this.onInputChange}/> 
 
       <input type="submit" value="Submit" />
     </form>

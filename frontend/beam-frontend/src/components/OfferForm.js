@@ -28,7 +28,7 @@ class OfferForm extends React.Component {
       model_id: this.props.modelData.id,
       offer_type: this.props.OfferFormData.OfferType,
       offer_metric: this.props.OfferFormData.OfferMetric,
-      percentage_Stock: this.props.OfferFormData.Percentage_Stock
+      percentage_stock: this.props.OfferFormData.Percentage_Stock
     }]
     console.log(info)
     this.handleDataSave(info)

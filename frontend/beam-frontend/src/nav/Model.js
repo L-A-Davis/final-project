@@ -11,6 +11,7 @@ import CashFlowForm from '../components/CashFlowForm';
 import TransactionCosts from '../components/TransactionCosts';
 import SaveModelButton from '../components/SaveModelButton'
 import Outputs from '../components/Outputs'
+import { changeCompletedStatus } from '../actions'
 
 class Model extends React.Component {
 
@@ -22,15 +23,9 @@ class Model extends React.Component {
     showCapitalizationForm: false,
     showCashFlowForm: false,
     showTransactionCosts: false,
+    showTransactionAdjustments: false,
     showOutputs: false,
     showButtons: true,
-    completedNewModelForm: false,
-    completedBasicInfoForm: false,
-    completedEquityForm: false,
-    completedOfferForm: false,
-    completedCapitalizationForm: false,
-    completedCashFlowForm: false,
-    completedTransactionCosts: false,
   }
 
   handleExit = () => {
@@ -42,6 +37,7 @@ class Model extends React.Component {
       showCapitalizationForm: false,
       showCashFlowForm: false,
       showTransactionCosts: false,
+      showTransactionAdjustments: false,
       showOutputs: false,
       showButtons: true,
 
@@ -49,67 +45,83 @@ class Model extends React.Component {
   }
 
 handleButtonClick = (e) =>{
-  let name = e.target.name
-  this.setState({
-    [name]: !this.state.name,
-    showButtons: false
-  })
+  let form_name = e.target.parentNode.id
+  console.log(form_name)
+  if (this.props.FormCompletedStatus[form_name]) {
+    return
+  } else {
+    let name = e.target.name
+    this.setState({
+      [name]: !this.state.name,
+      showButtons: false
+    })
+  }
 }
 
   handleNewModelSubmission = () => {
+    this.props.changeCompletedStatus("newModelFormData")
     this.setState({
       showNewModelForm: false,
-      completedNewModelForm: true,
-      showBasicInfoForm: !this.state.showBasicInfoForm,
+      showBasicInfoForm: true,
     })
   }
   handleBasicInfoFormSubmission = () => {
+    this.props.changeCompletedStatus("BasicInfoFormData")
     this.setState({
-      showBasicInfoForm: !this.state.showBasicInfoForm,
-      completedBasicInfoForm: !this.state.completedBasicInfoForm,
-      showEquityForm: !this.state.showEquityForm
+      showBasicInfoForm: false,
+      showEquityForm: true
     })
   }
 
   handleEquityFormSubmission = () => {
+    this.props.changeCompletedStatus("EquityFormData")
     this.setState({
-      showEquityForm: !this.state.showEquityForm,
-      completedEquityForm: !this.state.completedEquityForm,
-      showOfferForm: !this.state.showOfferForm
+      showEquityForm: false,
+      showOfferForm: true
     })
   }
 
   handleOfferFormSubmission = () => {
+    this.props.changeCompletedStatus("OfferFormData")
     this.setState({
-      showOfferForm: !this.state.showOfferForm,
-      completedOfferForm: !this.state.completedOfferForm,
-      showCapitalizationForm: !this.state.showCapitalizationForm
+      showOfferForm: false,
+      showCapitalizationForm: true
     })
   }
 
   handleCapitalizationFormSubmission = () => {
+    this.props.changeCompletedStatus("CapitalizationFormData")
     this.setState({
-      showCapitalizationForm: !this.state.showCapitalizationForm,
-      completedCapitalizationForm: !this.state.completedCapitalizationForm,
-      showCashFlowForm: !this.state.showCashFlowForm
+      showCapitalizationForm: false,
+      showCashFlowForm: true
     })
   }
 
   handleCashFlowFormSubmission = () => {
+    this.props.changeCompletedStatus("CashFlowFormData")
     this.setState({
-      showCashFlowForm: !this.state.showCashFlowForm,
-      completedCashFlowForm: !this.state.completedCashFlowForm,
-      showTransactionCosts: !this.state.showTransactionCosts
+      showCashFlowForm: false,
+      showTransactionCosts: true
     })
   }
 
   handleTransactionCostsSubmission = () => {
+    this.props.changeCompletedStatus("TransactionCostsFormData")
     this.setState({
-      showTransactionCosts: !this.state.showTransactionCosts,
-      completedTransactionCosts: !this.state.completedTransactionCosts,
-      showOutputs: !this.state.showOutputs
+      showTransactionCosts: false,
+      showTransactionAdjustments: true
     })
   }
+
+
+  handleTransactionAdjustmentsSubmission = () => {
+    this.props.changeCompletedStatus("TransactionAdjustmentsFormData")
+    this.setState({
+      showTransactionAdjustments: false,
+      showOutputs: true
+    })
+  }
+// add transaction adjustments to status above
 
   render () {
   return (
@@ -117,38 +129,106 @@ handleButtonClick = (e) =>{
       <h2>{this.props.modelData.name}</h2>
       <div>
       {this.state.showButtons &&
-        <div>
-           <button name="showNewModelForm" onClick={this.handleButtonClick}
-           > New Model Form </button>
-           <input type="checkbox"  checked={this.state.completedNewModelForm} readOnly /><br/>
+        <div className="allButtonHolder">
+            <div className="buttonAndCheckBoxHolder">
+                <h4>Form</h4><h4>Completed?</h4>
+            </div>
+           <div className="buttonAndCheckBoxHolder" id="newModelFormData">
+             <button data-status={this.props.FormCompletedStatus.newModelFormData}
+             className="modelFormButton"
+             name="showNewModelForm" onClick={this.handleButtonClick}
+             > New Model Form </button>
+             <div className="formCheckBoxHolder">
+                 <input type="checkbox" className="formStatusCheckBox"
+                  checked={this.props.FormCompletedStatus.newModelFormData} readOnly />
+                  <label></label>
+                  </div>
+          </div>
 
-           <button name="showBasicInfoForm"
-           onClick={this.handleButtonClick}> Basic Info Form </button>
-            <input type="checkbox" checked={this.state.completedBasicInfoForm} readOnly />
-           <br/>
+          <div className="buttonAndCheckBoxHolder" id="BasicInfoFormData">
+             <button
+             data-status={this.props.FormCompletedStatus.BasicInfoFormData}
+             className="modelFormButton"
+             name="showBasicInfoForm"
+             onClick={this.handleButtonClick}> Basic Info Form </button>
+             <div className="formCheckBoxHolder">
+                 <input type="checkbox" className="formStatusCheckBox"
+                  checked={this.props.FormCompletedStatus.BasicInfoFormData} readOnly />
+                  <label></label>
+                  </div>
 
-           <button name="showEquityForm"
-           onClick={this.handleButtonClick}> Equity Info Form </button>
-             <input type="checkbox" checked={this.state.completedEquityForm} readOnly />
-           <br/>
+          </div>
 
-           <button name="showOfferForm"
-           onClick={this.handleButtonClick}> Offer Inputs </button>
-             <input type="checkbox" checked={this.state.completedOfferForm} readOnly />
-           <br/>
+          <div className="buttonAndCheckBoxHolder" id="EquityFormData">
+             <button
+             data-status={this.props.FormCompletedStatus.EquityFormData}
+             className="modelFormButton"
+             name="showEquityForm"
+             onClick={this.handleButtonClick}> Equity Info Form </button>
+             <div className="formCheckBoxHolder">
+               <input type="checkbox" className="formStatusCheckBox" checked={this.props.FormCompletedStatus.EquityFormData} readOnly />
+               <label></label>
+               </div>
+           </div>
 
-           <button name="showCapitalizationForm" onClick={this.handleButtonClick}> Capitalization </button>
-             <input type="checkbox" checked={this.state.completedCapitalizationForm} readOnly />
-           <br/>
+           <div className="buttonAndCheckBoxHolder" id="OfferFormData">
+             <button
+             data-status={this.props.FormCompletedStatus.OfferFormData}
+             className="modelFormButton"
+             name="showOfferForm"
+             onClick={this.handleButtonClick}> Offer Inputs </button>
+             <div className="formCheckBoxHolder">
+               <input type="checkbox" className="formStatusCheckBox" checked={this.props.FormCompletedStatus.OfferFormData} readOnly />
+              <label></label>
+               </div>
+           </div>
 
-           <button name="showCashFlowForm"
+           <div className="buttonAndCheckBoxHolder" id="CapitalizationFormData">
+             <button
+             data-status={this.props.FormCompletedStatus.CapitalizationFormData}
+             className="modelFormButton"
+             name="showCapitalizationForm" onClick={this.handleButtonClick}> Capitalization </button>
+             <div className="formCheckBoxHolder">
+               <input type="checkbox" className="formStatusCheckBox" checked={this.props.FormCompletedStatus.CapitalizationFormData} readOnly />
+               <label></label>
+                </div>
+           </div>
+
+           <div className="buttonAndCheckBoxHolder" id="CashFlowFormData">
+           <button
+           data-status={this.props.FormCompletedStatus.CashFlowFormData}
+           className="modelFormButton"
+           name="showCashFlowForm"
            onClick={this.handleButtonClick}> Cash Flow Inputs </button>
-             <input type="checkbox" checked={this.state.completedCashFlowForm} readOnly />
-           <br/>
+           <div className="formCheckBoxHolder">
+             <input type="checkbox" className="formStatusCheckBox"  checked={this.props.FormCompletedStatus.CashFlowFormData} readOnly />
+             <label></label>
+              </div>
+           </div>
 
-           <button name="showTransactionCosts" onClick={this.handleButtonClick}> Transaction Costs </button>
-             <input type="checkbox" checked={this.state.completedTransactionCosts} readOnly />
-           <br/>
+           <div className="buttonAndCheckBoxHolder" id="TransactionCostsFormData">
+             <button
+             data-status={this.props.FormCompletedStatus.TransactionCostsFormData}
+             className="modelFormButton"
+             name="showTransactionCosts" onClick={this.handleButtonClick}> Transaction Costs </button>
+             <div className="formCheckBoxHolder">
+               <input type="checkbox" className="formStatusCheckBox" checked={this.props.FormCompletedStatus.TransactionCostsFormData} readOnly />
+               <label></label>
+                </div>
+           </div>
+
+           <div className="buttonAndCheckBoxHolder" id="TransactionAdjustmentsFormData">
+             <button
+             data-status={this.props.FormCompletedStatus.TransactionAdjustmentsFormData}
+             className="modelFormButton"
+             name="showTransactionAdjustments" onClick={this.handleButtonClick}> Transaction Adjustments </button>
+             <div className="formCheckBoxHolder">
+               <input type="checkbox" className="formStatusCheckBox" checked={this.props.FormCompletedStatus.TransactionAdjustmentsFormData} readOnly />
+               <label></label>
+                </div>
+
+           </div>
+
           </div>
       }
 
@@ -193,7 +273,7 @@ handleButtonClick = (e) =>{
  }
 }
 
- export default connect(state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData }}, { })(WithAuth(Model))
+ export default connect(state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData, FormCompletedStatus: state.FormCompletedStatus }}, { changeCompletedStatus })(WithAuth(Model))
 
 
  // handleSetUp = () => {

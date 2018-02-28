@@ -24,7 +24,8 @@ class Project extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchExistingModels(this.props.selectedProjectData.id)
+    this.props.selectedProjectData.id ?
+    this.props.fetchExistingModels(this.props.selectedProjectData.id) : null
   }
 
 
@@ -56,4 +57,4 @@ class Project extends React.Component {
 }
 
 
- export default connect(state=> {return {allModelsforProject: state.allModelsforProject, selectedProjectData: state.selectedProjectData}}, { fetchExistingModels })(WithAuth(Project))
+ export default connect(state=> {return {allModelsforProject: state.allModelsforProject, selectedProjectData: state.selectedProjectData, FormCompletedStatus: state.FormCompletedStatus }}, { fetchExistingModels })(WithAuth(Project))
