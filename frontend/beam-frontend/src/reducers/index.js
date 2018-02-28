@@ -14,6 +14,7 @@ export default function companyBasicInfoReducer(
       model_type: '',
       data: []
     },
+    showOutputs: false,
     selectedCompany: null, loading: false,
     newProjectFormData: {
       id: '',
@@ -239,6 +240,8 @@ export default function companyBasicInfoReducer(
            };
 
    case "MODEL_PARTS_LOAD":
+   let model_id = action.payload.id || ""
+   let model_name = action.payload.name || ""
    let basic_data = action.payload.basic_info_datum
    let basic_data_a = (basic_data.length === 0) ? {id: "", ticker: "", codename: "", acquiror: false} :
    basic_data[0].company === "A" ? basic_data[0] : basic_data[1]
@@ -541,7 +544,18 @@ export default function companyBasicInfoReducer(
              CashFlowFormData: cash_flow_data.length > 0 ? true : false,
              TransactionCostsFormData: cost_data.length > 0 ? true : false,
              TransactionAdjustmentsFormData: (new_financing_data.length > 0 && synergies_data.length > 0) ? true : false,
-           }
+           },
+           showOutputs:
+               model_id !== "" &&
+               model_name !== "" &&
+               basic_data.length > 0 &&
+               equity_data.length > 0 &&
+               offer_data.length > 0 &&
+               capitalization_data.length > 0 &&
+               cash_flow_data.length > 0 &&
+               cost_data.length > 0 &&
+               new_financing_data.length > 0 &&
+               synergies_data.length > 0
 
 }
 
@@ -1009,21 +1023,21 @@ export default function companyBasicInfoReducer(
               Other_Costs_input: ""
             },
             TransactionAdjustmentsFormData: {
-                 GA_synergies_id: "",
-                 GA_synergies_type: "",
-                 GA_synergies_input: "",
-                 New_financing_1_id: "",
-                 New_financing_1_rate: "",
-                 New_financing_1_amount: "",
-                 New_financing_1_type_of: "",
-                 New_financing_2_id: "",
-                 New_financing_2_rate: "",
-                 New_financing_2_amount: "",
-                 New_financing_2_type_of: "",
-                 New_financing_3_id: "",
-                 New_financing_3_rate: "",
-                 New_financing_3_amount: "",
-                 New_financing_3_type_of: ""
+              Synergies_id: "",
+              Synergies_type: "",
+              Synergies_input: "",
+              New_financing_1_id: "",
+              New_financing_1_rate: "",
+              New_financing_1_amount: "",
+              New_financing_1_type_of: "",
+              New_financing_2_id: "",
+              New_financing_2_rate: "",
+              New_financing_2_amount: "",
+              New_financing_2_type_of: "",
+              New_financing_3_id: "",
+              New_financing_3_rate: "",
+              New_financing_3_amount: "",
+              New_financing_3_type_of: ""
                },
                FormCompletedStatus:{
                  newModelFormData: false,
@@ -1034,7 +1048,8 @@ export default function companyBasicInfoReducer(
                  CashFlowFormData: false,
                  TransactionCostsFormData: false,
                  TransactionAdjustmentsFormData: false,
-               }
+               },
+               showOutputs: false
        }
 
 
@@ -1056,6 +1071,14 @@ export default function companyBasicInfoReducer(
           FormCompletedStatus: {...state.FormCompletedStatus,
           [action.payload]: true}
         }
+
+      case "SHOW_OUTPUTS":
+       return {
+               ...state,
+               showOutputs: true
+             };
+
+
 
 
     default:

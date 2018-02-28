@@ -5,7 +5,7 @@ class Outputs extends React.Component {
 
   render() {
     return (
-      <p>model data</p>
+      <p>model data for {this.props.modelData.name}</p>
     )
   }
 }

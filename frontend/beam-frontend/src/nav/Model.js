@@ -11,7 +11,7 @@ import CashFlowForm from '../components/CashFlowForm';
 import TransactionCosts from '../components/TransactionCosts';
 import TransactionAdjustments from '../components/TransactionAdjustments';
 import Outputs from '../components/Outputs'
-import { changeCompletedStatus } from '../actions'
+import { changeCompletedStatus, showOutputs } from '../actions'
 
 class Model extends React.Component {
 
@@ -57,6 +57,8 @@ handleButtonClick = (e) =>{
     })
   }
 }
+
+ // check completed status?
 
   handleNewModelSubmission = () => {
     this.props.changeCompletedStatus("newModelFormData")
@@ -118,6 +120,7 @@ handleButtonClick = (e) =>{
     this.props.changeCompletedStatus("TransactionAdjustmentsFormData")
     this.setState({
       showTransactionAdjustments: false,
+      showButtons: false,
       showOutputs: true
     })
   }
@@ -278,7 +281,7 @@ handleButtonClick = (e) =>{
  }
 }
 
- export default connect(state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData, FormCompletedStatus: state.FormCompletedStatus }}, { changeCompletedStatus })(WithAuth(Model))
+ export default connect(state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData, FormCompletedStatus: state.FormCompletedStatus }}, { changeCompletedStatus, showOutputs })(WithAuth(Model))
 
 
  // handleSetUp = () => {

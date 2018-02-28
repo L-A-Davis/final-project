@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from "react-redux";
 import { updateTransactionAdjustmentsForm, resetSynergiesInfo, newSynergiesInfo, resetNewFinancingInfo, newNewFinancingInfo } from '../actions'
 
-let input_types = [{id: "SetAmount", name: "Set Amount"}, {id: "PercentofTarget", name: "% of Target"}, {id: "PercentofAcquiror", name: ">% of Acquiror"}]
+let input_types = [{id: "SetAmount_savings", name: "Set Amount Savings"}, {id: "SetAmount_additional_exp", name: "Set Amount Expense"}, {id: "PercentofTarget", name: "% of Target"}, {id: "PercentofAcquiror", name: ">% of Acquiror"}]
 
 
 let debt_input_types = [{id: "debt", name: "Debt"}, {id: "preferred", name: "Preferred Equity"}, {id: "debt_secured", name: "Secured Debt"}]
@@ -24,7 +24,7 @@ class TransactionAdjustments extends React.Component {
        }
  } else {
        if (data[i].id !== "") {
-       this.props.resetNewInfo(data[i])
+       this.props.resetNewFinancingInfo(data[i])
      } else {
        this.props.newNewFinancingInfo(data[i])
      }
@@ -43,7 +43,7 @@ class TransactionAdjustments extends React.Component {
          item_name: "GA_synergies",
          form_for: "synergies",
          input_type: form.Synergies_type,
-         input_amount: form.Synergies_input
+         input_amount: form.Synergies_input || 0
        },
        {
          id: form.New_financing_1_id,
@@ -51,8 +51,8 @@ class TransactionAdjustments extends React.Component {
          item_name: "New_financing_1",
          form_for: "newFinancing",
          item_type: form.New_financing_1_type_of,
-         amount: form.New_financing_1_amount,
-         rate: form.New_financing_1_rate
+         amount: form.New_financing_1_amount || 0,
+         rate: form.New_financing_1_rate || 0
 
        },
        {
@@ -61,8 +61,8 @@ class TransactionAdjustments extends React.Component {
          item_name: "New_financing_2",
          form_for: "newFinancing",
          item_type: form.New_financing_2_type_of,
-         amount: form.New_financing_2_amount,
-         rate: form.New_financing_2_rate
+         amount: form.New_financing_2_amount || 0,
+         rate: form.New_financing_2_rate || 0
 
        },
        {
@@ -71,8 +71,8 @@ class TransactionAdjustments extends React.Component {
          item_name: "New_financing_3",
          form_for: "newFinancing",
          item_type: form.New_financing_3_type_of,
-         amount: form.New_financing_3_amount,
-         rate: form.New_financing_3_rate
+         amount: form.New_financing_3_amount || 0,
+         rate: form.New_financing_3_rate || 0
        },
      ]
     this.handleDataSave(info)
@@ -87,6 +87,10 @@ class TransactionAdjustments extends React.Component {
         <h3>Transaction Adjustments Info</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="five-columns-form">
+
+       <label className="form-input-1">Type Detail</label>
+       <label className="form-input-2">Input Amount</label>
+       <label className="form-input-3">New Financing Rate</label>
 
        <label className="form-label">G&A Synergies:</label>
 
@@ -110,6 +114,7 @@ class TransactionAdjustments extends React.Component {
          className="form-input-2"
          step= "any"/>
 
+         <span></span>
     <label className="form-label"> New Financing 1:</label>
 
         <select
