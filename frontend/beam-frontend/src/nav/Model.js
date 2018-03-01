@@ -24,8 +24,7 @@ class Model extends React.Component {
     showCashFlowForm: false,
     showTransactionCosts: false,
     showTransactionAdjustments: false,
-    showOutputs: false,
-    showButtons: true,
+    showButtons: false,
   }
 
   handleExit = () => {
@@ -38,15 +37,12 @@ class Model extends React.Component {
       showCashFlowForm: false,
       showTransactionCosts: false,
       showTransactionAdjustments: false,
-      showOutputs: false,
       showButtons: true,
-
     })
   }
 
 handleButtonClick = (e) =>{
   let form_name = e.target.parentNode.id
-  console.log(form_name)
   if (this.props.FormCompletedStatus[form_name]) {
     return
   } else {
@@ -153,6 +149,12 @@ handleButtonClick = (e) =>{
       showTransactionAdjustments: false
     })
   }
+
+componentDidMount() {
+  this.props.showOutputs ? null : this.setState({
+    showButtons: true
+  })
+}
 
   render () {
     console.log(this.state.showButtons, this.props.showOutputs)

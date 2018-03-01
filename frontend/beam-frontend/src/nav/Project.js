@@ -35,7 +35,10 @@ class Project extends React.Component {
      {this.state.showExistingModelList &&
         <div>
           <h3> Select an Existing Model </h3>
-          <ExistingModelsForProject next={this.handleSelection}/>
+          <ExistingModelsForProject
+            next={this.handleSelection}
+            auth={this.props.auth}
+            history={this.props.history}/>
         </div>
       }
      {this.state.showNewModelButton &&
@@ -46,11 +49,11 @@ class Project extends React.Component {
      }
       {this.state.showModel &&
         <div>
-          <Model auth={this.props.auth}
-          history={this.props.history}/>
+          <Model
+            auth={this.props.auth}
+            history={this.props.history}/>
         </div>
       }
-
     </div>
   )
  }

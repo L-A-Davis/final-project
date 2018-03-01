@@ -8,6 +8,7 @@ class ExistingModelsForProject extends React.Component {
     console.log(event.target.value)
     this.props.fetchModelParts(event.target.value)
     this.props.next()
+    this.props.history.push('/project/model')
  }
 
   render() {

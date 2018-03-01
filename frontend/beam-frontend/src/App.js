@@ -73,7 +73,7 @@ componentDidMount() {
   render() {
     return (
       <div className="App">
-        <Header />
+       <Header />
        <Navbar
            currentUser={this.state.auth.currentUser}
            logOut={this.removeLoggedInUser}
@@ -96,6 +96,11 @@ componentDidMount() {
         }} />
 
         <Route exact path='/project' render={ (routerProps) => {
+            return <Project auth={this.state.auth}
+            history={routerProps.history}/>
+        }} />
+
+        <Route exact path='/project/model' render={ (routerProps) => {
             return <Project auth={this.state.auth}
             history={routerProps.history}/>
         }} />

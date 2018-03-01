@@ -20,6 +20,7 @@ class NewModelForm extends React.Component {
       project_id: this.props.selectedProjectData.id,
     })
      this.props.next()
+     this.props.history.push('/project/model')
   }
 
   render() {
