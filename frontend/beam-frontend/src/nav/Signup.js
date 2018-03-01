@@ -34,9 +34,9 @@ class Signup extends React.Component {
 
   render(){
     return (
-      <div>
-      <h2>Join Here!</h2>
-      <form className="form two-columns-form login" onSubmit={this.handleSignup}>
+      <div className="form login">
+      <h2>Join Here</h2>
+      <form className="two-columns-form" onSubmit={this.handleSignup}>
         <label>User Name</label>
         <input value={this.state.user_name} name="user_name" type="text" placeholder="User Name" onChange={this.onInputChange}/>
 
@@ -49,16 +49,16 @@ class Signup extends React.Component {
         <label>Phone Number</label>
         <input value={this.state.phone} name="phone" type="text" placeholder="Phone Number" onChange={this.onInputChange}/>
 
-        <label>address...make own thig</label>
+        <label>Address</label>
         <input value={this.state.address} name="address" type="text" placeholder="Address" onChange={this.onInputChange}/>
 
         <label>Password</label>
         <input value={this.state.password} name="password" type="password" placeholder="Password" onChange={this.onInputChange}/>
 
         <label>Password Confirmation</label>
-        <input value={this.state.password_confirmation} name="password_confirmation" type="password" placeholder="Password Confirmation" onChange={this.onInputChange}/> 
+        <input value={this.state.password_confirmation} name="password_confirmation" type="password" placeholder="Password Confirmation" onChange={this.onInputChange}/>
 
-        <input type="submit" value="Sign Up" />
+        <input type="submit" value="Sign Up" className="login-form-submit" />
       </form>
       </div>
     )

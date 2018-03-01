@@ -28,16 +28,16 @@ handleLogin = (e) => {
 
 render(){
   return (
-    <div>
-    <h2>login....</h2>
-    <form className="form two-columns-form login" onSubmit={this.handleLogin}>
+    <div className="form login">
+    <h2>Welcome Back</h2>
+    <form className="two-columns-form" onSubmit={this.handleLogin}>
     <label>Email </label>
       <input value={this.state.email} name="email" type="email" placeholder="Email" onChange={this.onInputChange}/>
 
       <label>Password </label>
-      <input value={this.state.password} name="password" type="password" placeholder="Password" onChange={this.onInputChange}/> 
+      <input value={this.state.password} name="password" type="password" placeholder="Password" onChange={this.onInputChange}/>
 
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Submit" className="login-form-submit"/>
     </form>
     </div>
   )

@@ -217,7 +217,14 @@ button:hover {
   grid-column-end: 6;
 }
 
-div.form h3 {
+.login-form-submit {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 40%;
+  justify-self: center;
+}
+
+div.form h3, div.form h2 {
   text-align: center;
 }
 /*
