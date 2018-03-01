@@ -6,6 +6,7 @@ class CreateNewFinancingInfoData < ActiveRecord::Migration[5.1]
       t.string :item_type
       t.float :amount
       t.float :rate
+      t.boolean :plug
 
       t.timestamps
     end

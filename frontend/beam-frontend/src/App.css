@@ -224,9 +224,16 @@ button:hover {
   justify-self: center;
 }
 
-div.form h3, div.form h2 {
+div.form h3, div.form h2, .single-table-holder h3 {
   text-align: center;
 }
+
+.multiple-table-holder {
+  display: grid;
+  grid-template-columns: 48% 48% ;
+  grid-column-gap: 3%;
+}
+
 /*
 .App-logo {
   animation: App-logo-spin infinite 20s linear;

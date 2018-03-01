@@ -5,7 +5,6 @@ import { updateBasicInfoForm, resetBasicInfo, newBasicInfo } from '../actions'
 class BasicInfoForm extends React.Component {
 
  handleChange = (e) => {
-   console.log(this.props.BasicInfoFormData)
    this.props.updateBasicInfoForm({
     [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
    })

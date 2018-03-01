@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20180228151138) do
     t.string "item_type"
     t.float "amount"
     t.float "rate"
+    t.boolean "plug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["model_id"], name: "index_new_financing_info_data_on_model_id"

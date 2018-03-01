@@ -151,7 +151,9 @@ handleButtonClick = (e) =>{
   }
 
 componentDidMount() {
-  this.props.showOutputs ? null : this.setState({
+  this.props.showOutputs ? this.setState({
+    showButtons: false
+  }) : this.setState({
     showButtons: true
   })
 }
@@ -270,7 +272,9 @@ componentDidMount() {
       { this.state.showNewModelForm &&
       <NewModelForm
       next={this.handleNewModelSubmission}
-      exit={this.handleExit} />
+      exit={this.handleExit}
+      auth={this.props.auth}
+      history={this.props.history}/>
       }
 
       { this.state.showBasicInfoForm &&

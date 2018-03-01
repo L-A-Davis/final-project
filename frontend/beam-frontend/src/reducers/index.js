@@ -15,6 +15,9 @@ export default function companyBasicInfoReducer(
       data: []
     },
     showOutputs: false,
+    outputsData: {
+      test: ""
+    },
     selectedCompany: null, loading: false,
     newProjectFormData: {
       id: '',
@@ -189,18 +192,24 @@ export default function companyBasicInfoReducer(
      Synergies_id: "",
      Synergies_type: "",
      Synergies_input: "",
+
      New_financing_1_id: "",
      New_financing_1_rate: "",
      New_financing_1_amount: "",
      New_financing_1_type_of: "",
+     New_financing_1_plug: false,
+
      New_financing_2_id: "",
      New_financing_2_rate: "",
      New_financing_2_amount: "",
      New_financing_2_type_of: "",
+     New_financing_2_plug: false,
+
      New_financing_3_id: "",
      New_financing_3_rate: "",
      New_financing_3_amount: "",
-     New_financing_3_type_of: ""
+     New_financing_3_type_of: "",
+     New_financing_3_plug: false
    },
     FormCompletedStatus:{
       newModelFormData: false,
@@ -344,11 +353,11 @@ export default function companyBasicInfoReducer(
 
    let new_financing_data = action.payload.new_financing_info_datum
 
-   let new_financing_1_data = new_financing_data.find(item => item.item_name === "New_financing_1") || {id: "", item_name: "", item_type: "", amount: "", rate: ""}
+   let new_financing_1_data = new_financing_data.find(item => item.item_name === "New_financing_1") || {id: "", item_name: "", item_type: "", amount: "", rate: "", plug:""}
 
-   let new_financing_2_data = new_financing_data.find(item => item.item_name === "New_financing_2") || {id: "", item_name: "", item_type: "", amount: "", rate: ""}
+   let new_financing_2_data = new_financing_data.find(item => item.item_name === "New_financing_2") || {id: "", item_name: "", item_type: "", amount: "", rate: "", plug:""}
 
-   let new_financing_3_data = new_financing_data.find(item => item.item_name === "New_financing_3") || {id: "", item_name: "", item_type: "", amount: "", rate: ""}
+   let new_financing_3_data = new_financing_data.find(item => item.item_name === "New_financing_3") || {id: "", item_name: "", item_type: "", amount: "", rate: "", plug:""}
 
     let synergies_data = action.payload.synergies_info_datum
 
@@ -525,14 +534,19 @@ export default function companyBasicInfoReducer(
             New_financing_1_rate: new_financing_1_data.rate,
             New_financing_1_amount: new_financing_1_data.amount,
             New_financing_1_type_of: new_financing_1_data.item_type,
+            New_financing_1_plug:
+            new_financing_1_data.plug,
             New_financing_2_id: new_financing_2_data.id,
             New_financing_2_rate: new_financing_2_data.rate,
             New_financing_2_amount: new_financing_2_data.amount,
             New_financing_2_type_of: new_financing_2_data.item_type,
+            New_financing_2_plug:
+            new_financing_2_data.plug,
             New_financing_3_id: new_financing_3_data.id,
             New_financing_3_rate: new_financing_3_data.rate,
             New_financing_3_amount: new_financing_3_data.amount,
-            New_financing_3_type_of: new_financing_3_data.item_type
+            New_financing_3_type_of: new_financing_3_data.item_type,New_financing_3_plug:
+            new_financing_3_data.plug
           },
 
            FormCompletedStatus:{
@@ -1030,14 +1044,17 @@ export default function companyBasicInfoReducer(
               New_financing_1_rate: "",
               New_financing_1_amount: "",
               New_financing_1_type_of: "",
+              New_financing_1_plug: false,
               New_financing_2_id: "",
               New_financing_2_rate: "",
               New_financing_2_amount: "",
               New_financing_2_type_of: "",
+              New_financing_2_plug: false,
               New_financing_3_id: "",
               New_financing_3_rate: "",
               New_financing_3_amount: "",
-              New_financing_3_type_of: ""
+              New_financing_3_type_of: "",
+              New_financing_3_plug: false,
                },
                FormCompletedStatus:{
                  newModelFormData: false,
@@ -1078,6 +1095,97 @@ export default function companyBasicInfoReducer(
                showOutputs: true
              };
 
+      case "CALCULATE_OUTPUTS":
+
+      let targetInfo = action.payload.basic_info_datum.find(company => company.acquiror === false)
+      let targetCompany = targetInfo.company
+      let acquirorCompany = targetCompany === "B" ? "A" : "B"
+      let targetEquityData = action.payload.equity_info_datum.find(item => item.company === targetCompany)
+      let acquirorEquityData = action.payload.equity_info_datum.find(item => item.company === acquirorCompany)
+      let targetCurrentPrice = Math.abs(parseFloat(targetEquityData.currentSharePrice))
+      let acquirorCurrentPrice = Math.abs(parseFloat(acquirorEquityData.currentSharePrice))
+      let offerData = action.payload.offer_info_datum[0]
+      let impliedOffer
+      if (offerData.offer_type === "SetAmount") {
+        impliedOffer = Math.abs(parseFloat(offerData.offer_metric));
+      } else if (offerData.offer_type === "%Premium"){
+        impliedOffer = targetCurrentPrice * (1 + parseFloat(offerData.offer_metric));
+      } else {
+        let ratio = targetCurrentPrice / acquirorCurrentPrice
+        let impliedAllInPrice = ratio * acquirorCurrentPrice
+        let cashPercentage = 1 - Math.abs(parseFloat(offerData.percentage_stock))
+        let cashPerShare = impliedAllInPrice * cashPercentage
+        let remainingStockPerShare = impliedAllInPrice - cashPerShare
+        let stockExchangeRatio = remainingStockPerShare / acquirorCurrentPrice
+        let stockPerShare = stockExchangeRatio * acquirorCurrentPrice
+        impliedOffer = (cashPerShare + stockPerShare)
+      }
+      let premiumToCurrent = (impliedOffer / targetCurrentPrice) - 1
+
+      let targetCapitalizationInfo = action.payload.capitalization_info_datum.filter(item => item.company === targetCompany)
+      let targetCashFlowInfo = action.payload.cash_flow_info_datum.filter(item => item.company === targetCompany)
+
+      let targetShares = Math.abs(targetEquityData.shares)
+      let impliedTargetEquityValue = impliedOffer * targetShares
+      let targetTotalDebt = targetCapitalizationInfo.filter(item => item.item_type === "debt").reduce((a, b) => ({amount: a.amount + b.amount}))
+      let targetTotalDebtValue = Math.abs(targetTotalDebt.amount)
+      let targetPreferred = targetCapitalizationInfo.filter(item => item.item_type === "preferred").reduce((a, b) => ({amount: a.amount + b.amount}))
+      let targetPreferredValue = Math.abs(targetPreferred.amount)
+      let targetCash =  targetCapitalizationInfo.filter(item => item.item_type === "cash").reduce((a, b) => ({amount: a.amount + b.amount}))
+      let targetCashValue = Math.abs(targetCash.amount)
+
+      let targetNOI = targetCashFlowInfo.find(item => item.item_name === "NOI")
+      let targetNOIValue = targetNOI.amount_year1  || 0
+      let targetImpliedTEV = (impliedTargetEquityValue + targetTotalDebtValue + targetPreferredValue - targetCashValue)
+
+      let impliedCapRate
+      if (targetNOIValue <= 0 || (targetTotalDebtValue + targetPreferredValue - targetCashValue) <= 0 ){
+        impliedCapRate = "NA"
+      } else {
+        impliedCapRate = (targetNOIValue / targetImpliedTEV)
+      }
+
+      let targetFFOPerShare = targetCashFlowInfo.find(item => item.item_name === "FFO_Per_Share")
+      let targetFFOPerShareValueYear1 = targetFFOPerShare.amount_year1 || 0
+
+      let FFOMultiple_Year1
+      if (targetFFOPerShareValueYear1 <= 0) {
+        FFOMultiple_Year1 = "NA"
+      } else {
+        FFOMultiple_Year1 = impliedOffer / targetFFOPerShareValueYear1
+      }
+
+      let targetAFFOPerShare = targetCashFlowInfo.find(item => item.item_name === "AFFO_Per_Share")
+      let targetAFFOPerShareValueYear1 = targetAFFOPerShare.amount_year1 || 0
+
+      let AFFOMultiple_Year1
+      if (targetAFFOPerShareValueYear1 <= 0) {
+        AFFOMultiple_Year1 = "NA"
+      } else {
+        AFFOMultiple_Year1 = impliedOffer / targetAFFOPerShareValueYear1
+      }
+
+      let targetEBITDA = targetCashFlowInfo.find(item => item.item_name === "EBITDA")
+      let targetEBITDAValue = targetEBITDA.amount_year1  || 0
+
+      let EBITDAMultiple_Year1
+      if (targetEBITDAValue <= 0) {
+        EBITDAMultiple_Year1 = "NA"
+      } else {
+        EBITDAMultiple_Year1 = targetImpliedTEV / targetEBITDAValue
+      }
+
+         return {
+           ...state,
+           outputsData: {
+             impliedOffer,
+             premiumToCurrent,
+             impliedCapRate,
+             FFOMultiple_Year1,
+             AFFOMultiple_Year1,
+             EBITDAMultiple_Year1
+         }
+      }
 
 
 
@@ -1107,3 +1215,29 @@ export default function companyBasicInfoReducer(
 //     modelData: {...state.modelData,
 //     basic_info_datum:[      {...state.modelData.basic_info_datum {...action.payload}}]}
 //    }
+
+//
+// let targetInfo = this.props.modelData.basic_info_datum.find(company => company.acquiror === false)
+// let targetCompany = targetInfo.company
+// let acquirorCompany = targetCompany === "B" ? "A" : "B"
+// let targetEquityData = this.props.modelData.equity_info_datum.find(item => item.company === targetCompany)
+// let acquirorEquityData = this.props.modelData.equity_info_datum.find(item => item.company === acquirorCompany)
+// let targetCurrentPrice = parseFloat(targetEquityData.currentSharePrice)
+// let acquirorCurrentPrice = parseFloat(acquirorEquityData.currentSharePrice)
+// let offerData = this.props.modelData.offer_info_datum[0]
+// let impliedOffer
+// if (offerData.offer_type === "SetAmount") {
+//   impliedOffer = parseFloat(offerData.offer_metric);
+// } else if (offerData.offer_type === "%Premium"){
+//   impliedOffer = targetCurrentPrice * (1 + parseFloat(offerData.offer_metric));
+// } else {
+//   let ratio = targetCurrentPrice / acquirorCurrentPrice
+//   let impliedAllInPrice = ratio * acquirorCurrentPrice
+//   let cashPercentage = 1 - parseFloat(offerData.percentage_stock)
+//   let cashPerShare = impliedAllInPrice * cashPercentage
+//   let remainingStockPerShare = impliedAllInPrice - cashPerShare
+//   let stockExchangeRatio = remainingStockPerShare / acquirorCurrentPrice
+//   let stockPerShare = stockExchangeRatio * acquirorCurrentPrice
+//   impliedOffer = (cashPerShare + stockPerShare)
+// }
+// let premiumToCurrent = (impliedOffer / targetCurrentPrice) - 1

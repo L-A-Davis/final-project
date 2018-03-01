@@ -251,3 +251,7 @@ export function changeCompletedStatus(form_name) {
 export function handleShowOutputs() {
   return { type: "SHOW_OUTPUTS", payload: "" };
 }
+
+export function handleCalculateOutputs(test) {
+  return { type: "CALCULATE_OUTPUTS", payload: test };
+}

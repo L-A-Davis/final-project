@@ -201,7 +201,7 @@ const saveNewFinancingInfo = (m) => {
   return fetch(`${API_ROOT}/new_financing_info_data`, {
     method: 'POST',
     headers: headers(),
-    body: JSON.stringify({new_financing_info_datum: {model_id: m.model_id, item_name: m.item_name, item_type: m.item_type, amount: m.amount, rate: m.rate}})
+    body: JSON.stringify({new_financing_info_datum: {model_id: m.model_id, item_name: m.item_name, item_type: m.item_type, amount: m.amount, rate: m.rate, plug: m.plug}})
   }).then(res => res.json())
 }
 
@@ -209,7 +209,7 @@ const editNewFinancingInfo = (m) => {
   return fetch(`${API_ROOT}/new_financing_info_data/${m.id}`, {
   method: 'PATCH',
   headers: headers(),
-  body: JSON.stringify({new_financing_info_datum: {model_id: m.model_id, item_name: m.item_name, item_type: m.item_type, amount: m.amount, rate: m.rate}})
+  body: JSON.stringify({new_financing_info_datum: {model_id: m.model_id, item_name: m.item_name, item_type: m.item_type, amount: m.amount, rate: m.rate, plug: m.plug}})
 }).then(res => res.json())
 }
 

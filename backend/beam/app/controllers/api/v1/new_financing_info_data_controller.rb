@@ -38,7 +38,7 @@ end
 
 private
   def new_financing_info_datum_params
-    params.require(:new_financing_info_datum).permit(:model_id, :item_name, :item_type, :amount, :rate)
+    params.require(:new_financing_info_datum).permit(:model_id, :item_name, :item_type, :amount, :rate, :plug)
   end
 
 

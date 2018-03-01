@@ -12,7 +12,6 @@ class NewModelForm extends React.Component {
   }
 
   handleSubmit = (e) => {
-    console.log(this.props.newModelFormData)
     e.preventDefault();
     this.props.addNewModel({
       name: this.props.newModelFormData.name,

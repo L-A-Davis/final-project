@@ -17,22 +17,34 @@ class Project extends React.Component {
 
   handleSelection = () => {
     this.setState({
-      showExistingModelList: !this.state.showExistingModelList,
-      showNewModelButton: !this.state.showNewModelButton,
-      showModel: !this.state.showNewModelForm
+      showExistingModelList: false,
+      showNewModelButton: false,
+      showModel: true
     })
   }
 
   componentDidMount() {
     this.props.selectedProjectData.id ?
     this.props.fetchExistingModels(this.props.selectedProjectData.id) : null
+    this.props.modelData.hasOwnProperty("id")?
+    this.setState({
+      showExistingModelList: false,
+      showNewModelButton: false,
+      showModel: true
+    }) :
+    this.setState({
+      showExistingModelList: true,
+      showNewModelButton: true,
+      showModel: false
+    })
   }
 
 
   render () {
+    console.log(this.state)
   return (
     <div>
-     {this.state.showExistingModelList &&
+     {(this.state.showExistingModelList) &&
         <div>
           <h3> Select an Existing Model </h3>
           <ExistingModelsForProject
@@ -41,13 +53,14 @@ class Project extends React.Component {
             history={this.props.history}/>
         </div>
       }
-     {this.state.showNewModelButton &&
+
+     {(this.state.showNewModelButton)&&
        <div>
          <h3> Or Start a New One </h3>
          <button onClick={this.handleSelection}>Start Here</button>
        </div>
      }
-      {this.state.showModel &&
+      {(this.state.showModel) &&
         <div>
           <Model
             auth={this.props.auth}
@@ -60,4 +73,36 @@ class Project extends React.Component {
 }
 
 
- export default connect(state=> {return {allModelsforProject: state.allModelsforProject, selectedProjectData: state.selectedProjectData, FormCompletedStatus: state.FormCompletedStatus }}, { fetchExistingModels })(WithAuth(Project))
+ export default connect(state=> {return {allModelsforProject: state.allModelsforProject, selectedProjectData: state.selectedProjectData, FormCompletedStatus: state.FormCompletedStatus, showOutputs: state.showOutputs, modelData: state.modelData
+  }}, { fetchExistingModels })(WithAuth(Project))
+
+
+//   render () {
+//   return (
+//     <div>
+//      {this.state.showExistingModelList &&
+//         <div>
+//           <h3> Select an Existing Model </h3>
+//           <ExistingModelsForProject
+//             next={this.handleSelection}
+//             auth={this.props.auth}
+//             history={this.props.history}/>
+//         </div>
+//       }
+//      {this.state.showNewModelButton &&
+//        <div>
+//          <h3> Or Start a New One </h3>
+//          <button onClick={this.handleSelection}>Start Here</button>
+//        </div>
+//      }
+//       {this.state.showModel &&
+//         <div>
+//           <Model
+//             auth={this.props.auth}
+//             history={this.props.history}/>
+//         </div>
+//       }
+//     </div>
+//   )
+//  }
+// }

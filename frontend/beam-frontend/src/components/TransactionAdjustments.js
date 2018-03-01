@@ -10,10 +10,21 @@ let debt_input_types = [{id: "debt", name: "Debt"}, {id: "preferred", name: "Pre
 class TransactionAdjustments extends React.Component {
 
  handleChange = (e) => {
-   this.props.updateTransactionAdjustmentsForm({
-       [e.target.name]: e.target.value
-   })
+   if (e.target.type !== "radio") {
+     this.props.updateTransactionAdjustmentsForm({
+        [e.target.name]:  e.target.value
+      })
+   } else {
+     this.props.updateTransactionAdjustmentsForm({
+        New_financing_1_plug: false,
+        New_financing_2_plug: false,
+        New_financing_3_plug: false,
+        [e.target.dataset.name]:  e.target.checked
+      })
+   }
  }
+
+
  handleDataSave = (data) =>{
    for (let i = 0; i< data.length; i++){
      if (data[i].form_for ==="synergies") {
@@ -52,7 +63,8 @@ class TransactionAdjustments extends React.Component {
          form_for: "newFinancing",
          item_type: form.New_financing_1_type_of,
          amount: form.New_financing_1_amount || 0,
-         rate: form.New_financing_1_rate || 0
+         rate: form.New_financing_1_rate || 0,
+         plug: form.New_financing_1_plug || false
 
        },
        {
@@ -62,7 +74,8 @@ class TransactionAdjustments extends React.Component {
          form_for: "newFinancing",
          item_type: form.New_financing_2_type_of,
          amount: form.New_financing_2_amount || 0,
-         rate: form.New_financing_2_rate || 0
+         rate: form.New_financing_2_rate || 0,
+         plug: form.New_financing_2_plug || false
 
        },
        {
@@ -72,7 +85,8 @@ class TransactionAdjustments extends React.Component {
          form_for: "newFinancing",
          item_type: form.New_financing_3_type_of,
          amount: form.New_financing_3_amount || 0,
-         rate: form.New_financing_3_rate || 0
+         rate: form.New_financing_3_rate || 0,
+         plug : form.New_financing_3_plug || false
        },
      ]
     this.handleDataSave(info)
@@ -145,6 +159,16 @@ class TransactionAdjustments extends React.Component {
          className="form-input-3"
          step= "any"/>
 
+     <input
+        type="radio"
+        name="plug"
+        data-name="New_financing_1_plug"
+        value={this.props.TransactionAdjustmentsFormData.New_financing_1_plug}
+        onChange={this.handleChange}
+        checked={this.props.TransactionAdjustmentsFormData.New_financing_1_plug===true}
+        className="form-input-4"
+        />
+
      <label className="form-label"> New Financing 2:</label>
 
          <select
@@ -175,7 +199,15 @@ class TransactionAdjustments extends React.Component {
           className="form-input-3"
           step= "any"/>
 
-
+          <input
+             type="radio"
+             name="plug"
+             data-name="New_financing_2_plug"
+             value={this.props.TransactionAdjustmentsFormData.New_financing_2_plug}
+             onChange={this.handleChange}
+             checked={this.props.TransactionAdjustmentsFormData.New_financing_2_plug===true}
+             className="form-input-4"
+             />
 
       <label className="form-label"> New Financing 3:</label>
 
@@ -206,6 +238,16 @@ class TransactionAdjustments extends React.Component {
            onChange={this.handleChange}
            className="form-input-3"
            step= "any"/>
+
+         <input
+            type="radio"
+            name="plug"
+            data-name="New_financing_3_plug"
+            value={this.props.TransactionAdjustmentsFormData.New_financing_3_plug}
+            onChange={this.handleChange}
+            checked={this.props.TransactionAdjustmentsFormData.New_financing_3_plug===true}
+            className="form-input-4"
+            />
 
            <input
              type="submit"
