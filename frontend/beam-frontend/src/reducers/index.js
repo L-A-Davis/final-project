@@ -1105,19 +1105,21 @@ export default function companyBasicInfoReducer(
       let targetCurrentPrice = Math.abs(parseFloat(targetEquityData.currentSharePrice))
       let acquirorCurrentPrice = Math.abs(parseFloat(acquirorEquityData.currentSharePrice))
       let offerData = action.payload.offer_info_datum[0]
+      let stockPercentage = Math.abs(parseFloat(offerData.percentage_stock))
+      let cashPercentage = 1 - stockPercentage
+      let allInRatio = targetCurrentPrice / acquirorCurrentPrice
+      let impliedAllInPrice = allInRatio * acquirorCurrentPrice
+      let cashPerShare = impliedAllInPrice * cashPercentage
+      let remainingStockPerShare = impliedAllInPrice - cashPerShare
+      let stockExchangeRatio = remainingStockPerShare / acquirorCurrentPrice
+      let stockPerShare = stockExchangeRatio * acquirorCurrentPrice
+
       let impliedOffer
       if (offerData.offer_type === "SetAmount") {
         impliedOffer = Math.abs(parseFloat(offerData.offer_metric));
       } else if (offerData.offer_type === "%Premium"){
         impliedOffer = targetCurrentPrice * (1 + parseFloat(offerData.offer_metric));
       } else {
-        let ratio = targetCurrentPrice / acquirorCurrentPrice
-        let impliedAllInPrice = ratio * acquirorCurrentPrice
-        let cashPercentage = 1 - Math.abs(parseFloat(offerData.percentage_stock))
-        let cashPerShare = impliedAllInPrice * cashPercentage
-        let remainingStockPerShare = impliedAllInPrice - cashPerShare
-        let stockExchangeRatio = remainingStockPerShare / acquirorCurrentPrice
-        let stockPerShare = stockExchangeRatio * acquirorCurrentPrice
         impliedOffer = (cashPerShare + stockPerShare)
       }
       let premiumToCurrent = (impliedOffer / targetCurrentPrice) - 1
@@ -1129,6 +1131,8 @@ export default function companyBasicInfoReducer(
       let impliedTargetEquityValue = impliedOffer * targetShares
       let targetTotalDebt = targetCapitalizationInfo.filter(item => item.item_type === "debt").reduce((a, b) => ({amount: a.amount + b.amount}))
       let targetTotalDebtValue = Math.abs(targetTotalDebt.amount)
+      let targetCapitalInUse = targetCapitalizationInfo.filter(item => parseFloat(item.amount) !== 0)
+
       let targetPreferred = targetCapitalizationInfo.filter(item => item.item_type === "preferred").reduce((a, b) => ({amount: a.amount + b.amount}))
       let targetPreferredValue = Math.abs(targetPreferred.amount)
       let targetCash =  targetCapitalizationInfo.filter(item => item.item_type === "cash").reduce((a, b) => ({amount: a.amount + b.amount}))
@@ -1175,6 +1179,25 @@ export default function companyBasicInfoReducer(
         EBITDAMultiple_Year1 = targetImpliedTEV / targetEBITDAValue
       }
 
+    //
+    // let handleAssumedDebtAndPref = (array) => {
+    //   let assumedDebtAndPref = []
+    //   let repaidDebtAndPref = []
+    //   let usedCash = []
+    //   for (let i = 0; i< array.length; i++){
+    //     if ((array[i].item_type === "debt" || array[i].item_type === "preferred") && array[i].repay === false ) {
+    //       assumedDebtAndPref.push(array[i])
+    //     } else if ((array[i].item_type === "cash") && array[i].repay === true ){
+    //       usedCash.push(array[i])
+    //     } else if ((array[i].item_type === "debt" || array[i].item_type === "preferred") && array[i].repay === true ) {
+    //       repaidDebtAndPref.push(array[i])
+    //     }
+    //     return {assumedDebtAndPref: assumedDebtAndPref, repaidDebtAndPref: repaidDebtAndPref, usedCash: usedCash}
+    //   }
+    // }
+
+
+
          return {
            ...state,
            outputsData: {
@@ -1183,7 +1206,15 @@ export default function companyBasicInfoReducer(
              impliedCapRate,
              FFOMultiple_Year1,
              AFFOMultiple_Year1,
-             EBITDAMultiple_Year1
+             EBITDAMultiple_Year1,
+             stockPercentage,
+             cashPercentage,
+             allInRatio,
+             cashPerShare,
+             stockPerShare,
+             stockExchangeRatio,
+             impliedTargetEquityValue,
+             targetCapitalInUse
          }
       }
 

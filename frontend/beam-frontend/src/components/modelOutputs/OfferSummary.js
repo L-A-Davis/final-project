@@ -1,48 +1,39 @@
 import React from 'react'
 import { connect } from "react-redux";
 import ReactTable from 'react-table'
-import { handleCalculateOutputs } from '../../actions'
-// import 'react-table/react-table.css'
 
 
 class OfferSummary extends React.Component {
-
-state = {
-  targetCurrentPrice: "",
-  acquirorCurrentPrice: "",
-  impliedOffer: "",
-  premiumToCurrent: "",
-}
-
- componentDidMount() {
-   this.props.handleCalculateOutputs(this.props.modelData)
- }
-
-
 
 
   render() {
       const offerSummaryData = [{
         label: 'Offer Per Share',
-        metric: this.props.outputsData ? this.props.outputsData.impliedOffer : 0 ,
+        metric: this.props.outputsData ? this.props.outputsData.impliedOffer.toLocaleString('en-US',{style: 'currency', currency: 'USD' }) : 0 ,
+        type: 'per_share'
       }, {
 
       },
       {
         label: 'Premium / (Discount) To Current',
-        metric: this.props.outputsData ? this.props.outputsData.premiumToCurrent : 0,
+        metric: this.props.outputsData ? this.props.outputsData.premiumToCurrent.toLocaleString(undefined,{style: 'percent', minimumFractionDigits:1}) : 0,
+        type: "percent"
       },{
         label: 'Cap Rate',
-        metric:  this.props.outputsData ? this.props.outputsData.impliedCapRate : "NA",
+        metric:  this.props.outputsData ? <FormattedNumber value={ this.props.outputsData.impliedCapRate} style="percent" /> : "NA",
+        type: "percent"
       }, {
         label: 'FFO Multiple',
         metric: this.props.outputsData ? this.props.outputsData.FFOMultiple_Year1 : "NA",
+        type: "multiple"
       }, {
         label: 'AFFO Multiple',
         metric: this.props.outputsData ? this.props.outputsData.AFFOMultiple_Year1 : "NA",
+        type: "multiple"
       },  {
         label: 'EBITDA Multiple',
         metric: this.props.outputsData ? this.props.outputsData.EBITDAMultiple_Year1 : "NA",
+        type: "multiple"
       }
         ]
 
@@ -53,6 +44,50 @@ state = {
         maxWidth: 325,
       }, {
         Header: 'Implied Metric',
+        accessor: 'metric',
+        Cell: props => <span className='number'>{props.value}</span>,
+         minWidth: 130,
+         maxWidth: 130,
+      },]
+
+      const exchangeRatioData = [{
+        label: '% Stock',
+        metric: this.props.outputsData ? this.props.outputsData.stockPercentage : "NA" ,
+        type: "percent"
+      },
+      {
+        label: '% Cash',
+        metric: this.props.outputsData ? this.props.outputsData.cashPercentage : "NA",
+        type: 'percent'
+      },{
+      },
+      {
+        label: 'All-In Exchange Ratio',
+        metric:  this.props.outputsData ? this.props.outputsData.allInRatio : "NA",
+        type: "multiple"
+      }, {
+        label: 'Cash Per Share',
+        metric: this.props.outputsData ? this.props.outputsData.cashPerShare : "NA",
+        type: "per_share"
+      }, {
+        label: 'Stock Per Share',
+        metric: this.props.outputsData ? this.props.outputsData.stockPerShare : "NA",
+        type: "per_share"
+      },  {
+        label: 'Stock Exchange Ratio',
+        metric: this.props.outputsData ? this.props.outputsData.stockExchangeRatio : "NA",
+        type: "per_share"
+      }
+        ]
+
+
+      const exchangeRatioColumns = [{
+        Header: '',
+        accessor: 'label',
+        minWidth: 250,
+        maxWidth: 325,
+      }, {
+        Header: 'Implied Amount',
         accessor: 'metric',
         Cell: props => <span className='number'>{props.value}</span>,
          minWidth: 130,
@@ -71,6 +106,16 @@ state = {
             defaultPageSize={7}
             />
           </div>
+
+          <div className="single-table-holder">
+          <h3>Exchange Ratio Summary</h3>
+            <ReactTable
+            data={exchangeRatioData}
+            columns={exchangeRatioColumns}
+            showPagination={false}
+            defaultPageSize={7}
+            />
+          </div>
         </div>
        </div>
     )
@@ -78,7 +123,7 @@ state = {
 }
 
 
-export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData, outputsData: state.outputsData }}, { handleCalculateOutputs })(OfferSummary)
+export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData, outputsData: state.outputsData }},)(OfferSummary)
 
 //
 // const columns = [{

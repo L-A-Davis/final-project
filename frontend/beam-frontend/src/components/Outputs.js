@@ -6,8 +6,15 @@ import Accretion from './modelOutputs/Accretion';
 import Capitalization from './modelOutputs/Capitalization';
 import Contribution from './modelOutputs/Contribution';
 import 'react-table/react-table.css'
+import { handleCalculateOutputs } from '../actions'
+
+
 
 class Outputs extends React.Component {
+
+  componentDidMount() {
+    this.props.handleCalculateOutputs(this.props.modelData)
+  }
 
   render() {
     return (
@@ -24,4 +31,4 @@ class Outputs extends React.Component {
 }
 
 
-export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData }}, )(Outputs)
+export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData }}, {handleCalculateOutputs} )(Outputs)
