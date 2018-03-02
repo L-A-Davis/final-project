@@ -1099,6 +1099,9 @@ export default function companyBasicInfoReducer(
 
       let targetInfo = action.payload.basic_info_datum.find(company => company.acquiror === false)
       let targetCompany = targetInfo.company
+      let acquirorInfo = action.payload.basic_info_datum.find(company => company.acquiror === true)
+      let targetCodename = targetInfo.codename
+      let acquirorCodename = acquirorInfo.codename
       let acquirorCompany = targetCompany === "B" ? "A" : "B"
       let targetEquityData = action.payload.equity_info_datum.find(item => item.company === targetCompany)
       let acquirorEquityData = action.payload.equity_info_datum.find(item => item.company === acquirorCompany)
@@ -1126,6 +1129,12 @@ export default function companyBasicInfoReducer(
 
       let targetCapitalizationInfo = action.payload.capitalization_info_datum.filter(item => item.company === targetCompany)
       let targetCashFlowInfo = action.payload.cash_flow_info_datum.filter(item => item.company === targetCompany)
+      let acquirorCashFlowInfo = action.payload.cash_flow_info_datum.filter(item => item.company === acquirorCompany)
+
+
+      let acquirorFFOPerShare = acquirorCashFlowInfo.find(item => item.item_name === "FFO_Per_Share")
+      let acquirorFFOPerShareValueYear1 = acquirorFFOPerShare.amount_year1 || 0
+      let acquirorShares = Math.abs(acquirorEquityData.shares)
 
       let targetShares = Math.abs(targetEquityData.shares)
       let impliedTargetEquityValue = impliedOffer * targetShares
@@ -1214,7 +1223,13 @@ export default function companyBasicInfoReducer(
              stockPerShare,
              stockExchangeRatio,
              impliedTargetEquityValue,
-             targetCapitalInUse
+             targetCapitalInUse,
+             targetCodename,
+             acquirorCodename,
+             acquirorFFOPerShareValueYear1,
+             targetFFOPerShareValueYear1,
+             acquirorShares,
+             targetShares,
          }
       }
 

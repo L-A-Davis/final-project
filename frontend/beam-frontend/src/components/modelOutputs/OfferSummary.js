@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import ReactTable from 'react-table'
-
+// import { FormattedNumber } from 'react-intl'
 
 class OfferSummary extends React.Component {
 
@@ -20,7 +20,7 @@ class OfferSummary extends React.Component {
         type: "percent"
       },{
         label: 'Cap Rate',
-        metric:  this.props.outputsData ? <FormattedNumber value={ this.props.outputsData.impliedCapRate} style="percent" /> : "NA",
+        metric:  this.props.outputsData ?  this.props.outputsData.impliedCapRate : "NA",
         type: "percent"
       }, {
         label: 'FFO Multiple',
