@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import ReactTable from 'react-table'
+import NumberFormat from 'react-number-format';
 // import { FormattedNumber } from 'react-intl'
 
 class OfferSummary extends React.Component {
@@ -9,30 +10,69 @@ class OfferSummary extends React.Component {
   render() {
       const offerSummaryData = [{
         label: 'Offer Per Share',
-        metric: this.props.outputsData ? this.props.outputsData.impliedOffer.toLocaleString('en-US',{style: 'currency', currency: 'USD' }) : 0 ,
+        metric:
+        <NumberFormat value={this.props.outputsData ? this.props.outputsData.impliedOffer : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+        decimalSeparator={"."}
+        decimalScale={2}
+        fixedDecimalScale={true} />,
         type: 'per_share'
       }, {
 
       },
       {
         label: 'Premium / (Discount) To Current',
-        metric: this.props.outputsData ? this.props.outputsData.premiumToCurrent.toLocaleString(undefined,{style: 'percent', minimumFractionDigits:1}) : 0,
+        metric:
+        <NumberFormat
+        value={
+        this.props.outputsData ? this.props.outputsData.premiumToCurrent : 0} displayType={'text'}
+        suffix={"%"}
+        decimalScale={1}
+        fixedDecimalScale={true}
+        />,
         type: "percent"
       },{
         label: 'Cap Rate',
-        metric:  this.props.outputsData ?  this.props.outputsData.impliedCapRate : "NA",
+        metric:
+          <NumberFormat
+          value={this.props.outputsData ?  this.props.outputsData.impliedCapRate*100 : "NA"}
+          displayType={'text'}
+          suffix={"%"}
+          decimalScale={1}
+          fixedDecimalScale={true}
+          />,
         type: "percent"
       }, {
         label: 'FFO Multiple',
-        metric: this.props.outputsData ? this.props.outputsData.FFOMultiple_Year1 : "NA",
+        metric:
+           <NumberFormat
+          value={this.props.outputsData ? this.props.outputsData.FFOMultiple_Year1 : "NA"}
+          displayType={'text'}
+          suffix={"x"}
+          decimalScale={1}
+          fixedDecimalScale={true}
+          />,
         type: "multiple"
       }, {
         label: 'AFFO Multiple',
-        metric: this.props.outputsData ? this.props.outputsData.AFFOMultiple_Year1 : "NA",
+        metric:
+        <NumberFormat
+           value={this.props.outputsData ? this.props.outputsData.AFFOMultiple_Year1 : "NA"}
+           displayType={'text'}
+           suffix={"x"}
+           decimalScale={1}
+           fixedDecimalScale={true}
+           />,
         type: "multiple"
       },  {
         label: 'EBITDA Multiple',
-        metric: this.props.outputsData ? this.props.outputsData.EBITDAMultiple_Year1 : "NA",
+        metric:
+          <NumberFormat
+           value={this.props.outputsData ? this.props.outputsData.EBITDAMultiple_Year1 : "NA"}
+           displayType={'text'}
+           suffix={"x"}
+           decimalScale={1}
+           fixedDecimalScale={true}
+           />,
         type: "multiple"
       }
         ]
@@ -52,30 +92,66 @@ class OfferSummary extends React.Component {
 
       const exchangeRatioData = [{
         label: '% Stock',
-        metric: this.props.outputsData ? this.props.outputsData.stockPercentage : "NA" ,
+        metric:
+          <NumberFormat
+          value={
+          this.props.outputsData ? this.props.outputsData.stockPercentage*100 : 0} displayType={'text'}
+          suffix={"%"}
+          decimalScale={0}
+          fixedDecimalScale={true}
+          />,
         type: "percent"
       },
       {
         label: '% Cash',
-        metric: this.props.outputsData ? this.props.outputsData.cashPercentage : "NA",
+        metric:
+        <NumberFormat
+          value={
+          this.props.outputsData ? this.props.outputsData.cashPercentage*100 : 0} displayType={'text'}
+          suffix={"%"}
+          decimalScale={0}
+          fixedDecimalScale={true}
+          />,
         type: 'percent'
       },{
       },
       {
         label: 'All-In Exchange Ratio',
-        metric:  this.props.outputsData ? this.props.outputsData.allInRatio : "NA",
+        metric:
+          <NumberFormat
+           value={this.props.outputsData ? this.props.outputsData.allInRatio : "NA"}
+           displayType={'text'}
+           suffix={"x"}
+           decimalScale={3}
+           fixedDecimalScale={true}
+           />,
         type: "multiple"
       }, {
         label: 'Cash Per Share',
-        metric: this.props.outputsData ? this.props.outputsData.cashPerShare : "NA",
+        metric:
+          <NumberFormat value={this.props.outputsData ? this.props.outputsData.cashPerShare : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+          decimalSeparator={"."}
+          decimalScale={2}
+          fixedDecimalScale={true} />,
         type: "per_share"
       }, {
         label: 'Stock Per Share',
-        metric: this.props.outputsData ? this.props.outputsData.stockPerShare : "NA",
+        metric:
+          <NumberFormat value={this.props.outputsData ? this.props.outputsData.stockPerShare : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+          decimalSeparator={"."}
+          decimalScale={2}
+          fixedDecimalScale={true} />,
         type: "per_share"
       },  {
         label: 'Stock Exchange Ratio',
-        metric: this.props.outputsData ? this.props.outputsData.stockExchangeRatio : "NA",
+        metric:
+          <NumberFormat
+           value={this.props.outputsData ? this.props.outputsData.stockExchangeRatio : "NA"}
+           displayType={'text'}
+           suffix={"x"}
+           decimalScale={3}
+           fixedDecimalScale={true}
+           />,
         type: "per_share"
       }
         ]

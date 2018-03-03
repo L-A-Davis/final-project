@@ -224,7 +224,7 @@ button:hover {
   justify-self: center;
 }
 
-div.form h3, div.form h2, .single-table-holder h3 {
+div.form h3, div.form h2, .single-table-holder h3, .outputholder h3 {
   text-align: center;
 }
 

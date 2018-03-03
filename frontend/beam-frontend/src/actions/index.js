@@ -1,4 +1,5 @@
 import adapter from '../adapter'
+import mergerMath from './mergerMath'
 
 export function updateNewProjectForm(formData) {
   return { type: "UPDATE_NEWPROJECT_FORM", payload: formData };
@@ -252,6 +253,7 @@ export function handleShowOutputs() {
   return { type: "SHOW_OUTPUTS", payload: "" };
 }
 
-export function handleCalculateOutputs(test) {
-  return { type: "CALCULATE_OUTPUTS", payload: test };
+export function handleCalculateOutputs(info) {
+    let results = mergerMath.calculateMergerMath(info)
+    return { type: "CALCULATE_OUTPUTS", payload: results };
 }
