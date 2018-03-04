@@ -14,7 +14,7 @@ return (
       :
        <div>
         <li><Link to='/login'>Login</Link></li>
-        <li><Link to='/signup'>Sing Up</Link></li>
+        <li><Link to='/signup'>Sign Up</Link></li>
        </div>
      }
      {

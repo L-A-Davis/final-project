@@ -17,7 +17,7 @@ class Profile extends React.Component {
 
 
  componentDidMount() {
-   this.props.fetchExistingProjects(this.props.auth.currentUser.id)
+   this.props.auth.currentUser ? this.props.fetchExistingProjects(this.props.auth.currentUser.id) : null
    this.props.resetModelData()
    this.props.resetFormData()
  }

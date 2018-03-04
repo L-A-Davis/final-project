@@ -10,74 +10,176 @@ class SourcesAndUses extends React.Component {
   // repaidDebtAndPref,
   // usedCash
 
-  handleAssumedItems = (array) => {
+  handleAssumedItems = (array, dataInput) => {
     let tableInfo =
     array.map(item => ({
       label: `Assume ${item.item_name}`,
-      metric:
+      metric: item.amount ?
             <NumberFormat
             value={item.amount} displayType={'text'}
             thousandSeparator={true} prefix={'$'}
             decimalSeparator={"."} decimalScale={1}
-            fixedDecimalScale={true} />,
+            fixedDecimalScale={true} /> : '',
+    percentage: item.amount ?
+          <NumberFormat
+          value={(item.amount / dataInput * 100 || "")} displayType={'text'}
+          thousandSeparator={true} suffix={'%'}
+          decimalSeparator={"."} decimalScale={1}
+          fixedDecimalScale={true} /> : '',
     }))
     return tableInfo
   }
 
-  handleRepaidItems = (array) => {
+  handleRepaidItems = (array, dataInput) => {
     let tableInfo =
     array.map(item => ({
       label: `Repay ${item.item_name}`,
-      metric:
+      metric: item.amount ?
             <NumberFormat
             value={item.amount} displayType={'text'}
             thousandSeparator={true} prefix={'$'}
             decimalSeparator={"."} decimalScale={1}
-            fixedDecimalScale={true} />,
+            fixedDecimalScale={true} /> : "",
+      percentage: item.amount ?
+            <NumberFormat
+            value={(item.amount / dataInput * 100 || "")} displayType={'text'}
+            thousandSeparator={true} suffix={'%'}
+            decimalSeparator={"."} decimalScale={1}
+            fixedDecimalScale={true} /> : '',
     }))
     return tableInfo
   }
 
 
-  handleUsedCash = (array) => {
+
+
+  handleUsedCash = (array, dataInput) => {
     let tableInfo =
     array.map(item => ({
       label: `Use of ${item.item_name}`,
-      metric:
+      metric: item.amount ?
             <NumberFormat
             value={item.amount} displayType={'text'}
             thousandSeparator={true} prefix={'$'}
             decimalSeparator={"."} decimalScale={1}
-            fixedDecimalScale={true} />,
+            fixedDecimalScale={true} /> : "",
+      percentage: item.amount ?
+            <NumberFormat
+            value={(item.amount / dataInput * 100 || "")} displayType={'text'}
+            thousandSeparator={true} suffix={'%'}
+            decimalSeparator={"."} decimalScale={1}
+            fixedDecimalScale={true} /> : '',
     }))
     return tableInfo
   }
 
+  handleNewFinancing = (array, dataInput) => {
+    let tableInfo =
+    array.map(item => ({
+      label: `Issuance of new ${item.item_type}`,
+      metric: item.amount ?
+            <NumberFormat
+            value={item.amount} displayType={'text'}
+            thousandSeparator={true} prefix={'$'}
+            decimalSeparator={"."} decimalScale={1}
+            fixedDecimalScale={true} /> : '',
+      percentage: item.amount ?
+            <NumberFormat
+            value={(item.amount / dataInput * 100 || "")} displayType={'text'}
+            thousandSeparator={true} suffix={'%'}
+            decimalSeparator={"."} decimalScale={1}
+            fixedDecimalScale={true} /> : '',
+    }))
+    return tableInfo
+  }
+
+
+
+
   handleTotalUsesCalc = () =>{
-    
+
   }
 
   render() {
-
-        const usesData =  this.props.outputsData ?
+        let data = this.props.outputsData
+        const usesData =  data ?
         [{
-            label: 'Purchase Target Equity',
-            metric:
+            label: `Purchase ${this.props.outputsData ? this.props.outputsData.targetCodename : 'Target' } Equity`,
+            metric: data.impliedTargetEquityValue ?
             <NumberFormat
-            value={this.props.outputsData.impliedTargetEquityValue} displayType={'text'}
-            thousandSeparator={true} prefix={'$'}
-            decimalSeparator={"."} decimalScale={1}
-            fixedDecimalScale={true} />
-          }].concat(this.handleAssumedItems(this.props.outputsData.assumedDebtAndPref)).concat(this.handleRepaidItems(this.props.outputsData.repaidDebtAndPref)).concat([{
-              label: 'Transaction Costs',
-              metric:
-              <NumberFormat
-              value={30} displayType={'text'}
+              value={data.impliedTargetEquityValue} displayType={'text'}
               thousandSeparator={true} prefix={'$'}
               decimalSeparator={"."} decimalScale={1}
-              fixedDecimalScale={true} />}]) : [{}]
+              fixedDecimalScale={true} /> : "",
+            percentage: data.impliedTargetEquityValue ?
+                  <NumberFormat
+                  value={(data.impliedTargetEquityValue / data.TotalUses * 100 || "")} displayType={'text'}
+                  thousandSeparator={true} suffix={'%'}
+                  decimalSeparator={"."} decimalScale={1}
+                  fixedDecimalScale={true} /> : '',
+          }].concat(this.handleAssumedItems(data.assumedDebtAndPref, data.TotalUses)).concat(this.handleRepaidItems(data.repaidDebtAndPref, data.TotalUses)).concat([{
+              label: 'Transaction Costs',
+              metric: data.CostsInUse ?
+                <NumberFormat
+                value={data.CostsInUse} displayType={'text'}
+                thousandSeparator={true} prefix={'$'}
+                decimalSeparator={"."} decimalScale={1}
+                fixedDecimalScale={true} /> : "",
+              percentage: data.CostsInUse ?
+                    <NumberFormat
+                    value={(data.CostsInUse / data.TotalUses * 100 || "")} displayType={'text'}
+                    thousandSeparator={true} suffix={'%'}
+                    decimalSeparator={"."} decimalScale={1}
+                    fixedDecimalScale={true} /> : ''
+                }
+              ,{
+              label: 'Total Uses',
+              metric: data.TotalUses?
+              <NumberFormat
+              value={data.TotalUses} displayType={'text'}
+              thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."} decimalScale={1}
+              fixedDecimalScale={true} /> : ""
+            }]) : [{}]
 
-        const sourcesData = this.props.outputsData ? this.handleAssumedItems(this.props.outputsData.assumedDebtAndPref).concat(this.handleUsedCash(this.props.outputsData.usedCash)) : [{}]
+        const sourcesData = data ?   [{
+              label:
+              `Issue ${this.props.outputsData ? this.props.outputsData.acquirorCodename : 'Acquiror' } Equity`,
+              metric: data.AcquirorEquityIssued ?
+                <NumberFormat
+                value={data.AcquirorEquityIssued} displayType={'text'}
+                thousandSeparator={true} prefix={'$'}
+                decimalSeparator={"."} decimalScale={1}
+                fixedDecimalScale={true} /> : "",
+            percentage: data.AcquirorEquityIssued ?
+                  <NumberFormat
+                  value={(data.AcquirorEquityIssued / data.TotalSources * 100 || "")} displayType={'text'}
+                  thousandSeparator={true} suffix={'%'}
+                  decimalSeparator={"."} decimalScale={1}
+                  fixedDecimalScale={true} /> : ''
+            }].concat(this.handleAssumedItems(data.assumedDebtAndPref, data. TotalSources)).concat(this.handleUsedCash(data.usedCash, data. TotalSources)).concat(this.handleNewFinancing(data.newFinancingsInUseNoPlug, data.TotalSources)).concat([{
+                    label: 'Additional New Financing',
+                    metric: data.PlugFinancing ?
+                      <NumberFormat
+                      value={data.PlugFinancing} displayType={'text'}
+                      thousandSeparator={true} prefix={'$'}
+                      decimalSeparator={"."} decimalScale={1}
+                      fixedDecimalScale={true} /> : "",
+                    percentage: data.PlugFinancing ?
+                          <NumberFormat
+                          value={(data.PlugFinancing / data.TotalSources * 100 || "")} displayType={'text'}
+                          thousandSeparator={true} suffix={'%'}
+                          decimalSeparator={"."} decimalScale={1}
+                          fixedDecimalScale={true} /> : ''}
+                    ,{
+                    label: 'Total Sources',
+                    metric: data.TotalSources ?
+                    <NumberFormat
+                    value={data.TotalSources} displayType={'text'}
+                    thousandSeparator={true} prefix={'$'}
+                    decimalSeparator={"."} decimalScale={1}
+                    fixedDecimalScale={true} /> : ""
+                  }]) : [{}]
 
         const sourcesColumns = [{
           Header: 'Sources',
@@ -130,7 +232,7 @@ class SourcesAndUses extends React.Component {
               data={usesData}
               columns={usesColumns}
               showPagination={false}
-              defaultPageSize={9}
+              minRows={8}
             />
             </div>
               <div className="single-table-holder">
@@ -138,7 +240,7 @@ class SourcesAndUses extends React.Component {
               data={sourcesData}
               columns={sourcesColumns}
               showPagination={false}
-              defaultPageSize={9}
+              minRows={8}
             />
           </div>
           </div>
@@ -154,7 +256,9 @@ export default connect (state => {return {selectedProjectData: state.selectedPro
 
       //   const sourcesAndUsesData = [{
       //     uses_label: 'Purchase Target Equity',
-      //     uses_metric: this.props.outputsData ? this.props.outputsData.impliedTargetEquityValue : 0 ,
+      //     uses_metric: data ? data.impliedTargetEquityValue : 0 ,
       //     uses_percentage: "",
       //   }
       // ]
+
+      //
