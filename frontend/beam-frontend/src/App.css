@@ -71,15 +71,21 @@ form input, form select, .form div form input{
     box-sizing: border-box; */
     line-height: 2em;
     /* line-height: 1.21428571em; */
-    padding: .67857143em 1em;
+    padding: .5em 1em;
     font-size: 1em;
     background: #fff;
     border: 1px solid rgba(34,36,38,.15);
     color: rgba(0,0,0,.87);
     border-radius: .28571429rem;
+    margin-bottom: 2%;
+    margin-top: 2%;
 }
 
-form input[type=submit] {
+form label {
+  font-size: 1.1em;
+}
+
+form input[type=submit], form input[type=submit].form-input-1, form input[type=submit].form-input-submit {
     width: 100%;
     background-color: #73757a;
     color: white;

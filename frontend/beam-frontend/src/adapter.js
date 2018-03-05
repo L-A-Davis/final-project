@@ -18,6 +18,8 @@ const Singup_headers = () => {
 const URL_ROOT = 'http://localhost:3001'
 const API_ROOT = `${URL_ROOT}/api/v1`
 
+const STOCK_URL =`https://api.iextrading.com/1.0/stock`
+
 const login = (email, password) => {
   return fetch(`${URL_ROOT}/login`, {
     method: 'POST',
@@ -213,6 +215,17 @@ const editNewFinancingInfo = (m) => {
 }).then(res => res.json())
 }
 
+const handleErrors = (response) => {
+  if (!response.ok) {
+      throw Error(response.statusText);
+  }
+  return response;
+}
+
+const getTradingData = (ticker) => {
+  return fetch(`${STOCK_URL}/${ticker}/chart/1y`).then(handleErrors).then(resp=> resp.json()).catch(error => console.log(error))
+}
+
 export default {
   eventHandlers: {
      getProjects,
@@ -236,7 +249,8 @@ export default {
      saveSynergiesInfo,
      editSynergiesInfo,
      saveNewFinancingInfo,
-     editNewFinancingInfo
+     editNewFinancingInfo,
+     getTradingData
   },
   auth: {
     login,

@@ -257,3 +257,11 @@ export function handleCalculateOutputs(info) {
     let results = mergerMath.calculateMergerMath(info)
     return { type: "CALCULATE_OUTPUTS", payload: results };
 }
+
+export function handleGetTradingData(ticker) {
+  return dispatch => {
+    adapter.eventHandlers.getTradingData(ticker).then(resp => {
+      dispatch({ type: 'ADD_TRADING_DATA', payload: resp})
+    })
+  }
+}

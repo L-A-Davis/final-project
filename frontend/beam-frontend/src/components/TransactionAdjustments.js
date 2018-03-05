@@ -106,7 +106,7 @@ class TransactionAdjustments extends React.Component {
        <label className="form-input-1">Type Detail</label>
        <label className="form-input-2">Input Amount</label>
        <label className="form-input-3">New Financing Rate</label>
-
+        <label className="form-input-4">Financing Plug</label>
        <label className="form-label">G&A Synergies:</label>
 
        <select

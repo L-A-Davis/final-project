@@ -14,6 +14,7 @@ export default function companyBasicInfoReducer(
       model_type: '',
       data: []
     },
+    tradingData: [],
     showOutputs: false,
     outputsData: {
       test: ""
@@ -1246,6 +1247,7 @@ export default function companyBasicInfoReducer(
                  TransactionCostsFormData: false,
                  TransactionAdjustmentsFormData: false,
                },
+               tradingData: [],
                showOutputs: false,
                outputsData: {
                  test: ""
@@ -1284,6 +1286,14 @@ export default function companyBasicInfoReducer(
            ...state,
            outputsData: action.payload
       }
+
+      case "ADD_TRADING_DATA":
+       let input = action.payload ? action.payload : ""
+        return {
+          ...state,
+          tradingData: [...state.tradingData, ...input]
+        }
+
 
     default:
       return state;

@@ -158,7 +158,7 @@ const calculateMergerMath = (data) => {
           assumedMortgageDebtValue = 0
         }
 
-        let assumedDebtCost = inUseTransactioCosts.find(item => item.name === "debt_assumption_costs")
+        let assumedDebtCost = inUseTransactioCosts.find(item => item.name === "debt_assumption_costs") ? inUseTransactioCosts.find(item => item.name === "debt_assumption_costs") : 0
         let assumedDebtCostRate = assumedDebtCost.input_type === "percentage" ? assumedDebtCost.data_input : 0
         let assumedDebtCostRateAsPercent = assumedDebtCostRate > 1 ? assumedDebtCostRate / 100 : assumedDebtCostRate
 
@@ -174,7 +174,7 @@ const calculateMergerMath = (data) => {
           repaidMortgageDebtValue = 0
         }
 
-        let repaidDebtCost = inUseTransactioCosts.find(item => item.name === "debt_prepayment_costs")
+        let repaidDebtCost = inUseTransactioCosts.find(item => item.name === "debt_prepayment_costs") ? inUseTransactioCosts.find(item => item.name === "debt_prepayment_costs") : 0
         let repaidDebtCostRate = repaidDebtCost.input_type === "percentage" ? repaidDebtCost.data_input : 0
         let repaidDebtCostRateAsPercent = repaidDebtCostRate > 1 ? repaidDebtCostRate / 100 : repaidDebtCostRate
 
@@ -223,19 +223,19 @@ const calculateMergerMath = (data) => {
         }
 
 
-        let swapBreakageCost = inUseTransactioCosts.find(item => item.name === "swap_breakage_costs")
+        let swapBreakageCost = inUseTransactioCosts.find(item => item.name === "swap_breakage_costs") ? inUseTransactioCosts.find(item => item.name === "swap_breakage_costs") : 0
         let swapBreakageCostRate = swapBreakageCost.input_type === "percentage" ? swapBreakageCost.data_input : 0
         let swapBreakageCostRateAsPercent =  swapBreakageCostRate > 1 ? swapBreakageCostRate / 100 : swapBreakageCostRate
 
         let swapBreakageCostValue = repaidCreditFacilityValue * swapBreakageCostRateAsPercent
 
-        let companyALAOCosts = inUseTransactioCosts.find(item => item.name === "CompanyA_LAO_costs")
+        let companyALAOCosts = inUseTransactioCosts.find(item => item.name === "CompanyA_LAO_costs") ? inUseTransactioCosts.find(item => item.name === "CompanyA_LAO_costs") : 0
         let companyALAORate = companyALAOCosts.input_type === "percentage" ? companyALAOCosts.data_input : 0
         let companyALAORateAsPercent = companyALAORate > 1 ? companyALAORate / 100 : companyALAORate
 
         let companyALAOCostValue = companyALAORateAsPercent * targetTotalUsesPreCosts
 
-        let companyBLAOCosts = inUseTransactioCosts.find(item => item.name === "CompanyB_LAO_costs")
+        let companyBLAOCosts = inUseTransactioCosts.find(item => item.name === "CompanyB_LAO_costs") ? inUseTransactioCosts.find(item => item.name === "CompanyB_LAO_costs") : 0
         let companyBLAORate = companyBLAOCosts.input_type === "percentage" ? companyBLAOCosts.data_input : 0
         let companyBLAORateAsPercent = companyBLAORate > 1 ? companyBLAORate / 100 : companyBLAORate
 
@@ -274,7 +274,7 @@ const calculateMergerMath = (data) => {
           newPreferredFinancingsExcludingPlugValue = 0
         }
 
-        let debtIssuanceCosts = inUseTransactioCosts.find(item => item.name === "debt_issuance_costs")
+        let debtIssuanceCosts = inUseTransactioCosts.find(item => item.name === "debt_issuance_costs") ? inUseTransactioCosts.find(item => item.name === "debt_issuance_costs") : 0
         let debtIssuanceRate = debtIssuanceCosts.input_type === "percentage" ? debtIssuanceCosts.data_input : 0
         let debtIssuanceRateAsPercent = debtIssuanceRate > 1 ? debtIssuanceRate / 100 : debtIssuanceRate
 
