@@ -251,6 +251,7 @@ export default function companyBasicInfoReducer(
    case "MODEL_PARTS_LOAD":
    let model_id = action.payload.id || ""
    let model_name = action.payload.name || ""
+
    let basic_data = action.payload.basic_info_datum
    let basic_data_a = (basic_data.length === 0) ? {id: "", ticker: "", codename: "", acquiror: false} :
    basic_data[0].company === "A" ? basic_data[0] : basic_data[1]
@@ -260,7 +261,7 @@ export default function companyBasicInfoReducer(
 
    let equity_data = action.payload.equity_info_datum
    let equity_data_a = (equity_data.length === 0) ? {id: "", currentSharePrice: "", shares: "", dividend: ""} :
-     [0].company === "A" ? equity_data[0] : equity_data[1]
+     equity_data[0].company === "A" ? equity_data[0] : equity_data[1]
    let equity_data_b = (equity_data.length === 0) ? {id: "", currentSharePrice: "", shares: "", dividend: ""} : equity_data[1].company === "B" ? equity_data[1] : equity_data[0]
 
    let offer_data = action.payload.offer_info_datum
@@ -692,10 +693,23 @@ export default function companyBasicInfoReducer(
          }
 
        case "SAVE_BASICINFO_DATA":
+       let data
+       let CompanyA_ID
+       let CompanyB_ID
+       data = action.payload
+       CompanyA_ID = data.company === "A" ?
+        data.id : ""
+       CompanyB_ID = data.company === "B" ?
+         data.id : ""
+
          return {
            ...state,
            modelData: {...state.modelData,
-            basic_info_datum:[      ...state.modelData.basic_info_datum, {...action.payload}]}
+            basic_info_datum:[      ...state.modelData.basic_info_datum, {...action.payload}]},
+          BasicInfoFormData: {...state.BasicInfoFormData,
+            CompanyA_id: CompanyA_ID !== "" ? CompanyA_ID : state.BasicInfoFormData.CompanyA_id,
+            CompanyB_id: CompanyB_ID !== "" ? CompanyB_ID : state.BasicInfoFormData.CompanyB_id,
+            }
           }
 
           case "UPDATE_EQUITY_DATA":
@@ -713,10 +727,20 @@ export default function companyBasicInfoReducer(
             }
 
          case "SAVE_EQUITY_DATA":
+         let equityData = action.payload
+         let ED_CompanyA_ID = equityData.company === "A" ?
+          equityData.id : ""
+         let ED_CompanyB_ID = equityData.company === "B" ?
+           equityData.id : ""
+
            return {
              ...state,
              modelData: {...state.modelData,
-              equity_info_datum:[      ...state.modelData.equity_info_datum, {...action.payload}]}
+              equity_info_datum:[      ...state.modelData.equity_info_datum, {...action.payload}]},
+            EquityFormData: {...state.EquityFormData,
+              CompanyA_id: ED_CompanyA_ID !== "" ? ED_CompanyA_ID : state.EquityFormData.CompanyA_id,
+              CompanyB_id: ED_CompanyB_ID !== "" ? ED_CompanyB_ID : state.EquityFormData.CompanyB_id,
+              }
             }
 
              case "UPDATE_OFFER_DATA":
@@ -734,10 +758,16 @@ export default function companyBasicInfoReducer(
                }
 
            case "SAVE_OFFER_DATA":
+           data = action.payload
+           let item_ID = data.id ? data.id : ""
+
              return {
                ...state,
                modelData: {...state.modelData,
-                offer_info_datum:[      ...state.modelData.offer_info_datum, {...action.payload}]}
+                offer_info_datum:[      ...state.modelData.offer_info_datum, {...action.payload}]},
+              OfferFormData: {...state.OfferFormData,
+                Offer_id: item_ID !== "" ? item_ID : state.OfferFormData.Offer_id
+                }
               }
 
          case "UPDATE_CAPITALIZATION_DATA":
@@ -755,10 +785,69 @@ export default function companyBasicInfoReducer(
            }
 
        case "SAVE_CAPITALIZATION_DATA":
+        let capData = action.payload
+
+        let cash_CompanyA_ID = (capData.item_name === "cash_and_equivalents" && capData.company === "A" ) ? capData.id : ""
+
+        let cash_CompanyB_ID = (capData.item_name === "cash_and_equivalents" && capData.company === "B" ) ? capData.id : ""
+
+        let other_assets_CompanyA_ID = (capData.item_name === "other_liquid_assets" && capData.company === "A" ) ? capData.id : ""
+
+        let other_assets_CompanyB_ID = (capData.item_name === "other_liquid_assets" && capData.company === "B" ) ? capData.id : ""
+
+        let mortgages_CompanyA_ID = (capData.item_name === "mortgage_debt" && capData.company === "A" ) ? capData.id : ""
+
+        let mortgages_CompanyB_ID = (capData.item_name === "mortgage_debt" && capData.company === "B" ) ? capData.id : ""
+
+        let JVdebt_CompanyA_ID = (capData.item_name === "share_JV_debt" && capData.company === "A" ) ? capData.id : ""
+
+        let JVdebt_CompanyB_ID = (capData.item_name === "share_JV_debt" && capData.company === "B" ) ? capData.id : ""
+
+        let bonds_CompanyA_ID = (capData.item_name === "bonds" && capData.company === "A" ) ? capData.id : ""
+
+        let bonds_CompanyB_ID = (capData.item_name === "bonds" && capData.company === "B" ) ? capData.id : ""
+
+        let facility_CompanyA_ID = (capData.item_name === "credit_facility" && capData.company === "A" ) ? capData.id : ""
+
+        let facility_CompanyB_ID = (capData.item_name === "credit_facility" && capData.company === "B" ) ? capData.id : ""
+
+        let mezz_CompanyA_ID = (capData.item_name === "mezz_debt" && capData.company === "A" ) ? capData.id : ""
+
+        let mezz_CompanyB_ID = (capData.item_name === "mezz_debt" && capData.company === "B" ) ? capData.id : ""
+
+        let pref_CompanyA_ID = (capData.item_name === "preferred_equity" && capData.company === "A" ) ? capData.id : ""
+
+        let pref_CompanyB_ID = (capData.item_name === "preferred_equity" && capData.company === "B" ) ? capData.id : ""
+
          return {
            ...state,
            modelData: {...state.modelData,
-            capitalization_info_datum:[      ...state.modelData.capitalization_info_datum, {...action.payload}]}
+            capitalization_info_datum:[      ...state.modelData.capitalization_info_datum, {...action.payload}]},
+          CapitalizationFormData: {...state.CapitalizationFormData,
+            CompanyA_cash_id: cash_CompanyA_ID !== "" ? cash_CompanyA_ID : state.CapitalizationFormData.CompanyA_cash_id,
+            CompanyB_cash_id:  cash_CompanyB_ID !== "" ? cash_CompanyB_ID : state.CapitalizationFormData.CompanyB_cash_id,
+
+            CompanyA_otherLiquidAssets_id: other_assets_CompanyA_ID !== "" ? other_assets_CompanyA_ID : state.CapitalizationFormData.CompanyA_otherLiquidAssets_id,
+            CompanyB_otherLiquidAssets_id: other_assets_CompanyB_ID !== "" ? other_assets_CompanyB_ID : state.CapitalizationFormData.CompanyB_otherLiquidAssets_id,
+
+            CompanyA_mortgageDebt_id: mortgages_CompanyA_ID !== "" ? mortgages_CompanyA_ID : state.CapitalizationFormData.CompanyA_mortgageDebt_id,
+            CompanyB_mortgageDebt_id: mortgages_CompanyB_ID !== "" ? mortgages_CompanyB_ID : state.CapitalizationFormData.CompanyB_mortgageDebt_id,
+
+            CompanyA_shareOfJVDebt_id: JVdebt_CompanyA_ID !== "" ? JVdebt_CompanyA_ID : state.CapitalizationFormData.CompanyA_shareOfJVDebt_id,
+            CompanyB_shareOfJVDebt_id: JVdebt_CompanyB_ID !== "" ? JVdebt_CompanyB_ID : state.CapitalizationFormData.CompanyB_shareOfJVDebt_id,
+
+            CompanyA_bonds_id: bonds_CompanyA_ID !== "" ? bonds_CompanyA_ID : state.CapitalizationFormData.CompanyA_bonds_id,
+            CompanyB_bonds_id: bonds_CompanyB_ID !== "" ? bonds_CompanyB_ID : state.CapitalizationFormData.CompanyB_bonds_id,
+
+            CompanyA_creditFacility_id: facility_CompanyA_ID !== "" ? facility_CompanyA_ID : state.CapitalizationFormData.CompanyA_creditFacility_id,
+            CompanyB_creditFacility_id: facility_CompanyB_ID !== "" ? facility_CompanyB_ID : state.CapitalizationFormData.CompanyB_creditFacility_id,
+
+            CompanyA_mezzDebt_id: mezz_CompanyA_ID !== "" ? mezz_CompanyA_ID : state.CapitalizationFormData.CompanyA_mezzDebt_id,
+            CompanyB_mezzDebt_id:  mezz_CompanyB_ID !== "" ? mezz_CompanyB_ID : state.CapitalizationFormData.CompanyB_mezzDebt_id,
+
+            CompanyA_preferredEquity_id: pref_CompanyA_ID  !== "" ? pref_CompanyA_ID : state.CapitalizationFormData.CompanyA_preferredEquity_id,
+            CompanyB_preferredEquity_id:  pref_CompanyB_ID  !== "" ? pref_CompanyB_ID : state.CapitalizationFormData.CompanyB_preferredEquity_id,
+            }
           }
 
         case "UPDATE_CASHFLOW_DATA":
@@ -776,10 +865,56 @@ export default function companyBasicInfoReducer(
           }
 
       case "SAVE_CASHFLOW_DATA":
+          let CFData = action.payload
+
+          let FFO_CompanyA_ID = (CFData.item_name === "FFO_Per_Share" && CFData.company === "A" ) ? CFData.id : ""
+
+          let FFO_CompanyB_ID = (CFData.item_name === "FFO_Per_Share" && CFData.company === "B" ) ? CFData.id : ""
+
+          let AFFO_CompanyA_ID = (CFData.item_name === "AFFO_Per_Share" && CFData.company === "A" ) ? CFData.id : ""
+
+          let AFFO_CompanyB_ID = (CFData.item_name === "AFFO_Per_Share" && CFData.company === "B" ) ? CFData.id : ""
+
+          let revenue_CompanyA_ID = (CFData.item_name === "Revenue" && CFData.company === "A" ) ? CFData.id : ""
+
+          let revenue_CompanyB_ID = (CFData.item_name === "Revenue" && CFData.company === "B" ) ? CFData.id : ""
+
+          let NOI_CompanyA_ID = (CFData.item_name === "NOI" && CFData.company === "A" ) ? CFData.id : ""
+
+          let NOI_CompanyB_ID = (CFData.item_name === "NOI" && CFData.company === "B" ) ? CFData.id : ""
+
+          let GA_CompanyA_ID = (CFData.item_name === "GA" && CFData.company === "A" ) ? CFData.id : ""
+
+          let GA_CompanyB_ID = (CFData.item_name === "GA" && CFData.company === "B" ) ? CFData.id : ""
+
+          let EBITDA_CompanyA_ID = (CFData.item_name === "EBITDA" && CFData.company === "A" ) ? CFData.id : ""
+
+          let EBITDA_CompanyB_ID = (CFData.item_name === "EBITDA" && CFData.company === "B" ) ? CFData.id : ""
+
         return {
           ...state,
           modelData: {...state.modelData,
-           cash_flow_info_datum:[      ...state.modelData.cash_flow_info_datum, {...action.payload}]}
+           cash_flow_info_datum:[      ...state.modelData.cash_flow_info_datum, {...action.payload}]},
+           CashFlowFormData: {...state.CashFlowFormData,
+
+             CompanyA_FFOPerShare_id: FFO_CompanyA_ID !== "" ? FFO_CompanyA_ID : state.CashFlowFormData.CompanyA_FFOPerShare_id,
+             CompanyB_FFOPerShare_id: FFO_CompanyB_ID !== "" ? FFO_CompanyB_ID : state.CashFlowFormData.CompanyB_FFOPerShare_id,
+
+             CompanyA_AFFOPerShare_id: AFFO_CompanyA_ID !== "" ? AFFO_CompanyA_ID : state.CashFlowFormData.CompanyA_AFFOPerShare_id,
+             CompanyB_AFFOPerShare_id: AFFO_CompanyB_ID !== "" ? AFFO_CompanyB_ID : state.CashFlowFormData.CompanyB_AFFOPerShare_id,
+
+             CompanyA_revenue_id: revenue_CompanyA_ID !== "" ? revenue_CompanyA_ID : state.CashFlowFormData.CompanyA_revenue_id,
+             CompanyB_revenue_id:  revenue_CompanyB_ID !== "" ? revenue_CompanyB_ID : state.CashFlowFormData.CompanyB_revenue_id,
+
+             CompanyA_NOI_id: NOI_CompanyA_ID !== "" ? NOI_CompanyA_ID : state.CashFlowFormData.CompanyA_NOI_id,
+             CompanyB_NOI_id: NOI_CompanyB_ID !== "" ? NOI_CompanyB_ID : state.CashFlowFormData.CompanyB_NOI_id,
+
+             CompanyA_GA_id: GA_CompanyA_ID !== "" ? GA_CompanyA_ID : state.CashFlowFormData.CompanyA_GA_id,
+             CompanyB_GA_id: GA_CompanyB_ID !== "" ? GA_CompanyB_ID : state.CashFlowFormData.CompanyB_GA_id,
+
+             CompanyA_EBITDA_id: EBITDA_CompanyA_ID !== "" ? EBITDA_CompanyA_ID : state.CashFlowFormData.CompanyA_EBITDA_id,
+             CompanyB_EBITDA_id: EBITDA_CompanyB_ID !== "" ? EBITDA_CompanyB_ID : state.CashFlowFormData.CompanyB_EBITDA_id,
+           }
          }
 
      case "UPDATE_TRANSACTIONCOSTS_DATA":
@@ -797,12 +932,41 @@ export default function companyBasicInfoReducer(
        }
 
    case "SAVE_TRANSACTIONCOSTS_DATA":
+    let costData = action.payload
+    let Deal_costs_ID = (costData.name === "Overall_deal_costs") ? costData.id : ""
+    let LAO_CompanyA_costs_ID = (costData.name === "CompanyA_LAO_costs") ? costData.id : ""
+    let LAO_CompanyB_costs_ID = (costData.name === "CompanyB_LAO_costs") ? costData.id : ""
+    let Swap_Breakage_ID = (costData.name === "swap_breakage_costs") ? costData.id : ""
+    let Debt_Prepayment_ID = (costData.name === "debt_prepayment_costs") ? costData.id : ""
+    let Debt_Assumption_ID = (costData.name === "debt_assumption_costs") ? costData.id : ""
+    let Debt_Issuance_ID = (costData.name === "debt_issuance_costs") ? costData.id : ""
+    let Bond_Prepayment_ID = (costData.name === "bond_prepayment_costs") ? costData.id : ""
+    let Transfer_Taxes_ID = (costData.name === "transfer_taxes") ? costData.id : ""
+    let Employee_Costs_ID = (costData.name === "employee_costs") ? costData.id : ""
+    let Other_Costs_ID = (costData.name === "other_costs") ? costData.id : ""
+
+
      return {
        ...state,
        modelData: {...state.modelData,
-        transaction_cost:[      ...state.modelData.transaction_cost, {...action.payload}]}
-      }
+        transaction_cost:[      ...state.modelData.transaction_cost, {...action.payload}]},
+        TransactionCostsFormData: {...state.TransactionCostsFormData,
 
+        Deal_costs_id: Deal_costs_ID !== "" ? Deal_costs_ID : state.TransactionCostsFormData.Deal_costs_id,
+        CompanyA_LAO_costs_id: LAO_CompanyA_costs_ID !== "" ? LAO_CompanyA_costs_ID : state.TransactionCostsFormData.CompanyA_LAO_costs_id,
+        CompanyB_LAO_costs_id: LAO_CompanyB_costs_ID !== "" ? LAO_CompanyB_costs_ID : state.TransactionCostsFormData.CompanyB_LAO_costs_id,
+
+        Swap_Breakage_id: Swap_Breakage_ID !== "" ? Swap_Breakage_ID : state.TransactionCostsFormData.Swap_Breakage_id,
+        Debt_Prepayment_id: Debt_Prepayment_ID !== "" ? Debt_Prepayment_ID : state.TransactionCostsFormData.Debt_Prepayment_id,
+        Debt_Assumption_id: Debt_Assumption_ID !== "" ? Debt_Assumption_ID : state.TransactionCostsFormData.Debt_Assumption_id,
+        Debt_Issuance_id: Debt_Issuance_ID !== "" ? Debt_Issuance_ID : state.TransactionCostsFormData.Debt_Issuance_id,
+
+        Bond_Prepayment_id: Bond_Prepayment_ID !== "" ? Bond_Prepayment_ID : state.TransactionCostsFormData.Bond_Prepayment_id,
+        Transfer_Taxes_id: Transfer_Taxes_ID !== "" ? Transfer_Taxes_ID : state.TransactionCostsFormData.Transfer_Taxes_id,
+        Employee_Costs_id: Employee_Costs_ID !== "" ? Employee_Costs_ID : state.TransactionCostsFormData.Employee_Costs_id,
+        Other_Costs_id: Other_Costs_ID !== "" ? Other_Costs_ID : state.TransactionCostsFormData.Other_Costs_id,
+        }
+      }
 
       case "UPDATE_SYNERGIES_DATA":
         return {
@@ -819,11 +983,17 @@ export default function companyBasicInfoReducer(
         }
 
     case "SAVE_SYNERGIES_DATA":
+      let synergiesData = action.payload
+      let Synergies_ID = (synergiesData.item_name === "GA_synergies") ? synergiesData.id : ""
+
       return {
         ...state,
         modelData: {...state.modelData,
-         synergies_info_datum:[      ...state.modelData.synergies_info_datum, {...action.payload}]}
+         synergies_info_datum:[      ...state.modelData.synergies_info_datum, {...action.payload}]},
+        TransactionAdjustmentsFormData: {...state.TransactionAdjustmentsFormData,
+         Synergies_id: Synergies_ID !== "" ? Synergies_ID : state.TransactionAdjustmentsFormData.Synergies_id,
        }
+      }
 
 
      case "UPDATE_NEWFINANCING_DATA":
@@ -841,10 +1011,20 @@ export default function companyBasicInfoReducer(
        }
 
    case "SAVE_NEWFINANCING_DATA":
+    let finData = action.payload
+    let New_fin_1_ID = (finData.item_name === "New_financing_1") ? finData.id : ""
+    let New_fin_2_ID = (finData.item_name === "New_financing_2") ? finData.id : ""
+    let New_fin_3_ID = (finData.item_name === "New_financing_3") ? finData.id : ""
+
      return {
        ...state,
        modelData: {...state.modelData,
-        new_financing_info_datum:[      ...state.modelData.new_financing_info_datum, {...action.payload}]}
+        new_financing_info_datum:[      ...state.modelData.new_financing_info_datum, {...action.payload}]},
+      TransactionAdjustmentsFormData: {...state.TransactionAdjustmentsFormData,
+        New_financing_1_id: New_fin_1_ID !== "" ? New_fin_1_ID : state.TransactionAdjustmentsFormData.New_financing_1_id,
+        New_financing_2_id: New_fin_2_ID !== "" ? New_fin_2_ID : state.TransactionAdjustmentsFormData.New_financing_2_id,
+        New_financing_3_id: New_fin_3_ID !== "" ? New_fin_3_ID : state.TransactionAdjustmentsFormData.New_financing_3_id,
+        }
       }
 
 

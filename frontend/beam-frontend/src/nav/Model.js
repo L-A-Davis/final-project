@@ -55,6 +55,20 @@ handleButtonClick = (e) =>{
   }
 }
 
+handleEditButtonClick = (e) =>{
+  let form_name = e.target.parentNode.id
+  if (!this.props.FormCompletedStatus[form_name]) {
+    return
+  } else {
+    let name = e.target.name
+    this.setState({
+      [name]: !this.state.name,
+      showButtons: false
+    })
+  }
+}
+
+
  handleStatusCheck = (current_form) =>{
    let forms = this.props.FormCompletedStatus
    let array_of_names = ["newModelFormData", "BasicInfoFormData", "EquityFormData", "OfferFormData", "CapitalizationFormData", "CashFlowFormData", "TransactionCostsFormData", "TransactionAdjustmentsFormData" ]
@@ -183,7 +197,7 @@ componentDidMount() {
             <div className="buttonAndCheckBoxHolder">
                 <h4>Form</h4>
                 <h4>Completed?</h4>
-                <h4>Edit</h4>
+                <h4></h4>
             </div>
            <div className="buttonAndCheckBoxHolder" id="newModelFormData">
              <button data-status={this.props.FormCompletedStatus.newModelFormData}
@@ -208,7 +222,11 @@ componentDidMount() {
                   checked={this.props.FormCompletedStatus.BasicInfoFormData} readOnly />
                   <label></label>
                   </div>
-
+            <button
+             data-status={!this.props.FormCompletedStatus.BasicInfoFormData}
+            className="modelFormButton"
+            name="showBasicInfoForm"
+            onClick={this.handleEditButtonClick}>Edit</button>
           </div>
 
           <div className="buttonAndCheckBoxHolder" id="EquityFormData">
@@ -221,6 +239,11 @@ componentDidMount() {
                <input type="checkbox" className="formStatusCheckBox" checked={this.props.FormCompletedStatus.EquityFormData} readOnly />
                <label></label>
                </div>
+               <button
+                 data-status={!this.props.FormCompletedStatus.EquityFormData}
+                 className="modelFormButton"
+                 name="showEquityForm"
+                 onClick={this.handleEditButtonClick}>Edit</button>
            </div>
 
            <div className="buttonAndCheckBoxHolder" id="OfferFormData">
@@ -233,6 +256,11 @@ componentDidMount() {
                <input type="checkbox" className="formStatusCheckBox" checked={this.props.FormCompletedStatus.OfferFormData} readOnly />
               <label></label>
                </div>
+               <button
+                 data-status={!this.props.FormCompletedStatus.OfferFormData}
+                 className="modelFormButton"
+                 name="showOfferForm"
+                 onClick={this.handleEditButtonClick}>Edit</button>
            </div>
 
            <div className="buttonAndCheckBoxHolder" id="CapitalizationFormData">
@@ -244,6 +272,11 @@ componentDidMount() {
                <input type="checkbox" className="formStatusCheckBox" checked={this.props.FormCompletedStatus.CapitalizationFormData} readOnly />
                <label></label>
                 </div>
+                <button
+                  data-status={!this.props.FormCompletedStatus.CapitalizationFormData}
+                  className="modelFormButton"
+                  name="showCapitalizationForm" onClick={this.handleEditButtonClick}>Edit</button>
+
            </div>
 
            <div className="buttonAndCheckBoxHolder" id="CashFlowFormData">
@@ -256,6 +289,12 @@ componentDidMount() {
              <input type="checkbox" className="formStatusCheckBox"  checked={this.props.FormCompletedStatus.CashFlowFormData} readOnly />
              <label></label>
               </div>
+          <button
+            data-status={!this.props.FormCompletedStatus.CashFlowFormData}
+            className="modelFormButton"
+            name="showCashFlowForm"
+            onClick={this.handleEditButtonClick}>Edit</button>
+
            </div>
 
            <div className="buttonAndCheckBoxHolder" id="TransactionCostsFormData">
@@ -267,6 +306,11 @@ componentDidMount() {
                <input type="checkbox" className="formStatusCheckBox" checked={this.props.FormCompletedStatus.TransactionCostsFormData} readOnly />
                <label></label>
                 </div>
+            <button
+            data-status={!this.props.FormCompletedStatus.TransactionCostsFormData}
+            className="modelFormButton"
+            name="showTransactionCosts" onClick={this.handleEditButtonClick}>Edit</button>
+
            </div>
 
            <div className="buttonAndCheckBoxHolder" id="TransactionAdjustmentsFormData">
@@ -278,7 +322,10 @@ componentDidMount() {
                <input type="checkbox" className="formStatusCheckBox" checked={this.props.FormCompletedStatus.TransactionAdjustmentsFormData} readOnly />
                <label></label>
                 </div>
-
+            <button
+            data-status={!this.props.FormCompletedStatus.TransactionAdjustmentsFormData}
+            className="modelFormButton"
+            name="showTransactionAdjustments" onClick={this.handleEditButtonClick}>Edit</button>
            </div>
 
           </div>
