@@ -185,6 +185,7 @@ class SourcesAndUses extends React.Component {
                     fixedDecimalScale={true} /> : ""
                   }]) : [{}]
 
+
         const sourcesColumns = [{
           Header: 'Sources',
           accessor: 'label',

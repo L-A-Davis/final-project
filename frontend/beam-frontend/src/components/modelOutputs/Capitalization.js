@@ -59,85 +59,253 @@ class Capitalization extends React.Component {
       decimalSeparator={"."}
       decimalScale={1}
       fixedDecimalScale={true} />,
-    target: data ? data.targetShares * data.targetCurrentPrice : 0,
+    target:
+      <NumberFormat value={data ? data.targetShares * data.targetCurrentPrice : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
     adjustment: "",
-    proForma: data ? data.ProFormaShares * data.acquirorCurrentPrice : 0,
+    proForma:
+      <NumberFormat value={data ? data.ProFormaShares * data.acquirorCurrentPrice : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
     leverageNeutralAdjustment: "0",
     proFormaLN: "0"
   }, {
     label: 'Total Debt',
-    acquiror: data ? data.acquirorTotalDebtValue : 0,
-    target: data ? data.targetTotalDebtValue : 0,
-    adjustment:  data ? data.netChangeInDebtValue : 0,
-    proForma: data ? data.ProFormaTotalDebtValue : 0,
+    acquiror:
+      <NumberFormat value={data ? data.acquirorTotalDebtValue : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
+    target:
+      <NumberFormat value={data ? data.targetTotalDebtValue : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
+    adjustment:
+      <NumberFormat value={data ? data.netChangeInDebtValue : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
+    proForma:
+      <NumberFormat value={data ? data.ProFormaTotalDebtValue : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
     leverageNeutralAdjustment: "0",
     proFormaLN: "0"
 }, {
-  label: 'Less Cash and Equivalents [negative]',
-  acquiror: data ? -Math.abs(data.acquirorCashValue) : 0,
-  target: data ? -Math.abs(data.targetCashValue) : 0,
-  adjustment: data ? data.usedCashValue : 0,
-  proForma: data ? -Math.abs(data.ProFormaCashValue) : 0,
+  label: 'Less Cash and Equivalents',
+  acquiror:
+    <NumberFormat value={data ? -Math.abs(data.acquirorCashValue) : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+    decimalSeparator={"."}
+    decimalScale={1}
+    fixedDecimalScale={true} />,
+  target:
+    <NumberFormat value={data ? -Math.abs(data.targetCashValue) : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+    decimalSeparator={"."}
+    decimalScale={1}
+    fixedDecimalScale={true} />,
+  adjustment:
+    <NumberFormat value={data ? data.usedCashValue : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+    decimalSeparator={"."}
+    decimalScale={1}
+    fixedDecimalScale={true} />,
+  proForma:
+    <NumberFormat value={data ? -Math.abs(data.ProFormaCashValue): 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+    decimalSeparator={"."}
+    decimalScale={1}
+    fixedDecimalScale={true} />,
   leverageNeutralAdjustment: "0",
   proFormaLN: "0"
 },{
   label: 'Net Debt',
-  acquiror: data ? data.acquirorTotalDebtValue - Math.abs(data.acquirorCashValue) : 0,
-  target:  data ? data.targetTotalDebtValue - Math.abs(data.targetCashValue) : 0,
-  adjustment: data? data.netChangeInDebtValue + data.usedCashValue : 0,
-  proForma: data ? data.ProFormaNetDebtValue  : 0,
+  acquiror:
+    <NumberFormat value={data ? data.acquirorTotalDebtValue - Math.abs(data.acquirorCashValue) : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+    decimalSeparator={"."}
+    decimalScale={1}
+    fixedDecimalScale={true} />,
+  target:
+    <NumberFormat value={data ? data.targetTotalDebtValue - Math.abs(data.targetCashValue) : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+    decimalSeparator={"."}
+    decimalScale={1}
+    fixedDecimalScale={true} />,
+  adjustment:
+    <NumberFormat value={data? data.netChangeInDebtValue + data.usedCashValue : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+    decimalSeparator={"."}
+    decimalScale={1}
+    fixedDecimalScale={true} />,
+  proForma:
+    <NumberFormat value={data ? data.ProFormaNetDebtValue  : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+    decimalSeparator={"."}
+    decimalScale={1}
+    fixedDecimalScale={true} />,
   leverageNeutralAdjustment: "0",
   proFormaLN: "0"
 },{
   label: 'Preferred Equity',
-  acquiror: data ? data.acquirorPreferredValue : 0,
-  target: data ? data.targetPreferredValue : 0,
-  adjustment: data ? data.netChangeInPreferredValue : 0,
-  proForma: data ? data.ProFormaTotalPreferredValue : 0,
+  acquiror:
+    <NumberFormat value={data ? data.acquirorPreferredValue : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+    decimalSeparator={"."}
+    decimalScale={1}
+    fixedDecimalScale={true} />,
+  target:
+    <NumberFormat value={data ? data.targetPreferredValue : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+    decimalSeparator={"."}
+    decimalScale={1}
+    fixedDecimalScale={true} />,
+  adjustment:
+    <NumberFormat value={data ? data.netChangeInPreferredValue : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+    decimalSeparator={"."}
+    decimalScale={1}
+    fixedDecimalScale={true} />,
+  proForma:
+    <NumberFormat value={data ? data.ProFormaTotalPreferredValue : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+    decimalSeparator={"."}
+    decimalScale={1}
+    fixedDecimalScale={true} />,
   leverageNeutralAdjustment: "0",
   proFormaLN: "0"
 }, {
     label: 'Implied Total Enterprise Value',
-    acquiror: data ? data.acquirorCurrentTEV : 0,
-    target: data ? data.targetCurrentTEV : 0,
+    acquiror:
+      <NumberFormat value={data ? data.acquirorCurrentTEV : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
+    target:
+      <NumberFormat value={data ? data.targetCurrentTEV : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
     adjustment: " ",
-    proForma: data ? data.ProFormaTEV : 0,
+    proForma:
+      <NumberFormat value={data ? data.ProFormaTEV : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
     leverageNeutralAdjustment: "0",
     proFormaLN: "0"
   },
   {},
   {
       label: 'Net Debt / TEV',
-      acquiror: data ? data.acquirorNDtoTEV : 0,
-      target: data ? data.targetNDtoTEV : 0,
+      acquiror:
+        <NumberFormat
+        value={data ? data.acquirorNDtoTEV *100 : "NA"}
+        displayType={'text'}
+        suffix={"%"}
+        decimalScale={1}
+        fixedDecimalScale={true}
+        />,
+      target:
+        <NumberFormat
+        value={data ? data.targetNDtoTEV *100 : "NA"}
+        displayType={'text'}
+        suffix={"%"}
+        decimalScale={1}
+        fixedDecimalScale={true}
+        />,
       adjustment: "",
-      proForma: data ? data.ProFormaNDtoTEV : 0,
+      proForma:
+        <NumberFormat
+        value={data ? data.ProFormaNDtoTEV *100 : "NA"}
+        displayType={'text'}
+        suffix={"%"}
+        decimalScale={1}
+        fixedDecimalScale={true}
+        />,
       leverageNeutralAdjustment: "0",
       proFormaLN: "0"
     },
     {
         label: 'Net Debt + Preferred / TEV',
-        acquiror: data ? data.acquirorNDPtoTEV : 0,
-        target: data ? data.targetNDPtoTEV : 0,
+        acquiror:
+          <NumberFormat
+          value={data ? data.acquirorNDPtoTEV *100 : "NA"}
+          displayType={'text'}
+          suffix={"%"}
+          decimalScale={1}
+          fixedDecimalScale={true}
+          />,
+        target:
+          <NumberFormat
+          value={data ? data.targetNDPtoTEV *100 : "NA"}
+          displayType={'text'}
+          suffix={"%"}
+          decimalScale={1}
+          fixedDecimalScale={true}
+          />,
         adjustment: "",
-        proForma: data ? data.ProFormaNDPtoTEV : 0,
+        proForma:
+          <NumberFormat
+          value={data ? data.ProFormaNDPtoTEV *100 : "NA"}
+          displayType={'text'}
+          suffix={"%"}
+          decimalScale={1}
+          fixedDecimalScale={true}
+          />,
         leverageNeutralAdjustment: "0",
         proFormaLN: "0"
       },  {
         label: 'Net Debt / EBITDA',
-        acquiror: data ? data.acquirorNDtoEBITDA : 0,
-        target: data ? data.targetNDtoEBITDA : 0,
+        acquiror:
+            <NumberFormat
+           value={data ? data.acquirorNDtoEBITDA : "NA"}
+           displayType={'text'}
+           suffix={"x"}
+           decimalScale={1}
+           fixedDecimalScale={true}
+           />,
+        target:
+        <NumberFormat
+           value={data ? data.targetNDtoEBITDA  : "NA"}
+           displayType={'text'}
+           suffix={"x"}
+           decimalScale={1}
+           fixedDecimalScale={true}
+           />,
         adjustment: "",
-        proForma: data? data.ProFormaNDtoEBITDA : 0,
+        proForma:
+          <NumberFormat
+             value={data ? data.ProFormaNDtoEBITDA  : "NA"}
+             displayType={'text'}
+             suffix={"x"}
+             decimalScale={1}
+             fixedDecimalScale={true}
+             />,
         leverageNeutralAdjustment: "0",
         proFormaLN: "0"
       },
       {
         label: 'Net Debt + Preferred / EBITDA',
-        acquiror: data ? data.acquirorNDPtoEBITDA : 0,
-        target: data ? data.targetNDPtoEBITDA : 0,
+        acquiror:
+          <NumberFormat
+             value={data ? data.acquirorNDPtoEBITDA  : "NA"}
+             displayType={'text'}
+             suffix={"x"}
+             decimalScale={1}
+             fixedDecimalScale={true}
+             />,
+        target:
+          <NumberFormat
+             value={data ? data.targetNDPtoEBITDA  : "NA"}
+             displayType={'text'}
+             suffix={"x"}
+             decimalScale={1}
+             fixedDecimalScale={true}
+             />,
         adjustment: "",
-        proForma: data ? data.ProFormaNDPtoEBITDA : 0,
+        proForma:
+          <NumberFormat
+             value={data ? data.ProFormaNDPtoEBITDA  : "NA"}
+             displayType={'text'}
+             suffix={"x"}
+             decimalScale={1}
+             fixedDecimalScale={true}
+             />,
         leverageNeutralAdjustment: "0",
         proFormaLN: "0"
       },

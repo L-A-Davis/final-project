@@ -5,6 +5,7 @@ import SourcesAndUses from './modelOutputs/SourcesAndUses'
 import Accretion from './modelOutputs/Accretion';
 import Capitalization from './modelOutputs/Capitalization';
 import Contribution from './modelOutputs/Contribution';
+import CostSummary from './modelOutputs/CostSummary';
 import 'react-table/react-table.css'
 import { handleCalculateOutputs } from '../actions'
 
@@ -19,12 +20,12 @@ class Outputs extends React.Component {
   render() {
     return (
       <div>
-      <p>model data for {this.props.modelData.name}</p>
       <OfferSummary />
       <SourcesAndUses />
       <Accretion />
       <Capitalization />
       <Contribution />
+      <CostSummary />
       </div>
     )
   }

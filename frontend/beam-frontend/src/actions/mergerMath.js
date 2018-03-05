@@ -300,6 +300,27 @@ const calculateMergerMath = (data) => {
           CostsInUse = setCostsValue + newFinancingCostValue + companyBLAOCostValue + companyALAOCostValue + swapBreakageCostValue + assumedCorporateDebtCostValue + repaidMortgageDebtCostValue + assumedMortgageDebtCostValue
         }
 
+        let companyALAOCostsInUse = setCosts.find(item => item.name === "CompanyA_LAO_costs") ?
+        setCosts.find(item => item.name === "CompanyA_LAO_costs").data_input : companyALAOCostValue
+
+        let companyBLAOCostsInUse = setCosts.find(item => item.name === "CompanyB_LAO_costs") ? setCosts.find(item => item.name === "CompanyB_LAO_costs").data_input : companyBLAOCostValue
+
+        let debtAssumptionCostsInUse = setCosts.find(item => item.name === "debt_assumption_costs") ? setCosts.find(item => item.name === "debt_assumption_costs").data_input : assumedMortgageDebtCostValue + assumedCorporateDebtCostValue
+
+        let debtPrepaymentCostsInUse = setCosts.find(item => item.name === "debt_prepayment_costs") ? setCosts.find(item => item.name === "debt_prepayment_costs").data_input : repaidMortgageDebtCostValue
+
+        let swapBreakageCostsInUse = setCosts.find(item => item.name === "swap_breakage_costs") ? setCosts.find(item => item.name === "swap_breakage_costs").data_input : swapBreakageCostValue
+
+        let debtIssuanceCostsInUse = setCosts.find(item => item.name === "debt_issuance_costs") ? setCosts.find(item => item.name === "debt_issuance_costs").data_input : newFinancingCostValue
+
+        let bondPrepaymentCostsInUse = setCosts.find(item => item.name === "bond_prepayment_costs") ? setCosts.find(item => item.name === "bond_prepayment_costs").data_input : 0
+
+        let transferTaxesCostsInUse = setCosts.find(item => item.name === "transfer_taxes") ? setCosts.find(item => item.name === "transfer_taxes").data_input : 0
+
+        let employeeCostsInUse = setCosts.find(item => item.name === "employee_costs") ? setCosts.find(item => item.name === "employee_costs").data_input : 0
+
+      let otherCostsInUse = setCosts.find(item => item.name === "other_costs") ? setCosts.find(item => item.name === "other_costs").data_input : 0
+
         let TotalUses = (targetTotalUsesPreCosts || 0) + (CostsInUse || 0)
 
         const calcAcquirorSharesIssued = (targetShares, stockExchangeRatio, stockPerShare, acquirorCurrentPrice) =>{
@@ -526,7 +547,18 @@ debugger
     FFOPerShareAccretion,
     FFOPerShareAccretionPercent,
     AFFOPerShareAccretion,
-    FFOPerShareAccretionPercent
+    AFFOPerShareAccretionPercent,
+    companyALAOCostsInUse,
+    companyBLAOCostsInUse,
+    debtAssumptionCostsInUse,
+    debtPrepaymentCostsInUse,
+    swapBreakageCostsInUse,
+    debtIssuanceCostsInUse,
+    bondPrepaymentCostsInUse,
+    transferTaxesCostsInUse,
+    employeeCostsInUse,
+    otherCostsInUse,
+    acquirorCompany
 }
 }
 
