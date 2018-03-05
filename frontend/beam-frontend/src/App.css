@@ -1,7 +1,24 @@
  .App {
   text-align: center;
+  background: #f2f4f7;
 }
 
+.lightgrey-background {
+    background: #f2f4f7;
+}
+
+h1.ui.header {
+  margin-top: 0;
+  padding-top: .5%;
+  z-index: 1;
+  /* border-bottom: #1c3151 2px solid; */
+  color: #1c3151;
+}
+
+.form-input-spacer {
+  height: 20px;
+}
+/*
 header {
   color: white;
   height: 2em;
@@ -14,16 +31,22 @@ header {
   border-bottom: white 2px solid;
   background: #1c3151;
   background: linear-gradient(to right, rgba(28,49,81,0), rgba(28,49,81,1), rgba(28,49,81,1), rgba(28,49,81,1), rgba(28,49,81,1));
-}
+} */
 
+
+h2.ui.center.aligned.header.navy-text, h3.ui.center.aligned.header.navy-text  {
+  color: #1c3151;
+}
+/* h2.ui.center.aligned.header.navy-text */
+/* #1c3151 */
 .form, .outputholder {
     /*border: 3px solid #33BC87;*/
     text-align: left;
     line-height: 1.7;
     height: auto;
     overflow: auto;
-    margin: 1%;
-    padding: 1%;
+    margin: 3%;
+    padding: 3%;
     -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
        -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
             box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
@@ -38,24 +61,32 @@ header {
 }
 
 
-form input, form select, {
+form input, form select, .form div form input{
     /* width: 100%; */
-    padding: 10px 20px;
+    /* padding: 10px 20px;
     margin: 5px 0;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
+    box-sizing: border-box; */
+    line-height: 2em;
+    /* line-height: 1.21428571em; */
+    padding: .67857143em 1em;
+    font-size: 1em;
+    background: #fff;
+    border: 1px solid rgba(34,36,38,.15);
+    color: rgba(0,0,0,.87);
+    border-radius: .28571429rem;
 }
 
 form input[type=submit] {
-    /* width: 100%; */
+    width: 100%;
     background-color: #73757a;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 10px 0;
     border: none;
-    border-radius: 4px;
+    border-radius: .28571429rem;
     cursor: pointer;
 }
 
@@ -67,21 +98,28 @@ form input[type=submit]:hover {
   width: 45%;
 }
 
-button {
+button, .ui.button.navy-grey-button {
   color: white;
   background-color: #73757a;
   padding: 3px 5px;
   border-radius: 4px;
+  margin: 20px .25em 0 0;
+  padding: .78571429em 1.5em .78571429em;
+  min-height: 1em;
 }
 
-button:hover {
+button:hover, .ui.button.navy-grey-button:hover {
   background-color: #1c3151;
+  color: white;
+
 }
 
 .modelFormButton {
-  width: 170px;
+  width: 100%;
   font-size: 90%;
   padding: 2px 2px;
+  /* text-align: left; */
+
 }
 
 .modelFormButton[data-status="true"] {
@@ -132,8 +170,9 @@ button:hover {
 
 
 .buttonAndCheckBoxHolder{
+  width: 90%;
   display: grid;
-  grid-template-columns: 45% 45%;
+  grid-template-columns: 30% 30% 30%;
   grid-column-gap: 3%;
   margin-bottom: 2px;
   justify-items: center;
@@ -145,12 +184,12 @@ button:hover {
 }
 
 .allButtonHolder{
-  width: 40%;
+  /* width: 40%; */
   display: grid;
   grid-template-columns: 100%;
   justify-items: center;
-  float: left;
-  margin: 0 400px;
+  /* float: left; */
+  /* margin: 0 400px; */
   /* get better way to center this box */
 }
 
@@ -289,6 +328,10 @@ nav li:hover {
   background-color: #73757a;
 }
 
+nav {
+  margin-bottom: 15px;
+  margin-top: -15px;
+}
 /* .formCheckBoxHolder {
   width: 22px;
   height: 22px;

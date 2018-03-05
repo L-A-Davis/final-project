@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateTransactionAdjustmentsForm, resetSynergiesInfo, newSynergiesInfo, resetNewFinancingInfo, newNewFinancingInfo } from '../actions'
+import { Form } from 'semantic-ui-react'
 
 let input_types = [{id: "SetAmount_savings", name: "Set Amount Savings"}, {id: "SetAmount_additional_exp", name: "Set Amount Expense"}, {id: "PercentofTarget", name: "% of Target"}, {id: "PercentofAcquiror", name: ">% of Acquiror"}]
 
@@ -97,7 +98,7 @@ class TransactionAdjustments extends React.Component {
  render() {
    return (
      <div className="form">
-     <button onClick={this.props.exit}>X</button>
+       <i onClick={this.props.exit} className="window close outline icon large grey"></i>
         <h3>Transaction Adjustments Info</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="five-columns-form">

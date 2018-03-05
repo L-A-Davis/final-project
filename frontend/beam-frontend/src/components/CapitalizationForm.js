@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateCapitalizationForm, resetCapitalizationInfo, newCapitalizationInfo } from '../actions'
-
+import { Form } from 'semantic-ui-react'
 
 class CapitalizationForm extends React.Component {
 
@@ -194,11 +194,12 @@ class CapitalizationForm extends React.Component {
  render() {
    return (
      <div className="form">
-     <button onClick={this.props.exit}>X</button>
+      <i onClick={this.props.exit} className="window close outline icon large grey"></i>
         <h3>Capitalization Inputs</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="seven-columns-form">
-       {this.props.modelData.basic_info_datum ?
+       {this.props.modelData.basic_info_datum &&
+         this.props.modelData.basic_info_datum.legnth > 0  ?
         <label className="form-input-1">
         {this.props.modelData.basic_info_datum[0].codename} </label>
 
@@ -206,7 +207,8 @@ class CapitalizationForm extends React.Component {
         <label className="form-input-1">Company A</label> }
          <label className="form-input-2">Repay?</label>
          <label className="form-input-3">Rate</label>
-        {this.props.modelData.basic_info_datum ?
+        {this.props.modelData.basic_info_datum &&
+          this.props.modelData.basic_info_datum.legnth > 0 ?
          <label className="form-input-4">
          {this.props.modelData.basic_info_datum[1].codename} </label>
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import ReactTable from 'react-table'
+import NumberFormat from 'react-number-format';
 
 class Capitalization extends React.Component {
 
@@ -8,24 +9,56 @@ class Capitalization extends React.Component {
     let data = this.props.outputsData
   const capitalizationData = [{
     label: `Price as of [toCome] Date`,
-    acquiror: data ? data.acquirorCurrentPrice : 0,
-    target: data ? data.targetCurrentPrice : 0,
+    acquiror:
+      <NumberFormat value={data? data.acquirorCurrentPrice : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={2}
+      fixedDecimalScale={true} />,
+    target:
+      <NumberFormat value={data? data.targetCurrentPrice : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={2}
+      fixedDecimalScale={true} />,
     adjustment: "",
-    proForma: data ? data.acquirorCurrentPrice : 0,
+    proForma:
+      <NumberFormat value={data? data.acquirorCurrentPrice : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={2}
+      fixedDecimalScale={true} />,
     leverageNeutralAdjustment: "",
     proFormaLN: "0"
   }, {
     label: `Shares and Units`,
-    acquiror: data ? data.acquirorShares : 0,
-    target: data ? data.targetShares : 0,
-    adjustment: data? data.ProFormaShares - data.targetShares - data.acquirorShares : 0,
-    proForma: data ? data.ProFormaShares : 0,
+    acquiror:
+      <NumberFormat value={data? data.acquirorShares : 0} displayType={'text'} thousandSeparator={true}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
+    target:
+      <NumberFormat value={data? data.targetShares : 0} displayType={'text'} thousandSeparator={true}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
+    adjustment:
+      <NumberFormat value={data? data.ProFormaShares - data.targetShares - data.acquirorShares : 0} displayType={'text'} thousandSeparator={true}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
+    proForma:
+      <NumberFormat value={data ? data.ProFormaShares : 0} displayType={'text'} thousandSeparator={true}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
     leverageNeutralAdjustment: "0",
     proFormaLN: "0"
   },
   {
     label: 'Implied Total Equity',
-    acquiror: data ? data.acquirorShares * data.acquirorCurrentPrice : 0,
+    acquiror:
+      <NumberFormat value={data ? data.acquirorShares * data.acquirorCurrentPrice : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={1}
+      fixedDecimalScale={true} />,
     target: data ? data.targetShares * data.targetCurrentPrice : 0,
     adjustment: "",
     proForma: data ? data.ProFormaShares * data.acquirorCurrentPrice : 0,
@@ -33,61 +66,78 @@ class Capitalization extends React.Component {
     proFormaLN: "0"
   }, {
     label: 'Total Debt',
-    acquiror: data ? data.acquirorShares : 0,
-    target: "0",
-    adjustment: "0",
-    proForma: "0",
+    acquiror: data ? data.acquirorTotalDebtValue : 0,
+    target: data ? data.targetTotalDebtValue : 0,
+    adjustment:  data ? data.netChangeInDebtValue : 0,
+    proForma: data ? data.ProFormaTotalDebtValue : 0,
     leverageNeutralAdjustment: "0",
     proFormaLN: "0"
 }, {
   label: 'Less Cash and Equivalents [negative]',
-  acquiror: data ? data.acquirorShares : 0,
-  target: "0",
-  adjustment: "0",
-  proForma: "0",
+  acquiror: data ? -Math.abs(data.acquirorCashValue) : 0,
+  target: data ? -Math.abs(data.targetCashValue) : 0,
+  adjustment: data ? data.usedCashValue : 0,
+  proForma: data ? -Math.abs(data.ProFormaCashValue) : 0,
   leverageNeutralAdjustment: "0",
   proFormaLN: "0"
 },{
   label: 'Net Debt',
-  acquiror: data ? data.acquirorShares : 0,
-  target: "0",
-  adjustment: "0",
-  proForma: "0",
+  acquiror: data ? data.acquirorTotalDebtValue - Math.abs(data.acquirorCashValue) : 0,
+  target:  data ? data.targetTotalDebtValue - Math.abs(data.targetCashValue) : 0,
+  adjustment: data? data.netChangeInDebtValue + data.usedCashValue : 0,
+  proForma: data ? data.ProFormaNetDebtValue  : 0,
   leverageNeutralAdjustment: "0",
   proFormaLN: "0"
 },{
   label: 'Preferred Equity',
-  acquiror: data ? data.acquirorShares : 0,
-  target: "0",
-  adjustment: "0",
-  proForma: "0",
+  acquiror: data ? data.acquirorPreferredValue : 0,
+  target: data ? data.targetPreferredValue : 0,
+  adjustment: data ? data.netChangeInPreferredValue : 0,
+  proForma: data ? data.ProFormaTotalPreferredValue : 0,
   leverageNeutralAdjustment: "0",
   proFormaLN: "0"
 }, {
     label: 'Implied Total Enterprise Value',
-    acquiror: '0',
-    target: "0",
-    adjustment: "0",
-    proForma: "0",
+    acquiror: data ? data.acquirorCurrentTEV : 0,
+    target: data ? data.targetCurrentTEV : 0,
+    adjustment: " ",
+    proForma: data ? data.ProFormaTEV : 0,
     leverageNeutralAdjustment: "0",
     proFormaLN: "0"
   },
   {},
   {
       label: 'Net Debt / TEV',
-      acquiror: "0",
-      target: "0",
-      adjustment: "0",
-      proForma: "0",
+      acquiror: data ? data.acquirorNDtoTEV : 0,
+      target: data ? data.targetNDtoTEV : 0,
+      adjustment: "",
+      proForma: data ? data.ProFormaNDtoTEV : 0,
       leverageNeutralAdjustment: "0",
       proFormaLN: "0"
     },
     {
         label: 'Net Debt + Preferred / TEV',
-        acquiror: "0",
-        target: "0",
-        adjustment: "0",
-        proForma: "0",
+        acquiror: data ? data.acquirorNDPtoTEV : 0,
+        target: data ? data.targetNDPtoTEV : 0,
+        adjustment: "",
+        proForma: data ? data.ProFormaNDPtoTEV : 0,
+        leverageNeutralAdjustment: "0",
+        proFormaLN: "0"
+      },  {
+        label: 'Net Debt / EBITDA',
+        acquiror: data ? data.acquirorNDtoEBITDA : 0,
+        target: data ? data.targetNDtoEBITDA : 0,
+        adjustment: "",
+        proForma: data? data.ProFormaNDtoEBITDA : 0,
+        leverageNeutralAdjustment: "0",
+        proFormaLN: "0"
+      },
+      {
+        label: 'Net Debt + Preferred / EBITDA',
+        acquiror: data ? data.acquirorNDPtoEBITDA : 0,
+        target: data ? data.targetNDPtoEBITDA : 0,
+        adjustment: "",
+        proForma: data ? data.ProFormaNDPtoEBITDA : 0,
         leverageNeutralAdjustment: "0",
         proFormaLN: "0"
       },
@@ -132,7 +182,7 @@ class Capitalization extends React.Component {
         data={capitalizationData}
         columns={capitalizationColumns}
         showPagination={false}
-        defaultPageSize={15}
+        minRows={12}
         />
        </div>
     )

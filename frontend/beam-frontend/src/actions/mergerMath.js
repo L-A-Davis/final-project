@@ -33,6 +33,7 @@ const calculateMergerMath = (data) => {
         let premiumToCurrent = (impliedOffer / targetCurrentPrice) - 1
 
         let targetCapitalizationInfo = data.capitalization_info_datum.filter(item => item.company === targetCompany)
+        let acquirorCapitalizationInfo = data.capitalization_info_datum.filter(item => item.company === acquirorCompany)
         let targetCashFlowInfo = data.cash_flow_info_datum.filter(item => item.company === targetCompany)
         let acquirorCashFlowInfo = data.cash_flow_info_datum.filter(item => item.company === acquirorCompany)
 
@@ -49,10 +50,21 @@ const calculateMergerMath = (data) => {
         let targetTotalDebtValue = Math.abs(targetTotalDebt.amount)
         let targetCapitalInUse = targetCapitalizationInfo.filter(item => parseFloat(item.amount) !== 0)
 
+        let acquirorTotalDebt = acquirorCapitalizationInfo.filter(item => item.item_type === "debt").reduce((a, b) => ({amount: a.amount + b.amount}))
+        let acquirorTotalDebtValue = Math.abs(acquirorTotalDebt.amount)
+        let acquirorCapitalInUse = acquirorCapitalizationInfo.filter(item => parseFloat(item.amount) !== 0)
+
+
         let targetPreferred = targetCapitalizationInfo.filter(item => item.item_type === "preferred").reduce((a, b) => ({amount: a.amount + b.amount}))
         let targetPreferredValue = Math.abs(targetPreferred.amount)
         let targetCash =  targetCapitalizationInfo.filter(item => item.item_type === "cash").reduce((a, b) => ({amount: a.amount + b.amount}))
         let targetCashValue = Math.abs(targetCash.amount)
+
+
+        let acquirorPreferred = acquirorCapitalizationInfo.filter(item => item.item_type === "preferred").reduce((a, b) => ({amount: a.amount + b.amount}))
+        let acquirorPreferredValue = Math.abs(acquirorPreferred.amount)
+        let acquirorCash =  acquirorCapitalizationInfo.filter(item => item.item_type === "cash").reduce((a, b) => ({amount: a.amount + b.amount}))
+        let acquirorCashValue = Math.abs(acquirorCash.amount)
 
         let targetNOI = targetCashFlowInfo.find(item => item.item_name === "NOI")
         let targetNOIValue = targetNOI.amount_year1  || 0
@@ -65,6 +77,21 @@ const calculateMergerMath = (data) => {
         } else {
           impliedCapRate = (targetNOIValue / targetImpliedTEV)
         }
+
+        let targetNetDebtValue = targetTotalDebtValue - targetCashValue
+        let targetNetDebtAndPrefValue = targetNetDebtValue + targetPreferredValue
+        let targetCurrentEquityCap = targetCurrentPrice * targetShares
+        let targetCurrentTEV = targetNetDebtAndPrefValue + targetCurrentEquityCap
+        let targetNDPtoTEV = targetNetDebtAndPrefValue / targetCurrentTEV
+        let targetNDtoTEV = targetNetDebtValue / targetCurrentTEV
+
+        let acquirorNetDebtValue = acquirorTotalDebtValue - acquirorCashValue
+        let acquirorNetDebtAndPrefValue = acquirorNetDebtValue + acquirorPreferredValue
+        let acquirorCurrentEquityCap = acquirorCurrentPrice * acquirorShares
+        let acquirorCurrentTEV = acquirorNetDebtAndPrefValue + acquirorCurrentEquityCap
+        let acquirorNDPtoTEV = acquirorNetDebtAndPrefValue / acquirorCurrentTEV
+        let acquirorNDtoTEV = acquirorNetDebtValue / acquirorCurrentTEV
+
 
         let targetFFOPerShare = targetCashFlowInfo.find(item => item.item_name === "FFO_Per_Share")
         let targetFFOPerShareValueYear1 = targetFFOPerShare.amount_year1 || 0
@@ -89,6 +116,15 @@ const calculateMergerMath = (data) => {
 
         let targetEBITDA = targetCashFlowInfo.find(item => item.item_name === "EBITDA")
         let targetEBITDAValue = targetEBITDA.amount_year1  || 0
+
+        let acquirorEBITDA = acquirorCashFlowInfo.find(item => item.item_name === "EBITDA")
+        let acquirorEBITDAValue = acquirorEBITDA.amount_year1  || 0
+
+        let targetNDPtoEBITDA = targetNetDebtAndPrefValue / targetEBITDAValue
+        let targetNDtoEBITDA = targetNetDebtValue / targetEBITDAValue
+
+        let acquirorNDPtoEBITDA = acquirorNetDebtAndPrefValue / acquirorEBITDAValue
+        let acquirorNDtoEBITDA = acquirorNetDebtValue / acquirorEBITDAValue
 
         let EBITDAMultiple_Year1
         if (targetEBITDAValue <= 0) {
@@ -148,8 +184,8 @@ const calculateMergerMath = (data) => {
         let assumedCorporateDebtAmount = assumedCorporateDebt.length > 0 ?
         assumedCorporateDebt.reduce((a, b) => ({amount: a.amount + b.amount})) : 0
         let assumedCorporateDebtValue
-        if (assumedCorporateDebt.hasOwnProperty('amount')) {
-          assumedCorporateDebtValue = assumedCorporateDebt.amount
+        if (assumedCorporateDebtAmount.hasOwnProperty('amount')) {
+          assumedCorporateDebtValue = assumedCorporateDebtAmount.amount
         } else {
           assumedCorporateDebtValue = 0
         }
@@ -160,11 +196,32 @@ const calculateMergerMath = (data) => {
         let repaidCreditFacilityAmount = repaidCreditFacility.length > 0 ?
         repaidCreditFacility.reduce((a, b) => ({amount: a.amount + b.amount})) : 0
         let repaidCreditFacilityValue
-        if (repaidCreditFacility.hasOwnProperty('amount')) {
-          repaidCreditFacilityValue = repaidCreditFacility.amount
+        if (repaidCreditFacilityAmount.hasOwnProperty('amount')) {
+          repaidCreditFacilityValue = repaidCreditFacilityAmount.amount
         } else {
           repaidCreditFacilityValue = 0
         }
+
+        let repaidBonds = repaidDebtAndPref.filter(item => item.item_name === "bonds" )
+        let repaidBondsAmount = repaidBonds.length > 0 ?
+        repaidBonds.reduce((a, b) => ({amount: a.amount + b.amount})) : 0
+        let repaidBondsValue
+        if (repaidBondsAmount.hasOwnProperty('amount')) {
+          repaidBondsValue = repaidBondsAmount.amount
+        } else {
+          repaidBondsValue = 0
+        }
+
+        let repaidPreferred = repaidDebtAndPref.filter(item => item.item_name === "preferred_equity" )
+        let repaidPreferredAmount = repaidPreferred.length > 0 ?
+        repaidPreferred.reduce((a, b) => ({amount: a.amount + b.amount})) : 0
+        let repaidPreferredValue
+        if (repaidPreferredAmount.hasOwnProperty('amount')) {
+          repaidPreferredValue = repaidPreferredAmount.amount
+        } else {
+          repaidPreferredValue = 0
+        }
+
 
         let swapBreakageCost = inUseTransactioCosts.find(item => item.name === "swap_breakage_costs")
         let swapBreakageCostRate = swapBreakageCost.input_type === "percentage" ? swapBreakageCost.data_input : 0
@@ -185,12 +242,36 @@ const calculateMergerMath = (data) => {
         let companyBLAOCostValue = companyBLAORateAsPercent * targetTotalUsesPreCosts
 
         let newFinancingsExcludingPlug = data.new_financing_info_datum.filter(item => item.plug === false)
-        let newFinancingExcludingPlugAmount =  newFinancingsExcludingPlug.reduce((a, b) => ({amount: a.amount + b.amount}))
+        let newFinancingsExcludingPlugAmount =
+        newFinancingsExcludingPlug.length > 0 ?
+         newFinancingsExcludingPlug.reduce((a, b) => ({amount: a.amount + b.amount})) : 0
         let newFinancingsExcludingPlugValue
-        if ( newFinancingExcludingPlugAmount.hasOwnProperty('amount')) {
-          newFinancingsExcludingPlugValue =  newFinancingExcludingPlugAmount.amount
+        if ( newFinancingsExcludingPlugAmount.hasOwnProperty('amount')) {
+          newFinancingsExcludingPlugValue =  newFinancingsExcludingPlugAmount.amount
         } else {
           newFinancingsExcludingPlugValue = 0
+        }
+
+        let newDebtFinancingsExcludingPlug = data.new_financing_info_datum.filter(item => item.plug === false && (item.type === "debt" || item.type === "debt_secured"))
+        let newDebtFinancingsExcludingPlugAmount =
+        newDebtFinancingsExcludingPlug.length > 0 ?
+         newDebtFinancingsExcludingPlug.reduce((a, b) => ({amount: a.amount + b.amount})) : 0
+        let newDebtFinancingsExcludingPlugValue
+        if ( newDebtFinancingsExcludingPlugAmount.hasOwnProperty('amount')) {
+          newDebtFinancingsExcludingPlugValue =  newDebtFinancingsExcludingPlugAmount.amount
+        } else {
+          newDebtFinancingsExcludingPlugValue = 0
+        }
+
+        let newPreferredFinancingsExcludingPlug = data.new_financing_info_datum.filter(item => item.plug === false && item.type === "repaidPreferred")
+        let newPreferredFinancingsExcludingPlugAmount =
+        newPreferredFinancingsExcludingPlug.length > 0 ?
+         newPreferredFinancingsExcludingPlug.reduce((a, b) => ({amount: a.amount + b.amount})) : 0
+        let newPreferredFinancingsExcludingPlugValue
+        if ( newPreferredFinancingsExcludingPlugAmount.hasOwnProperty('amount')) {
+          newPreferredFinancingsExcludingPlugValue =  newPreferredFinancingsExcludingPlugAmount.amount
+        } else {
+          newPreferredFinancingsExcludingPlugValue = 0
         }
 
         let debtIssuanceCosts = inUseTransactioCosts.find(item => item.name === "debt_issuance_costs")
@@ -326,10 +407,48 @@ const calculateMergerMath = (data) => {
 
         let ProFormaFFOYear1PerShare =  ProFormaFFOYear1 / ProFormaShares
 
+        let FFOPerShareAccretion = ProFormaFFOYear1PerShare - acquirorFFOPerShareValueYear1
+
+        let FFOPerShareAccretionPercent = (ProFormaFFOYear1PerShare / acquirorFFOPerShareValueYear1) - 1
+
         let ProFormaAFFOYear1PerShare =  ProFormaAFFOYear1 / ProFormaShares
 
-debugger
+        let AFFOPerShareAccretion = ProFormaAFFOYear1PerShare - acquirorAFFOPerShareValueYear1
 
+        let AFFOPerShareAccretionPercent = (ProFormaAFFOYear1PerShare / acquirorAFFOPerShareValueYear1) - 1
+
+
+        let TotalRepaidDebtValue = repaidMortgageDebtValue + repaidCreditFacilityValue + repaidBondsValue
+
+        let TotalNewDebtValue = newDebtFinancingsExcludingPlugValue + (newFinancingPlug.item_type === "debt" || newFinancingPlug.item_type === "debt_secured") ? PlugFinancing : 0
+
+        let netChangeInDebtValue = TotalNewDebtValue - TotalRepaidDebtValue
+
+        let netChangeInPreferredValue =   newPreferredFinancingsExcludingPlugValue +  newFinancingPlug.item_type === "preferred" ? PlugFinancing : 0 - repaidPreferredValue
+
+        let ProFormaTotalDebtValue = targetTotalDebtValue + acquirorTotalDebtValue + netChangeInDebtValue
+
+        let ProFormaTotalPreferredValue = targetPreferredValue + acquirorPreferredValue + netChangeInPreferredValue
+
+        let ProFormaEquityCap = ProFormaShares * acquirorCurrentPrice
+
+        let ProFormaCashValue = Math.abs(targetCashValue) + Math.abs(acquirorCashValue) - Math.abs(usedCashValue)
+
+        let ProFormaNetDebtValue = ProFormaTotalDebtValue - ProFormaCashValue
+
+        let ProFormaNetDebtAndPrefValue = ProFormaNetDebtValue + ProFormaTotalPreferredValue
+
+        let ProFormaTEV = ProFormaEquityCap + ProFormaNetDebtAndPrefValue
+
+        let ProFormaNDPtoTEV = ProFormaNetDebtAndPrefValue / ProFormaTEV
+        let ProFormaNDtoTEV = ProFormaNetDebtValue / ProFormaTEV
+
+        let ProFormaEBITDAValue = targetEBITDAValue + acquirorEBITDAValue + synergiesValue
+
+        let ProFormaNDPtoEBITDA = ProFormaNetDebtAndPrefValue / ProFormaEBITDAValue
+        let ProFormaNDtoEBITDA = ProFormaNetDebtValue / ProFormaEBITDAValue
+
+debugger
 
 
   return {
@@ -375,7 +494,39 @@ debugger
     ProFormaFFOYear1PerShare,
     ProFormaAFFOYear1PerShare,
     targetCurrentPrice,
-    acquirorCurrentPrice
+    acquirorCurrentPrice,
+    targetTotalDebtValue,
+    targetPreferredValue,
+    targetCashValue,
+    targetCurrentTEV,
+    acquirorTotalDebtValue,
+    acquirorPreferredValue,
+    acquirorCashValue,
+    acquirorCurrentTEV,
+    targetNDPtoTEV,
+    targetNDtoTEV,
+    acquirorNDPtoTEV,
+    acquirorNDtoTEV,
+    targetNDPtoEBITDA,
+    targetNDtoEBITDA,
+    acquirorNDPtoEBITDA,
+    acquirorNDtoEBITDA,
+    netChangeInDebtValue,
+    netChangeInPreferredValue,
+    usedCashValue,
+    ProFormaTotalDebtValue,
+    ProFormaTotalPreferredValue,
+    ProFormaCashValue,
+    ProFormaNetDebtValue,
+    ProFormaTEV,
+    ProFormaNDPtoTEV,
+    ProFormaNDtoTEV,
+    ProFormaNDPtoEBITDA,
+    ProFormaNDtoEBITDA,
+    FFOPerShareAccretion,
+    FFOPerShareAccretionPercent,
+    AFFOPerShareAccretion,
+    FFOPerShareAccretionPercent
 }
 }
 

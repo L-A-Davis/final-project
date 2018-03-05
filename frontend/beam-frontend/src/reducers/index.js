@@ -1066,7 +1066,10 @@ export default function companyBasicInfoReducer(
                  TransactionCostsFormData: false,
                  TransactionAdjustmentsFormData: false,
                },
-               showOutputs: false
+               showOutputs: false,
+               outputsData: {
+                 test: ""
+               }
        }
 
 

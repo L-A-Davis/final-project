@@ -9,26 +9,11 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import companyBasicInfoReducer from './reducers/index'
 import { loadState, saveState } from './localStorage'
-import { FormattedNumber } from 'react-intl'
-import { IntlProvider, intlReducer } from 'react-intl-redux'
 import throttle from 'lodash/throttle'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import 'semantic-ui-css/semantic.min.css'
 
 const persistedState = loadState();
-
-const reducer = combineReducers({
-  ...companyBasicInfoReducer,
-  intl: intlReducer,
-})
-
-const formats = {
-    number: {
-        USD: {
-            // style: 'currency',
-            currency: 'USD'
-        }
-    }
-};
 
 
 const store = createStore(companyBasicInfoReducer, persistedState, composeWithDevTools(

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from "react-redux";
 import { addNewModel, updateNewModelForm } from '../actions'
 import ModelTypeSelect from './ModelTypeSelect';
+import { Form } from 'semantic-ui-react'
 
 class NewModelForm extends React.Component {
 
@@ -25,7 +26,7 @@ class NewModelForm extends React.Component {
   render() {
     return (
       <div className="form">
-         <button onClick={this.props.exit}>X</button>
+
         <p>Begin a New Model </p>
         <form onSubmit={this.handleSubmit}>
         <label>Model Name: </label>
@@ -52,3 +53,6 @@ class NewModelForm extends React.Component {
 
 
 export default connect (state => {return {newModelFormData: state.newModelFormData, selectedProjectData: state.selectedProjectData }}, { addNewModel, updateNewModelForm })(NewModelForm);
+
+
+        // <i onClick={this.props.exit} className="window close outline icon large grey"></i>

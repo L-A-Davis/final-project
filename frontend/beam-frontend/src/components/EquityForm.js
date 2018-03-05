@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateEquityForm, resetEquityInfo, newEquityInfo } from '../actions'
-
+// import { Button } from 'semantic-ui-react'
 
 class EquityForm extends React.Component {
 
@@ -44,18 +44,18 @@ class EquityForm extends React.Component {
  render() {
    return (
      <div className="form">
-     <button onClick={this.props.exit}>X</button>
+       <i onClick={this.props.exit} className="window close outline icon large grey"></i>
         <h3>Equity Info</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="three-columns-form">
-       {(this.props.modelData.basic_info_datum.length === 2) ?
+       {(this.props.modelData.basic_info_datum && this.props.modelData.basic_info_datum.length === 2) ?
         <label className="form-input-1">
         {this.props.modelData.basic_info_datum[0].codename} </label>
 
          :
         <label className="form-input-1">Company A</label> }
 
-        {(this.props.modelData.basic_info_datum.length === 2)  ?
+        {(this.props.modelData.basic_info_datum && this.props.modelData.basic_info_datum.length === 2)  ?
          <label className="form-input-2">
          {this.props.modelData.basic_info_datum[1].codename} </label>
 

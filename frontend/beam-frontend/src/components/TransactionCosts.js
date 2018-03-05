@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateTransactionCostForm, resetTransactionCostInfo, newTransactionCostInfo } from '../actions'
+import { Form } from 'semantic-ui-react'
 
 let input_types = [{id: "percentage", name: "Percentage of Item"}, {id: "setAmount", name: "Set Dollar Amount"}]
 
@@ -115,7 +116,7 @@ class TransactionCosts extends React.Component {
  render() {
    return (
      <div className="form">
-     <button onClick={this.props.exit}>X</button>
+     <i onClick={this.props.exit} className="window close outline icon large grey"></i>
         <h3>Transaction Costs Info</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="three-columns-form">

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from "react-redux";
 import { updateNewProjectForm, setProjectInfo, addNewProject, resetModelData } from '../actions'
 import ProjectTypeSelect from './ProjectTypeSelect';
+import { Form } from 'semantic-ui-react'
 
 class NewProjectForm extends React.Component {
 
@@ -32,18 +33,16 @@ class NewProjectForm extends React.Component {
  render() {
    return (
      <div className="form">
-        <button onClick={this.props.exit}>X</button>
-       <p>Begin a New Project </p>
+        <i onClick={this.props.exit} className="window close outline icon large grey"></i>
+       <h3>Begin a New Project </h3>
        <form onSubmit={this.handleSubmit}>
-       <label>Project Name: </label>
        <input
           type="text"
           name="ProjectName"
           value={this.props.ProjectName}
           onChange={this.handleChange}
           placeholder="project name" /> <br/>
-
-       <label>Project Type: </label>
+        <div className="form-input-spacer"></div>
       <ProjectTypeSelect handleChange={this.handleChange}  /> <br/>
 
         <input

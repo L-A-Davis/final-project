@@ -11,7 +11,7 @@ const ProjectTypeSelect = (props) => {
        name="Deal_type"
        defaultValue=""
        >
-        <option value="" disabled hidden>Select</option>
+        <option value="" disabled hidden>select a project type </option>
        {deal_types.map((deal_type) =>
          <option key={deal_type.id} value={deal_type.id}>{deal_type.name}</option>
        )}

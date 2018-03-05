@@ -1,21 +1,32 @@
 import React from 'react';
+import { Dropdown, Menu } from 'semantic-ui-react'
 
-let companies = [{id: 1, name: "Hansen-Rogahn"}, {id:2, name: "Wehner-Abshire"}]
+let companies = [{key: 1, value: 1, id: 1, text: "Hansen-Rogahn"}, {key: 2, value:2, id: 2, text: "Wehner-Abshire"}]
 
 const SelectCompany = (props) => {
   return (
 
-    <select
-       onChange={props.onChange}
+    <Menu>
+       <Dropdown
+       // selection
+       closeOnChange
+       placeholder='Select your company'
        name="company_id"
-       >
-       {companies.map((company) =>
-         <option key={company.id} value={company.id}>{company.name}</option>
-       )}
-
-    </select>
-
-  )
-}
+       onChange={props.onChange}
+       options={companies}/>
+    </Menu>
+   )
+ }
 
 export default SelectCompany;
+
+
+// <select
+//   onChange={props.onChange}
+//   name="company_id"
+//   >
+//   {companies.map((company) =>
+//     <option key={company.id} value={company.id}>{company.name}</option>
+//   )}
+//
+// </select>

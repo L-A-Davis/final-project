@@ -7,12 +7,14 @@ import NewProjectForm from '../components/NewProjectForm';
 import Project from './Project'
 import { fetchExistingProjects, resetModelData, resetFormData } from '../actions'
 import { connect } from 'react-redux'
+import { Form, Header, Button, Grid } from 'semantic-ui-react'
 
 class Profile extends React.Component {
 
  state = {
    showNewProjectForm: false,
-   showNewProjectButton: true
+   showNewProjectButton: true,
+   showProjectList: true
  }
 
 
@@ -25,24 +27,43 @@ class Profile extends React.Component {
  handleNewProjectClick = () => {
    this.setState({
      showNewProjectForm: !this.state.showNewProjectForm,
-     showNewProjectButton: !this.state.showNewProjectButton
+     showNewProjectButton: !this.state.showNewProjectButton,
+     showProjectList: !this.state.showProjectList
+
    })
  }
 
   render () {
   return (
     <div>
+    <Grid
+      textAlign='center'
+      style={{ height: '100%' }}
+      verticalAlign='top'
+    >
+    <Grid.Column style={{ maxWidth: 500 }}>
+
+
+    <Form>
       <div>
-      <p>Select an Existing Project or Start One: </p>
-      { this.props.allProjects &&
+      {!this.state.showNewProjectForm &&
+      <Header as='h3' className='navy-text' textAlign='center'>
+         Select an existing project or start a new one:
+      </Header>
+      }
+      { this.props.allProjects && this.state.showProjectList &&
       <MyProjects projects={this.props.allProjects}
       currentUser={this.props.auth.currentUser}
       history={this.props.history}
       />
       }
       {this.state.showNewProjectButton &&
-       <button onClick={this.handleNewProjectClick}>Start New Project</button>
-      }
+       <Button
+       onClick={this.handleNewProjectClick}
+       className={'navy-grey-button'}
+       fluid={true}
+       >Start New Project</Button>
+     } <br/>
       { this.state.showNewProjectForm &&
       <NewProjectForm currentUser={this.props.auth.currentUser}
       exit={this.handleNewProjectClick}
@@ -51,6 +72,9 @@ class Profile extends React.Component {
       }
 
       </div>
+      </Form>
+      </Grid.Column>
+      </Grid>
     </div>
   )
  }

@@ -1,90 +1,212 @@
 import React from 'react'
 import { connect } from "react-redux";
 import ReactTable from 'react-table'
+import NumberFormat from 'react-number-format';
 
 class Accretion extends React.Component {
 
   render() {
         let data = this.props.outputsData
             const accretionData = [{
-              label: `${data? this.props.outputsData.acquirorCodename : 'Acquiror' } FFO / AFFO Per Share`,
-              FFOMetric: data? this.props.outputsData.acquirorFFOPerShareValueYear1 : 0,
-              AFFOMetric: data? this.props.outputsData.acquirorAFFOPerShareValueYear1 : 0,
+              label: `${data? data.acquirorCodename : 'Acquiror' } FFO / AFFO Per Share`,
+              FFOMetric:
+                <NumberFormat value={data ? data.acquirorFFOPerShareValueYear1 : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+                decimalSeparator={"."}
+                decimalScale={2}
+                fixedDecimalScale={true} />,
+              AFFOMetric:
+                <NumberFormat value={data ? data.acquirorAFFOPerShareValueYear1 : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+                decimalSeparator={"."}
+                decimalScale={2}
+                fixedDecimalScale={true} />,
             }, {
-              label: `${data? this.props.outputsData.acquirorCodename : 'Acquiror' } Shares and Units`,
-              FFOMetric: data? this.props.outputsData.acquirorShares : 0,
-              AFFOMetric: data? this.props.outputsData.acquirorShares : 0,
+              label: `${data? data.acquirorCodename : 'Acquiror' } Shares and Units`,
+              FFOMetric:
+                <NumberFormat value={data ? data.acquirorShares : 0} displayType={'text'} thousandSeparator={true}
+                decimalSeparator={"."}
+                decimalScale={1}
+                fixedDecimalScale={true} />,
+
+              AFFOMetric:
+                <NumberFormat value={data ? data.acquirorShares  : 0} displayType={'text'} thousandSeparator={true}
+                decimalSeparator={"."}
+                decimalScale={1}
+                fixedDecimalScale={true} />,
             },
             {
-              label: `${data? this.props.outputsData.acquirorCodename : 'Acquiror' } Total Cash Flow`,
-              FFOMetric: data? this.props.outputsData.acquirorShares * this.props.outputsData.acquirorFFOPerShareValueYear1: 0,
-              AFFOMetric: data? this.props.outputsData.acquirorShares * this.props.outputsData.acquirorAFFOPerShareValueYear1: 0
+              label: `${data? data.acquirorCodename : 'Acquiror' } Total Cash Flow`,
+              FFOMetric:
+                <NumberFormat value={data? data.acquirorShares * data.acquirorFFOPerShareValueYear1: 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+                decimalSeparator={"."}
+                decimalScale={1}
+                fixedDecimalScale={true} />,
+              AFFOMetric:
+              <NumberFormat value={data? data.acquirorShares * data.acquirorAFFOPerShareValueYear1: 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
             }, {
-            label: `${data? this.props.outputsData.targetCodename : 'Target' } Per Share Value`,
-            FFOMetric: data? this.props.outputsData.targetFFOPerShareValueYear1 : 0,
-            AFFOMetric: data? this.props.outputsData.targetAFFOPerShareValueYear1 : 0,
+            label: `${data? data.targetCodename : 'Target' } Per Share Value`,
+            FFOMetric:
+              <NumberFormat value={data? data.targetFFOPerShareValueYear1 : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={2}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? data.targetAFFOPerShareValueYear1 : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={2}
+              fixedDecimalScale={true} />,
           }, {
-            label: `${data? this.props.outputsData.targetCodename : 'Target' } Shares`,
-            FFOMetric: data? this.props.outputsData.targetShares : 0,
-            AFFOMetric: data? this.props.outputsData.targetShares : 0
+            label: `${data? data.targetCodename : 'Target' } Shares`,
+            FFOMetric:
+              <NumberFormat value={data? data.targetShares : 0} displayType={'text'} thousandSeparator={true}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? data.targetShares : 0} displayType={'text'} thousandSeparator={true}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />
           },
           {
-            label: `${data? this.props.outputsData.targetCodename : 'Target' } Total Cash Flow`,
-            FFOMetric: data? this.props.outputsData.targetShares * this.props.outputsData.targetFFOPerShareValueYear1: 0,
-            AFFOMetric: data? this.props.outputsData.targetShares * this.props.outputsData.targetAFFOPerShareValueYear1: 0
+            label: `${data? data.targetCodename : 'Target' } Total Cash Flow`,
+            FFOMetric:
+              <NumberFormat value={data? data.targetShares * data.targetFFOPerShareValueYear1: 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? data.targetShares * data.targetAFFOPerShareValueYear1: 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
           },{
             label: "Transaction Adjustments"
           }, {
             label: "G&A Synergies / (Expense)",
-            FFOMetric: data?
-            this.props.outputsData.synergiesValue : 0,
-            AFFOMetric: data?
-            this.props.outputsData.synergiesValue : 0,
+            FFOMetric:
+              <NumberFormat value={data? data.synergiesValue : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? data.synergiesValue : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
           },{
             label: "Cash Interest Savings",
-            FFOMetric: data?
-            this.props.outputsData.InterestSavingsValue : 0,
-            AFFOMetric: data?
-            this.props.outputsData.InterestSavingsValue : 0,
+            FFOMetric:
+              <NumberFormat value={data? data.InterestSavingsValue  : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? data.InterestSavingsValue  : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
           },{
             label: "Loss Of Interest Income on Cash Used",
-            FFOMetric: data?
-            this.props.outputsData.cashInterestLostValue : 0,
-            AFFOMetric: data?
-            this.props.outputsData.cashInterestLostValue : 0,
+            FFOMetric:
+              <NumberFormat value={data? data.cashInterestLostValue  : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? data.cashInterestLostValue  : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
           },{
             label: "Cash Interest Expense on New Financings",
-            FFOMetric: data?
-            this.props.outputsData.TotalNewInterestExpense : 0,
-            AFFOMetric: data?
-            this.props.outputsData.TotalNewInterestExpense : 0,
+            FFOMetric:
+              <NumberFormat value={data? data.TotalNewInterestExpense  : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? data.TotalNewInterestExpense  : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
           },
           {
             label: "Total Adjustments",
-            FFOMetric: data?
-            this.props.outputsData.totalCashFlowAdjustments : 0,
-            AFFOMetric: data?
-            this.props.outputsData.totalCashFlowAdjustments : 0,
+            FFOMetric:
+              <NumberFormat value={data? data.totalCashFlowAdjustments : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? data.totalCashFlowAdjustments : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
           }, {
           }, {
             label: "Pro Forma FFO / AFFO",
-            FFOMetric: data?
-            this.props.outputsData.ProFormaFFOYear1 : 0,
-            AFFOMetric: data?
-            this.props.outputsData.ProFormaAFFOYear1 : 0,
+            FFOMetric:
+              <NumberFormat value={data? data.ProFormaFFOYear1 : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? data.ProFormaAFFOYear1 : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
           },{
             label: "Pro Forma Shares",
-            FFOMetric: data?
-            this.props.outputsData.ProFormaShares : 0,
-            AFFOMetric: data?
-            this.props.outputsData.ProFormaShares : 0,
+            FFOMetric:
+              <NumberFormat value={data? data.ProFormaShares : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? data.ProFormaShares : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
           }, {
             label: "Pro Forma FFO / AFFO Per Share",
-            FFOMetric: data?
-            this.props.outputsData.ProFormaFFOYear1PerShare : 0,
-            AFFOMetric: data?
-            this.props.outputsData.ProFormaAFFOYear1PerShare : 0,
-          }
+            FFOMetric:
+              <NumberFormat value={data? data.ProFormaFFOYear1PerShare: 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={2}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? data.ProFormaAFFOYear1PerShare : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={2}
+              fixedDecimalScale={true} />,
+          }, {
+            label: "Per Share Accretion / (Dilution) - $",
+            FFOMetric:
+              <NumberFormat value={data? data.FFOPerShareAccretion: 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={2}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? data.AFFOPerShareAccretion : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+              decimalSeparator={"."}
+              decimalScale={2}
+              fixedDecimalScale={true} />,
+          }, {
+            label: "Per Share Accretion / (Dilution) - %",
+            FFOMetric:
+              <NumberFormat value={data? data.FFOPerShareAccretionPercent * 100: 0} displayType={'text'} thousandSeparator={true} suffix={'%'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
+            AFFOMetric:
+              <NumberFormat value={data? (data.AFFOPerShareAccretionPercent * 100) : 0} displayType={'text'} thousandSeparator={true} suffix={'%'}
+              decimalSeparator={"."}
+              decimalScale={1}
+              fixedDecimalScale={true} />,
+          },
 
           ]
             const accretionColumns = [{

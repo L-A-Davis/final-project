@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateCashFlowForm, resetCashFlowInfo, newCashFlowInfo } from '../actions'
-
+import { Form } from 'semantic-ui-react'
 
 class CashFlowForm extends React.Component {
 
@@ -118,18 +118,20 @@ class CashFlowForm extends React.Component {
  render() {
    return (
      <div className="form">
-     <button onClick={this.props.exit}>X</button>
+     <i onClick={this.props.exit} className="window close outline icon large grey"></i>
         <h3>Cash Flow Info</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="three-columns-form">
-       {this.props.modelData.basic_info_datum ?
+       {this.props.modelData.basic_info_datum &&
+         this.props.modelData.basic_info_datum.legnth > 0 ?
         <label className="form-input-1">
         {this.props.modelData.basic_info_datum[0].codename} </label>
 
          :
         <label className="form-input-1">Company A</label> }
 
-        {this.props.modelData.basic_info_datum ?
+        {this.props.modelData.basic_info_datum &&
+          this.props.modelData.basic_info_datum.legnth > 0  ?
          <label className="form-input-2">
          {this.props.modelData.basic_info_datum[1].codename} </label>
 

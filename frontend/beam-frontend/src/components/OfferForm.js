@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateOfferForm, resetOfferInfo, newOfferInfo } from '../actions'
+import { Form } from 'semantic-ui-react'
 
 class OfferForm extends React.Component {
 
@@ -51,8 +52,8 @@ render() {
   const { equity_info_datum, basic_info_datum } = { ...this.props.modelData }
   return (
     <div className="form">
-    <button onClick={this.props.exit}>X</button>
-    {equity_info_datum.length === 2 ?
+       <i onClick={this.props.exit} className="window close outline icon large grey"></i>
+    {(equity_info_datum && equity_info_datum.length === 2) ?
         <div>
        <h3>Offer Support</h3>
 

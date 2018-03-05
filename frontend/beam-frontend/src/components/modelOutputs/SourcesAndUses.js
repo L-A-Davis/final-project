@@ -12,7 +12,8 @@ class SourcesAndUses extends React.Component {
 
   handleAssumedItems = (array, dataInput) => {
     let tableInfo =
-    array.map(item => ({
+     (array && array.length > 1) ?
+      array.map(item => ({
       label: `Assume ${item.item_name}`,
       metric: item.amount ?
             <NumberFormat
@@ -26,12 +27,13 @@ class SourcesAndUses extends React.Component {
           thousandSeparator={true} suffix={'%'}
           decimalSeparator={"."} decimalScale={1}
           fixedDecimalScale={true} /> : '',
-    }))
+    })) : tableInfo = []
     return tableInfo
   }
 
   handleRepaidItems = (array, dataInput) => {
     let tableInfo =
+    (array && array.length > 1) ?
     array.map(item => ({
       label: `Repay ${item.item_name}`,
       metric: item.amount ?
@@ -46,7 +48,7 @@ class SourcesAndUses extends React.Component {
             thousandSeparator={true} suffix={'%'}
             decimalSeparator={"."} decimalScale={1}
             fixedDecimalScale={true} /> : '',
-    }))
+    })) : tableInfo = []
     return tableInfo
   }
 
@@ -55,6 +57,7 @@ class SourcesAndUses extends React.Component {
 
   handleUsedCash = (array, dataInput) => {
     let tableInfo =
+    (array && array.length > 1) ?
     array.map(item => ({
       label: `Use of ${item.item_name}`,
       metric: item.amount ?
@@ -69,12 +72,13 @@ class SourcesAndUses extends React.Component {
             thousandSeparator={true} suffix={'%'}
             decimalSeparator={"."} decimalScale={1}
             fixedDecimalScale={true} /> : '',
-    }))
+    })) : tableInfo = []
     return tableInfo
   }
 
   handleNewFinancing = (array, dataInput) => {
     let tableInfo =
+    (array && array.length > 1) ?
     array.map(item => ({
       label: `Issuance of new ${item.item_type}`,
       metric: item.amount ?
@@ -89,7 +93,7 @@ class SourcesAndUses extends React.Component {
             thousandSeparator={true} suffix={'%'}
             decimalSeparator={"."} decimalScale={1}
             fixedDecimalScale={true} /> : '',
-    }))
+    })) : tableInfo = []
     return tableInfo
   }
 

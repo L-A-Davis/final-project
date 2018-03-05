@@ -6,7 +6,7 @@ import Login from './nav/Login';
 import Signup from './nav/Signup';
 import Profile from './nav/Profile';
 import Project from './nav/Project';
-import Header from './components/Header';
+import HeaderForPage from './components/HeaderForPage';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
 
@@ -73,7 +73,7 @@ componentDidMount() {
   render() {
     return (
       <div className="App">
-       <Header />
+       <HeaderForPage />
        <Navbar
            currentUser={this.state.auth.currentUser}
            logOut={this.removeLoggedInUser}

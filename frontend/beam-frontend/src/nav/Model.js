@@ -12,6 +12,7 @@ import TransactionCosts from '../components/TransactionCosts';
 import TransactionAdjustments from '../components/TransactionAdjustments';
 import Outputs from '../components/Outputs'
 import { changeCompletedStatus, handleShowOutputs } from '../actions'
+import { Grid } from 'semantic-ui-react'
 
 class Model extends React.Component {
 
@@ -151,6 +152,10 @@ handleButtonClick = (e) =>{
   }
 
 componentDidMount() {
+  this.props.startWithNewForm ?
+     this.setState({
+       showNewModelForm: true
+     }) :
   this.props.showOutputs ? this.setState({
     showButtons: false
   }) : this.setState({
@@ -162,13 +167,23 @@ componentDidMount() {
     console.log(this.state.showButtons, this.props.showOutputs)
   return (
     <div>
+      <h1>{this.props.selectedProjectData.name}</h1>
       <h2>{this.props.modelData.name}</h2>
-      <div>
+      <div className="lightgrey-background">
       {(this.state.showButtons && !this.props.showOutputs) &&
+        <Grid
+          textAlign='center'
+          style={{ height: '100%' }}
+          verticalAlign='top'
+        >
+        <Grid.Column style={{ maxWidth: 600 }}>
+
         <div className="allButtonHolder form">
              <h3> Input Status </h3>
             <div className="buttonAndCheckBoxHolder">
-                <h4>Form</h4><h4>Completed?</h4>
+                <h4>Form</h4>
+                <h4>Completed?</h4>
+                <h4>Edit</h4>
             </div>
            <div className="buttonAndCheckBoxHolder" id="newModelFormData">
              <button data-status={this.props.FormCompletedStatus.newModelFormData}
@@ -267,6 +282,10 @@ componentDidMount() {
            </div>
 
           </div>
+
+          </Grid.Column>
+          </Grid>
+
       }
 
       { this.state.showNewModelForm &&
@@ -316,7 +335,7 @@ componentDidMount() {
  }
 }
 
- export default connect(state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData, FormCompletedStatus: state.FormCompletedStatus, showOutputs: state.showOutputs }}, { changeCompletedStatus, handleShowOutputs })(WithAuth(Model))
+ export default connect(state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData, FormCompletedStatus: state.FormCompletedStatus, showOutputs: state.showOutputs, selectedProjectData: state.selectedProjectData }}, { changeCompletedStatus, handleShowOutputs })(WithAuth(Model))
 
 
  // handleSetUp = () => {

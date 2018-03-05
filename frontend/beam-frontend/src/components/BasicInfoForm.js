@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateBasicInfoForm, resetBasicInfo, newBasicInfo } from '../actions'
+import { Form } from 'semantic-ui-react'
 
 class BasicInfoForm extends React.Component {
 
@@ -46,7 +47,7 @@ class BasicInfoForm extends React.Component {
  render() {
    return (
      <div className="form">
-        <button onClick={this.props.exit}>X</button>
+        <i onClick={this.props.exit} className="window close outline icon large grey"></i>
         <h3>Company Inputs</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="three-columns-form">
