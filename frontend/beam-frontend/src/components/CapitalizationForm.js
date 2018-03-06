@@ -198,20 +198,19 @@ class CapitalizationForm extends React.Component {
         <h3>Capitalization Inputs</h3>
      <div >
        <form onSubmit={this.handleSubmit} className="seven-columns-form">
-       {this.props.modelData.basic_info_datum &&
-         this.props.modelData.basic_info_datum.legnth > 0  ?
+       {(this.props.modelData.basic_info_datum && this.props.modelData.basic_info_datum.length === 2) ?
         <label className="form-input-1">
-        {this.props.modelData.basic_info_datum[0].codename} </label>
-
+        {this.props.modelData.basic_info_datum[0].company === "A" ? this.props.modelData.basic_info_datum[0].codename :
+        this.props.modelData.basic_info_datum[1].codename } </label>
          :
         <label className="form-input-1">Company A</label> }
          <label className="form-input-2">Repay?</label>
          <label className="form-input-3">Rate</label>
-        {this.props.modelData.basic_info_datum &&
-          this.props.modelData.basic_info_datum.legnth > 0 ?
+        {(this.props.modelData.basic_info_datum && this.props.modelData.basic_info_datum.length === 2)  ?
          <label className="form-input-4">
-         {this.props.modelData.basic_info_datum[1].codename} </label>
-
+         {this.props.modelData.basic_info_datum[0].company === "B" ?
+         this.props.modelData.basic_info_datum[0].codename :
+         this.props.modelData.basic_info_datum[1].codename} </label>
           :
          <label className="form-input-4">Company B</label> }
          <label className="form-input-5">Repay?</label>

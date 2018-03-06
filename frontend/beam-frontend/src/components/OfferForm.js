@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from "react-redux";
 import { updateOfferForm, resetOfferInfo, newOfferInfo } from '../actions'
 import { Form } from 'semantic-ui-react'
+import ReactTable from 'react-table'
+import NumberFormat from 'react-number-format';
 
 class OfferForm extends React.Component {
 
@@ -50,48 +52,70 @@ class OfferForm extends React.Component {
 render() {
   console.log('re-rendering',this.props)
   const { equity_info_datum, basic_info_datum } = { ...this.props.modelData }
+  let acquirorCompany = basic_info_datum[0].acquiror ? basic_info_datum[0].company : basic_info_datum[1].company
+  let targetCompany = acquirorCompany === "A" ? "B" : "A"
+
+  let acquirorCodename = basic_info_datum[0].acquiror ? basic_info_datum[0].codename : basic_info_datum[1].codename
+
+  let targetCodename = basic_info_datum[0].acquiror ? basic_info_datum[1].codename : basic_info_datum[0].codename
+
+  let acquirorEquityData = equity_info_datum.find(item => item.company === acquirorCompany)
+
+  let targetEquityData = equity_info_datum.find(item => item.company === targetCompany)
+
+  const offerFormData = [{
+    label: `Current Price`,
+    acquiror:
+      <NumberFormat value={equity_info_datum? acquirorEquityData.currentSharePrice : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={2}
+      fixedDecimalScale={true} />,
+    target:
+      <NumberFormat value={equity_info_datum? targetEquityData.currentSharePrice : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      decimalSeparator={"."}
+      decimalScale={2}
+      fixedDecimalScale={true} />,
+  },{
+    label: `Implied Exchange Raio`,
+    acquiror: '',
+    target:
+      <NumberFormat value={equity_info_datum? targetEquityData.currentSharePrice / acquirorEquityData.currentSharePrice : 0} displayType={'text'} thousandSeparator={true} suffix={'x'}
+      decimalSeparator={"."}
+      decimalScale={3}
+      fixedDecimalScale={true} />,
+  }]
+
+
+  const offerFormColumns = [{
+    Header: '',
+    accessor: 'label',
+    minWidth: 250,
+    maxWidth: 325,
+  }, {
+    Header:  `${equity_info_datum ? acquirorCodename : 'Acquiror' }`,
+    accessor: 'acquiror',
+    Cell: props => <span className='number'>{props.value}</span>,
+     // minWidth: 130,
+     // maxWidth: 130,
+  },{
+    Header:  `${equity_info_datum ? targetCodename : 'Target' }`,
+    accessor: 'target',
+    Cell: props => <span className='number'>{props.value}</span>,
+     // minWidth: 130,
+     // maxWidth: 130,
+  }]
+
   return (
     <div className="form">
        <i onClick={this.props.exit} className="window close outline icon large grey"></i>
     {(equity_info_datum && equity_info_datum.length === 2) ?
         <div>
-       <h3>Offer Support</h3>
-
-         <table>
-         <thead>
-         <tr>
-            <th></th>
-            <th>Acquiror</th>
-            <th>Target</th>
-         </tr>
-         </thead>
-         <tbody>
-         <tr>
-            <td>Names:</td>
-            <td>{basic_info_datum[0].acquiror ? basic_info_datum[0].codename :
-            basic_info_datum[1].codename} </td>
-            <td> {basic_info_datum[0].acquiror ? basic_info_datum[1].codename :
-            basic_info_datum[0].codename} </td>
-         </tr>
-
-         <tr>
-            <td>Current Price:</td>
-            <td>{basic_info_datum[0].acquiror ? equity_info_datum[0].currentSharePrice :
-            equity_info_datum[1].currentSharePrice } </td>
-            <td> {basic_info_datum[0].acquiror? equity_info_datum[1].currentSharePrice  :
-            equity_info_datum[0].currentSharePrice} </td>
-         </tr>
-         <tr>
-            <td>Exchange Ratio:</td>
-            <td></td>
-            <td>     {basic_info_datum[0].acquiror?
-
-                  this.impliedExchangeRatio(equity_info_datum[0].currentSharePrice, equity_info_datum[1].currentSharePrice) :
-
-                  this.impliedExchangeRatio(equity_info_datum[1].currentSharePrice, equity_info_datum[0].currentSharePrice) } </td>
-         </tr>
-         </tbody>
-         </table>
+        <ReactTable
+        data={offerFormData}
+        columns={offerFormColumns}
+        showPagination={false}
+        minRows={2}
+        />
          </div>
          : null }
 

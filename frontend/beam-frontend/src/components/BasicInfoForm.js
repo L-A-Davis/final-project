@@ -98,7 +98,7 @@ class BasicInfoForm extends React.Component {
            className="form-input-1"/> <br/>
         <input
           type="submit"
-          value="Let's Get Started"
+          value="Save Basic Information"
           className="form-input-1" />
       </form>
     </div>
