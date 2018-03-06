@@ -46,7 +46,9 @@ class Accretion extends React.Component {
               decimalScale={1}
               fixedDecimalScale={true} />,
             }, {
-            label: `${data? data.targetCodename : 'Target' } Per Share Value`,
+            },
+            {
+            label: `${data? data.targetCodename : 'Target' } FFO / AFFO Per Share`,
             FFOMetric:
               <NumberFormat value={data? data.targetFFOPerShareValueYear1 : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
               decimalSeparator={"."}
@@ -220,6 +222,7 @@ class Accretion extends React.Component {
               Cell: props => <span className='number'>{props.value}</span>,
                // minWidth: 130,
                // maxWidth: 130,
+               className: 'cell-data'
             },
             {
               Header: 'AFFO',
@@ -227,6 +230,7 @@ class Accretion extends React.Component {
               Cell: props => <span className='number'>{props.value}</span>,
                // minWidth: 130,
                // maxWidth: 130,
+               className: 'cell-data'
             },
           ]
 

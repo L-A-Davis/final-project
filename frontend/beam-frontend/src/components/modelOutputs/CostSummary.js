@@ -141,9 +141,15 @@ class CostSummary extends React.Component {
                   decimalSeparator={"."}
                   decimalScale={1}
                   fixedDecimalScale={true} />,
-                percentage: "",
+                percentage:
+                <NumberFormat value={data ? 1 * 100 : 0} displayType={'text'} thousandSeparator={true} suffix={'%'}
+                decimalSeparator={"."}
+                decimalScale={1}
+                fixedDecimalScale={true} />,
                 },
         ]
+
+      const dataInUse = costSummaryData.filter(item => item.metric.props.value !== 0 )
 
       const costSummaryColumns = [{
         Header: '',
@@ -156,6 +162,7 @@ class CostSummary extends React.Component {
         Cell: props => <span className='number'>{props.value}</span>,
          minWidth: 130,
          maxWidth: 130,
+         className: 'cell-data'
       },
       {
         Header: '% of Total',
@@ -163,21 +170,23 @@ class CostSummary extends React.Component {
         Cell: props => <span className='number'>{props.value}</span>,
          minWidth: 130,
          maxWidth: 130,
+         className: 'cell-data'
       },
 
     ]
 
 
 
+console.log(dataInUse)
     return (
        <div className="outputholder">
           <div className="single-table-holder">
           <h3>Transaction Cost Summary</h3>
             <ReactTable
-            data={costSummaryData}
+            data={dataInUse}
             columns={costSummaryColumns}
             showPagination={false}
-            minRows={2}
+            minRows={1}
             />
           </div>
        </div>

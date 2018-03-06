@@ -12,7 +12,7 @@ class SourcesAndUses extends React.Component {
 
   handleAssumedItems = (array, dataInput) => {
     let tableInfo =
-     (array && array.length > 1) ?
+     (array && array.length > 0) ?
       array.map(item => ({
       label: `Assume ${item.item_name}`,
       metric: item.amount ?
@@ -33,7 +33,7 @@ class SourcesAndUses extends React.Component {
 
   handleRepaidItems = (array, dataInput) => {
     let tableInfo =
-    (array && array.length > 1) ?
+    (array && array.length > 0) ?
     array.map(item => ({
       label: `Repay ${item.item_name}`,
       metric: item.amount ?
@@ -57,7 +57,7 @@ class SourcesAndUses extends React.Component {
 
   handleUsedCash = (array, dataInput) => {
     let tableInfo =
-    (array && array.length > 1) ?
+    (array && array.length > 0) ?
     array.map(item => ({
       label: `Use of ${item.item_name}`,
       metric: item.amount ?
@@ -78,7 +78,7 @@ class SourcesAndUses extends React.Component {
 
   handleNewFinancing = (array, dataInput) => {
     let tableInfo =
-    (array && array.length > 1) ?
+    (array && array.length > 0) ?
     array.map(item => ({
       label: `Issuance of new ${item.item_type}`,
       metric: item.amount ?
@@ -177,39 +177,70 @@ class SourcesAndUses extends React.Component {
                           fixedDecimalScale={true} /> : ''}
                     ,{
                     label: 'Total Sources',
+                    className: 'cell-total',
+                    style: {'font-weight': 'bold'},
                     metric: data.TotalSources ?
                     <NumberFormat
                     value={data.TotalSources} displayType={'text'}
                     thousandSeparator={true} prefix={'$'}
                     decimalSeparator={"."} decimalScale={1}
-                    fixedDecimalScale={true} /> : ""
+                    fixedDecimalScale={true} /> : "",
                   }]) : [{}]
+
+        const maxRows = sourcesData.length > usesData.length ? sourcesData.length : usesData.length
+
+        const handleAdjustedData = (data, maxRows) => {
+          if (data.length !== maxRows) {
+            let difference = maxRows - data.length
+            for (let i = 0; i < difference; i++) {
+              data.splice(data.length -1, 0, [{label: "", metric: "0", show: false}])
+            }
+            return data
+          } else {
+              return data
+            }
+        }
+
+      const adjustedSourcesData = handleAdjustedData(sourcesData, maxRows)
+      const adjustedUsesData = handleAdjustedData(usesData, maxRows)
+
 
 
         const sourcesColumns = [{
           Header: 'Sources',
           accessor: 'label',
-          minWidth: 250,
-          maxWidth: 325,
+          minWidth: 200,
+          // Cell: row => (
+          //
+          //            <div
+          //              style={{
+          //                backgroundColor: row.label === "Total Uses" || row.label === "Total Sources" ? 'yellow' : 'white'
+          //              }}>
+          //          </div>
+          //        )
+
+          // maxWidth: 325,
         }, {
           Header: 'Amount',
           accessor: 'metric',
           Cell: props => <span className='number'>{props.value}</span>,
            // minWidth: 130,
            // maxWidth: 130,
+            className: 'cell-data'
         },{
           Header: '%',
           accessor: 'percentage',
           Cell: props => <span className='number'>{props.value}</span>,
            // minWidth: 130,
            // maxWidth: 130,
+            className: 'cell-data'
         }]
 
         const usesColumns = [{
           Header: 'Uses',
           accessor: 'label',
-          minWidth: 250,
-          maxWidth: 325,
+          minWidth: 200,
+          // maxWidth: 325,
         },
          {
           Header: 'Amount',
@@ -217,6 +248,7 @@ class SourcesAndUses extends React.Component {
           Cell: props => <span className='number'>{props.value}</span>,
            // minWidth: 130,
            // maxWidth: 130,
+           className: 'cell-data'
         },
         {
           Header: '%',
@@ -224,28 +256,29 @@ class SourcesAndUses extends React.Component {
           Cell: props => <span className='number'>{props.value}</span>,
            // minWidth: 130,
            // maxWidth: 130,
+           className: 'cell-data'
         },
 
       ]
-
+ console.log(adjustedSourcesData)
     return (
        <div className="outputholder">
        <h3>Sources and Uses</h3>
          <div className="multiple-table-holder">
           <div className="single-table-holder">
               <ReactTable
-              data={usesData}
+              data={adjustedUsesData}
               columns={usesColumns}
               showPagination={false}
-              minRows={8}
+              minRows={3}
             />
             </div>
               <div className="single-table-holder">
               <ReactTable
-              data={sourcesData}
+              data={adjustedSourcesData}
               columns={sourcesColumns}
               showPagination={false}
-              minRows={8}
+              minRows={3}
             />
           </div>
           </div>

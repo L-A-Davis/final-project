@@ -9,10 +9,27 @@ let overall_input_types = [{id: "detailed", name: "Set Specific Items"}, {id: "o
 
 class TransactionCosts extends React.Component {
 
+ state = {
+   showAdditionalCosts: false,
+   showSetOverallAmount: false,
+
+ }
+
+
  handleChange = (e) => {
    this.props.updateTransactionCostForm({
        [e.target.name]: e.target.value
    })
+   e.target.name === "Deal_costs_type" && e.target.value === "detailed" ?
+    this.setState ({
+      showAdditionalCosts: true,
+      showSetOverallAmount: false,
+    }) :
+    e.target.name === "Deal_costs_type" && e.target.value === "overall" ?
+    this.setState ({
+      showSetOverallAmount: true,
+      showAdditionalCosts: false,
+    }) : null
  }
  handleDataSave = (data) =>{
    for (let i = 0; i< data.length; i++){
@@ -33,49 +50,49 @@ class TransactionCosts extends React.Component {
          id: form.Deal_costs_id,
          model_id: this.props.modelData.id,
          name: "Overall_deal_costs",
-         input_type: form.Deal_costs_type,
+         input_type: form.Deal_costs_type ,
          data_input: form.Deal_costs_input || 0
        },
        {
          id: form.CompanyA_LAO_costs_id,
          model_id: this.props.modelData.id,
          name: "CompanyA_LAO_costs",
-         input_type: form.CompanyA_LAO_costs_type,
+         input_type: form.CompanyA_LAO_costs_type || 'setAmount',
          data_input: form.CompanyA_LAO_costs_input || 0
        },
        {
          id: form.CompanyB_LAO_costs_id,
          model_id: this.props.modelData.id,
          name: "CompanyB_LAO_costs",
-         input_type: form.CompanyB_LAO_costs_type,
+         input_type: form.CompanyB_LAO_costs_type || 'setAmount',
          data_input: form.CompanyB_LAO_costs_input || 0
        },
        {
          id: form.Swap_Breakage_id,
          model_id: this.props.modelData.id,
          name: "swap_breakage_costs",
-         input_type: form.Swap_Breakage_type,
+         input_type: form.Swap_Breakage_type || 'setAmount',
          data_input: form.Swap_Breakage_input || 0
        },
        {
          id: form.Debt_Prepayment_id,
          model_id: this.props.modelData.id,
          name: "debt_prepayment_costs",
-         input_type: form.Debt_Prepayment_type,
+         input_type: form.Debt_Prepayment_type || 'setAmount',
          data_input: form.Debt_Prepayment_input || 0
        },
        {
          id: form.Debt_Assumption_id,
          model_id: this.props.modelData.id,
          name: "debt_assumption_costs",
-         input_type: form.Debt_Assumption_type,
+         input_type: form.Debt_Assumption_type || 'setAmount',
          data_input: form.Debt_Assumption_input || 0
        },
        {
          id: form.Debt_Issuance_id,
          model_id: this.props.modelData.id,
          name: "debt_issuance_costs",
-         input_type: form.Debt_Issuance_type,
+         input_type: form.Debt_Issuance_type || 'setAmount',
          data_input: form.Debt_Issuance_input || 0
        },
        {
@@ -119,8 +136,10 @@ class TransactionCosts extends React.Component {
      <i onClick={this.props.exit} className="window close outline icon large grey"></i>
         <h3>Transaction Costs Info</h3>
      <div >
-       <form onSubmit={this.handleSubmit} className="three-columns-form">
-
+       <form onSubmit={this.handleSubmit} >
+       <div className="three-columns-form">
+       <label className="form-input-1">Input Type</label>
+       <label className="form-input-2">Input</label>
     <label className="form-label">Overall Transaction Costs:</label>
 
         <select
@@ -135,18 +154,23 @@ class TransactionCosts extends React.Component {
             )}
         </select>
 
-       <input
-          type="number"
-          name="Deal_costs_input"
-          value={this.props.TransactionCostsFormData.Deal_costs}
-          onChange={this.handleChange}
-          className="form-input-2"
-          step= "any"/>
+        { this.state.showSetOverallAmount &&
+          <input
+             type="number"
+             name="Deal_costs_input"
+             value={this.props.TransactionCostsFormData.Deal_costs}
+             onChange={this.handleChange}
+             className="form-input-2"
+             step= "any"/>
+        }
+        </div>
 
-
+        { this.state.showAdditionalCosts &&
+          <div className="three-columns-form">
         { (!("basic_info_datum" in this.props.modelData) ||
           this.props.modelData.basic_info_datum.length === 0 ||
-          (this.props.modelData.basic_info_datum[0].company === "A" && this.props.modelData.basic_info_datum[0].acquiror === "true")) ?
+          (this.props.modelData.basic_info_datum[0].company === "A" && this.props.modelData.basic_info_datum[0].acquiror ) || (this.props.modelData.basic_info_datum[0].company === "B" && !this.props.modelData.basic_info_datum[0].acquiror )) ?
+
         <label className="form-label">Acquiror Legal, Advisory, Other Costs:</label> :
           <label className="form-label">Target Legal, Advisory, Other Costs:</label>
         }
@@ -174,7 +198,9 @@ class TransactionCosts extends React.Component {
 
     { (!("basic_info_datum" in this.props.modelData) ||
       this.props.modelData.basic_info_datum.length === 0 ||
-      (this.props.modelData.basic_info_datum[0].company === "A" && this.props.modelData.basic_info_datum[0].acquiror === "true")) ?
+      (this.props.modelData.basic_info_datum[1].company === "A" && this.props.modelData.basic_info_datum[1].acquiror) ||
+      (this.props.modelData.basic_info_datum[1].company === "B" && !this.props.modelData.basic_info_datum[1].acquiror )
+    ) ?
     <label className="form-label">Target Legal, Advisory, Other Costs:</label> :
       <label className="form-label">Acquiror Legal, Advisory, Other Costs:</label>
     }
@@ -222,7 +248,6 @@ class TransactionCosts extends React.Component {
           className="form-input-2"
           step= "any"/>
 
-// do not show if no debt prepaid
       <label className="form-label">Debt Prepayment Costs:</label>
 
           <select
@@ -245,7 +270,6 @@ class TransactionCosts extends React.Component {
             className="form-input-2"
             step= "any"/>
 
-// do not show if no debt assumed
     <label className="form-label">Debt Assumption Costs:</label>
 
         <select
@@ -268,7 +292,6 @@ class TransactionCosts extends React.Component {
           className="form-input-2"
           step= "any"/>
 
-// do not show if no debt issued
       <label className="form-label">Debt Issuance Costs:</label>
 
           <select
@@ -291,7 +314,6 @@ class TransactionCosts extends React.Component {
             className="form-input-2"
             step= "any"/>
 
-// do not show if no bonds and repaid
       <label className="form-label">Bond Prepayment Costs:</label>
 
          <input
@@ -331,13 +353,15 @@ class TransactionCosts extends React.Component {
             onChange={this.handleChange}
             className="form-input-2"
             step= "any"/>
-
+        </div>
+        }
+        <div className="three-columns-form">
         <input
           type="submit"
           value="Save Transaction Costs Info"
           className="form-input-1" />
 
-
+        </div>
 
       </form>
     </div>

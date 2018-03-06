@@ -7,6 +7,7 @@ import Capitalization from './modelOutputs/Capitalization';
 import Contribution from './modelOutputs/Contribution';
 import CostSummary from './modelOutputs/CostSummary';
 import HistoricalTrading from './modelOutputs/HistoricalTrading';
+import CapitalizationChart from './modelOutputs/CapitalizationChart';
 import 'react-table/react-table.css'
 import { handleCalculateOutputs, handleGetTradingData, handleHideOutputs } from '../actions'
 
@@ -30,7 +31,7 @@ class Outputs extends React.Component {
   render() {
     return (
       <div>
-      <i class="backward icon"
+      <i className="backward icon"
       onClick={this.handleBackClick}></i>
       <button
       onClick={this.handleBackClick}
@@ -39,6 +40,7 @@ class Outputs extends React.Component {
       <SourcesAndUses />
       <Accretion />
       <Capitalization />
+      <CapitalizationChart />
       <Contribution />
       <CostSummary />
       <HistoricalTrading />

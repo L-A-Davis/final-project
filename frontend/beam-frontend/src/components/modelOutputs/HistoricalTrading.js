@@ -39,7 +39,7 @@ title: {
 },
 
 series: [{
-    name: 'SPG',
+    name: `${this.props.modelData.basic_info_datum[0].codename}`,
     data: data2InUse,
     tooltip: {
         valueDecimals: 2
@@ -60,4 +60,4 @@ series: [{
 }
 
 
-export default connect (state => {return {outputsData: state.outputsData, tradingData: state.tradingData }},)(HistoricalTrading)
+export default connect (state => {return {outputsData: state.outputsData, tradingData: state.tradingData, modelData: state.modelData }},)(HistoricalTrading)

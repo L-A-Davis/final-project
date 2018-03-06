@@ -38,26 +38,18 @@ class OfferForm extends React.Component {
     this.props.next()
   }
 
-  impliedExchangeRatio = (a, b) => {
-    let a_num = parseInt(a, 10)
-    let b_num = parseInt(b, 10)
-    let answer = (b_num / a_num)
-    if (answer) {
-      return answer
-    } else {
-      return "NA"
-    }
-  }
+
 
 render() {
   console.log('re-rendering',this.props)
   const { equity_info_datum, basic_info_datum } = { ...this.props.modelData }
-  let acquirorCompany = basic_info_datum[0].acquiror ? basic_info_datum[0].company : basic_info_datum[1].company
+  let acquirorCompany = basic_info_datum.length > 1 ? basic_info_datum[0].acquiror ? basic_info_datum[0].company : basic_info_datum[1].company : "A"
+
   let targetCompany = acquirorCompany === "A" ? "B" : "A"
 
-  let acquirorCodename = basic_info_datum[0].acquiror ? basic_info_datum[0].codename : basic_info_datum[1].codename
+  let acquirorCodename = basic_info_datum.length > 1 ? basic_info_datum[0].acquiror ? basic_info_datum[0].codename : basic_info_datum[1].codename : "Acquiror"
 
-  let targetCodename = basic_info_datum[0].acquiror ? basic_info_datum[1].codename : basic_info_datum[0].codename
+  let targetCodename = basic_info_datum.length > 1 ? basic_info_datum[0].acquiror ? basic_info_datum[1].codename : basic_info_datum[0].codename : "Target"
 
   let acquirorEquityData = equity_info_datum.find(item => item.company === acquirorCompany)
 
@@ -66,12 +58,12 @@ render() {
   const offerFormData = [{
     label: `Current Price`,
     acquiror:
-      <NumberFormat value={equity_info_datum? acquirorEquityData.currentSharePrice : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      <NumberFormat value={equity_info_datum.length > 1? acquirorEquityData.currentSharePrice : ""} displayType={'text'} thousandSeparator={true} prefix={'$'}
       decimalSeparator={"."}
       decimalScale={2}
       fixedDecimalScale={true} />,
     target:
-      <NumberFormat value={equity_info_datum? targetEquityData.currentSharePrice : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
+      <NumberFormat value={equity_info_datum.length > 1 ? targetEquityData.currentSharePrice : ""} displayType={'text'} thousandSeparator={true} prefix={'$'}
       decimalSeparator={"."}
       decimalScale={2}
       fixedDecimalScale={true} />,
@@ -79,7 +71,7 @@ render() {
     label: `Implied Exchange Raio`,
     acquiror: '',
     target:
-      <NumberFormat value={equity_info_datum? targetEquityData.currentSharePrice / acquirorEquityData.currentSharePrice : 0} displayType={'text'} thousandSeparator={true} suffix={'x'}
+      <NumberFormat value={equity_info_datum. length > 1? targetEquityData.currentSharePrice / acquirorEquityData.currentSharePrice : ""} displayType={'text'} thousandSeparator={true} suffix={'x'}
       decimalSeparator={"."}
       decimalScale={3}
       fixedDecimalScale={true} />,
@@ -201,4 +193,15 @@ export default connect (state => {return { modelData: state.modelData, OfferForm
 //  <p>placeholder</p>
 //  }
 //  </div>
-// )
+// // )
+//
+// impliedExchangeRatio = (a, b) => {
+//   let a_num = parseInt(a, 10)
+//   let b_num = parseInt(b, 10)
+//   let answer = (b_num / a_num)
+//   if (answer) {
+//     return answer
+//   } else {
+//     return "NA"
+//   }
+// }

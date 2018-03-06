@@ -253,7 +253,7 @@ class TransactionAdjustments extends React.Component {
            <input
              type="submit"
              value="Save Transaction Adjustments"
-             className="form-input-1" />
+             className="form-input-transaction-adj" />
 
       </form>
     </div>

@@ -478,7 +478,6 @@ const calculateMergerMath = (data) => {
         let ProFormaNDPtoEBITDA = ProFormaNetDebtAndPrefValue / ProFormaEBITDAValue
         let ProFormaNDtoEBITDA = ProFormaNetDebtValue / ProFormaEBITDAValue
 
-// debugger
 
 
   return {
@@ -520,6 +519,7 @@ const calculateMergerMath = (data) => {
     totalCashFlowAdjustments,
     ProFormaFFOYear1,
     ProFormaAFFOYear1,
+    AcquirorSharesIssued,
     ProFormaShares,
     ProFormaFFOYear1PerShare,
     ProFormaAFFOYear1PerShare,
@@ -573,7 +573,10 @@ const calculateMergerMath = (data) => {
     acquirorRevenueValueYear1,
     acquirorNOIValueYear1,
     targetNOIValue,
-    targetRevenueValueYear1
+    targetRevenueValueYear1,
+    acquirorNetDebtValue,
+    targetNetDebtValue,
+    ProFormaEquityCap
 }
 }
 

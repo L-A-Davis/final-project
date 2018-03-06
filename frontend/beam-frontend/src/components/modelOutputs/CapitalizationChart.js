@@ -7,63 +7,161 @@ class CapitalizationChart extends React.Component {
   render() {
 let data = this.props.outputsData
 
- const data3 = [{
-     name: `${data ? data.targetCodename : 'Target' }`,
-     data: [data.targetRevenueValueYear1, data.targetNOIValue, data.targetEBITDAValue,
-       data.targetFFOPerShareValueYear1 * data.targetShares , data.targetAFFOPerShareValueYear1 * data.targetShares],
-      color: '#73757a',
-     },
-     {
-        name: `${data ? data.acquirorCodename : 'Acquiror' }`,
-        data: [data.acquirorRevenueValueYear1, data.acquirorNOIValueYear1, data.acquirorEBITDAValue, data.acquirorFFOPerShareValueYear1 * data.acquirorShares , data.acquirorAFFOPerShareValueYear1 * data.acquirorShares ],
-        color: '#1c3151'
-    },
-    {
-     type: 'spline',
-      name: 'Average',
-      data: [2, 2, 2, 2, .25],
-      marker: {
-          lineWidth: 2,
-          lineColor: 'red',
-          fillColor: 'white'
-      }
-   }]
+let acquirorCurrentEquityCap = data ? data.acquirorShares * data.acquirorCurrentPrice : 0
+let acquirorNetDebt = data ? data.acquirorNetDebtValue  : 0
+let acquirorPreferred = data ? data.acquirorPreferredValue : 0
 
-const config =
+let targetCurrentEquityCap = data ? data.targetShares * data.targetCurrentPrice : 0
+let targetNetDebt = data ? data.targetNetDebtValue  : 0
+let targetPreferred = data ? data.targetPreferredValue : 0
+
+let ProFormaCurrentEquityCap = data ? data.ProFormaEquityCap : 0
+let ProFormaNetDebt = data ? data.ProFormaNetDebtValue  : 0
+let ProFormaPreferred = data ? data.ProFormaTotalPreferredValue : 0
+
+
+ const acquirorData = data ? [{
+     name: `${data ? data.acquirorCodename : 'Acquiror'} Capitalization`,
+     colorByPoint: true,
+     data: [{
+       name: 'Equity',
+       y: acquirorCurrentEquityCap,
+       color: '#73757a'
+     },{
+       name: "Net Debt",
+       y: acquirorNetDebt,
+       color: '#1c3151'
+     }, {
+       name: 'Preferred Equity',
+       y: acquirorPreferred,
+       color: '#0d58a6'
+     }]
+   }] : [{}]
+
+   const targetData = data ? [{
+       name: `${data ? data.targetCodename : 'Target'} Capitalization`,
+       colorByPoint: true,
+       data: [{
+         name: 'Equity',
+         y: targetCurrentEquityCap,
+         color: '#73757a'
+       },{
+         name: "Net Debt",
+         y: targetNetDebt,
+         color: '#1c3151'
+       }, {
+         name: 'Preferred Equity',
+         y: targetPreferred,
+         color: '#0d58a6'
+       }]
+     }] : [{}]
+
+     const ProFormaData = data ? [{
+         name: `ProForma Capitalization`,
+         colorByPoint: true,
+         data: [{
+           name: 'Equity',
+           y: ProFormaCurrentEquityCap,
+           color: '#73757a'
+         },{
+           name: "Net Debt",
+           y: ProFormaNetDebt,
+           color: '#1c3151'
+         }, {
+           name: 'Preferred Equity',
+           y: ProFormaPreferred,
+           color: '#0d58a6'
+         }]
+       }] : [{}]
+
+
+const configAcquiror =
 {
     chart: {
-        type: 'bar'
+        type: 'pie'
     },
      title: {
-        text: 'Year 1 CapitalizationChart Analysis'
-    },
-    xAxis: {
-        categories: ['Revenue', 'NOI', 'EBITDA', 'FFO', 'AFFO']
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: '% of Combined'
-        }
+        text: `${data ? data.acquirorCodename : 'Acquiror'} Capitalization`
     },
     tooltip: {
-       pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>${point.y}</b> ({point.percentage:.0f}%)<br/>',
-       shared: true
+        pointFormat:  '<b>{point.percentage:.1f}%</b>'
    },
-    plotOptions: {
-        series: {
-            stacking: 'percent'
-        }
-    },
-    series: data3
+   plotOptions: {
+         pie: {
+             allowPointSelect: true,
+             cursor: 'pointer',
+             dataLabels: {
+                 enabled: true,
+                 format: '<b>{point.name}</b>: ${point.y:,.0f}, {point.percentage:.1f} %',
+                 style: {
+                     // color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                 }
+             }
+         }
+     },
+    series: acquirorData
   }
 
+  const configTarget =
+  {
+      chart: {
+          type: 'pie'
+      },
+       title: {
+          text: `${data ? data.targetCodename : 'Target'} Capitalization`
+      },
+      tooltip: {
+          pointFormat:  '<b>{point.percentage:.1f}%</b>'
+     },
+     plotOptions: {
+           pie: {
+               allowPointSelect: true,
+               cursor: 'pointer',
+               dataLabels: {
+                   enabled: true,
+                   format: '<b>{point.name}</b>: ${point.y:,.0f}, {point.percentage:.1f} %',
+                   style: {
+                       // color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                   }
+               }
+           }
+       },
+      series: targetData
+    }
 
+    const configProForma =
+    {
+        chart: {
+            type: 'pie'
+        },
+         title: {
+            text: `ProForma Capitalization`
+        },
+        tooltip: {
+            pointFormat:  '<b>{point.percentage:.1f}%</b>'
+       },
+       plotOptions: {
+             pie: {
+                 allowPointSelect: true,
+                 cursor: 'pointer',
+                 dataLabels: {
+                     enabled: true,
+                     format: '<b>{point.name}</b>: ${point.y:,.0f}, {point.percentage:.1f} %',
+                     style: {
+                         // color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                     }
+                 }
+             }
+         },
+        series: ProFormaData
+      }
 
 
     return (
        <div className="outputholder">
-      <ReactHighcharts config={config} ></ReactHighcharts>
+      <ReactHighcharts config={configAcquiror} ></ReactHighcharts>
+        <ReactHighcharts config={configTarget} ></ReactHighcharts>
+        <ReactHighcharts config={configProForma} ></ReactHighcharts>
        </div>
     )
   }

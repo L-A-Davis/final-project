@@ -80,14 +80,15 @@ class OfferSummary extends React.Component {
       const offerSummaryColumns = [{
         Header: '',
         accessor: 'label',
-        minWidth: 250,
-        maxWidth: 325,
+        minWidth: 150,
+        // maxWidth: 325,
       }, {
         Header: 'Implied Metric',
         accessor: 'metric',
         Cell: props => <span className='number'>{props.value}</span>,
          minWidth: 130,
-         maxWidth: 130,
+         // maxWidth: 130,
+         className: 'cell-data'
       },]
 
       const exchangeRatioData = [{
@@ -160,14 +161,15 @@ class OfferSummary extends React.Component {
       const exchangeRatioColumns = [{
         Header: '',
         accessor: 'label',
-        minWidth: 250,
-        maxWidth: 325,
+        minWidth: 150,
+        // maxWidth: 325,
       }, {
         Header: 'Implied Amount',
         accessor: 'metric',
         Cell: props => <span className='number'>{props.value}</span>,
-         minWidth: 130,
-         maxWidth: 130,
+         // minWidth: 130,
+         // maxWidth: 130,
+         className: "cell-data"
       },]
 
     return (
@@ -180,6 +182,7 @@ class OfferSummary extends React.Component {
             columns={offerSummaryColumns}
             showPagination={false}
             defaultPageSize={7}
+            className="-highlight"
             />
           </div>
 
@@ -190,6 +193,7 @@ class OfferSummary extends React.Component {
             columns={exchangeRatioColumns}
             showPagination={false}
             defaultPageSize={7}
+            className="-highlight"
             />
           </div>
         </div>

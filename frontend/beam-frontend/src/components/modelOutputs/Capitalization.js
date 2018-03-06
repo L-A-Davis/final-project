@@ -322,24 +322,28 @@ class Capitalization extends React.Component {
     Cell: props => <span className='number'>{props.value}</span>,
      // minWidth: 130,
      // maxWidth: 130,
+     className: 'cell-data'
   },{
     Header:  `${data ? data.targetCodename : 'Target' }`,
     accessor: 'target',
     Cell: props => <span className='number'>{props.value}</span>,
      // minWidth: 130,
      // maxWidth: 130,
+     className: 'cell-data'
   }, {
     Header:  `Adjustments`,
     accessor: 'adjustment',
     Cell: props => <span className='number'>{props.value}</span>,
      // minWidth: 130,
      // maxWidth: 130,
+     className: 'cell-data'
   }, {
     Header:  `Pro Forma`,
     accessor: 'proForma',
     Cell: props => <span className='number'>{props.value}</span>,
      // minWidth: 130,
      // maxWidth: 130,
+     className: 'cell-data'
  }
 ]
 

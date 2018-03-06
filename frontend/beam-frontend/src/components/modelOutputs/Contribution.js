@@ -9,24 +9,15 @@ let data = this.props.outputsData
 
  const data3 = [{
      name: `${data ? data.targetCodename : 'Target' }`,
-     data: [data.targetRevenueValueYear1, data.targetNOIValue, data.targetEBITDAValue,
+     data: [data.AcquirorSharesIssued,
+       data.targetRevenueValueYear1, data.targetNOIValue, data.targetEBITDAValue,
        data.targetFFOPerShareValueYear1 * data.targetShares , data.targetAFFOPerShareValueYear1 * data.targetShares],
       color: '#73757a',
      },
      {
         name: `${data ? data.acquirorCodename : 'Acquiror' }`,
-        data: [data.acquirorRevenueValueYear1, data.acquirorNOIValueYear1, data.acquirorEBITDAValue, data.acquirorFFOPerShareValueYear1 * data.acquirorShares , data.acquirorAFFOPerShareValueYear1 * data.acquirorShares ],
+        data: [data.acquirorShares, data.acquirorRevenueValueYear1, data.acquirorNOIValueYear1, data.acquirorEBITDAValue, data.acquirorFFOPerShareValueYear1 * data.acquirorShares , data.acquirorAFFOPerShareValueYear1 * data.acquirorShares ],
         color: '#1c3151'
-    },
-    {
-     type: 'spline',
-      name: 'Average',
-      data: [2, 2, 2, 2, .25],
-      marker: {
-          lineWidth: 2,
-          lineColor: 'red',
-          fillColor: 'white'
-      }
    }]
 
 const config =
@@ -38,7 +29,7 @@ const config =
         text: 'Year 1 Contribution Analysis'
     },
     xAxis: {
-        categories: ['Revenue', 'NOI', 'EBITDA', 'FFO', 'AFFO']
+        categories: ['ProForma Ownership','Revenue', 'NOI', 'EBITDA', 'FFO', 'AFFO']
     },
     yAxis: {
         min: 0,
