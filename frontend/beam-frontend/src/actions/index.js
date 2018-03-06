@@ -253,6 +253,10 @@ export function handleShowOutputs() {
   return { type: "SHOW_OUTPUTS", payload: "" };
 }
 
+export function handleHideOutputs() {
+  return { type: "HIDE_OUTPUTS", payload: "" };
+}
+
 export function handleCalculateOutputs(info) {
     let results = mergerMath.calculateMergerMath(info)
     return { type: "CALCULATE_OUTPUTS", payload: results };

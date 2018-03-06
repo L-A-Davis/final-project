@@ -8,7 +8,7 @@ import Contribution from './modelOutputs/Contribution';
 import CostSummary from './modelOutputs/CostSummary';
 import HistoricalTrading from './modelOutputs/HistoricalTrading';
 import 'react-table/react-table.css'
-import { handleCalculateOutputs, handleGetTradingData } from '../actions'
+import { handleCalculateOutputs, handleGetTradingData, handleHideOutputs } from '../actions'
 
 
 
@@ -22,9 +22,19 @@ class Outputs extends React.Component {
     this.props.handleGetTradingData(this.props.modelData.basic_info_datum[1].ticker) : null
   }
 
+  handleBackClick = (e) => {
+    this.props.handleHideOutputs()
+    this.props.showButtons()
+  }
+
   render() {
     return (
       <div>
+      <i class="backward icon"
+      onClick={this.handleBackClick}></i>
+      <button
+      onClick={this.handleBackClick}
+      >back to forms</button>
       <OfferSummary />
       <SourcesAndUses />
       <Accretion />
@@ -38,4 +48,4 @@ class Outputs extends React.Component {
 }
 
 
-export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData, tradingData: state.tradingData }}, {handleCalculateOutputs, handleGetTradingData } )(Outputs)
+export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData, tradingData: state.tradingData }}, {handleCalculateOutputs, handleGetTradingData, handleHideOutputs } )(Outputs)

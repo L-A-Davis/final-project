@@ -1280,6 +1280,13 @@ export default function companyBasicInfoReducer(
                showOutputs: true
              };
 
+     case "HIDE_OUTPUTS":
+      return {
+              ...state,
+              showOutputs: false
+            };
+
+
       case "CALCULATE_OUTPUTS":
 
          return {

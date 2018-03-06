@@ -26,6 +26,7 @@ class Model extends React.Component {
     showTransactionCosts: false,
     showTransactionAdjustments: false,
     showButtons: false,
+    showBackToOutputs: false
   }
 
   handleExit = () => {
@@ -76,13 +77,29 @@ handleEditButtonClick = (e) =>{
    for (let i =0; i < array_of_names.length; i++) {
      if (i === current_form) {
        completed.push("true")
-     } else if (forms[i] === true ){
+     } else if (forms[array_of_names[i]] === true ){
        completed.push("true")
      } else {
 
      }
    }
      completed.length === array_of_names.length ? this.props.handleShowOutputs() : null
+ }
+
+ handleStatusCheckNoForm = () =>{
+   let forms = this.props.FormCompletedStatus
+   let array_of_names = ["newModelFormData", "BasicInfoFormData", "EquityFormData", "OfferFormData", "CapitalizationFormData", "CashFlowFormData", "TransactionCostsFormData", "TransactionAdjustmentsFormData" ]
+   let completed = []
+   for (let i =0; i < array_of_names.length; i++) {
+    if (forms[array_of_names[i]] === true ){
+       completed.push("true")
+     } else {
+     }
+   }
+   debugger
+     completed.length === array_of_names.length ? this.setState({
+       showBackToOutputs: true
+     }): null
  }
 
 
@@ -161,9 +178,17 @@ handleEditButtonClick = (e) =>{
     this.props.changeCompletedStatus(form)
     this.handleStatusCheck(form)
     this.setState({
-      showTransactionAdjustments: false
+      showTransactionAdjustments: false,
+      showButtons: true
     })
   }
+
+handleShowButtons = () => {
+  this.setState({
+    showButtons: true,
+    showBackToOutputs: true
+  })
+}
 
 componentDidMount() {
   this.props.startWithNewForm ?
@@ -175,10 +200,11 @@ componentDidMount() {
   }) : this.setState({
     showButtons: true
   })
+  this.handleStatusCheckNoForm()
 }
 
   render () {
-    console.log(this.state.showButtons, this.props.showOutputs)
+    console.log(this.state.showButtons, this.props.showOutputs, this.state.showBackToOutputs)
   return (
     <div>
       <h1>{this.props.selectedProjectData.name}</h1>
@@ -327,7 +353,11 @@ componentDidMount() {
             className="modelFormButton"
             name="showTransactionAdjustments" onClick={this.handleEditButtonClick}>Edit</button>
            </div>
-
+           {
+             this.state.showBackToOutputs &&
+            <button
+              onClick={this.props.handleShowOutputs}>Back To Outputs </button>
+           }
           </div>
 
           </Grid.Column>
@@ -371,9 +401,10 @@ componentDidMount() {
         <TransactionAdjustments next={this.handleTransactionAdjustmentsSubmission}
         exit={this.handleExit} />
       }
+
       {
         this.props.showOutputs &&
-        <Outputs />
+        <Outputs showButtons={this.handleShowButtons}/>
       }
       </div>
 
