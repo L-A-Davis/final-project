@@ -11,8 +11,11 @@ h1.ui.header {
   margin-top: 0;
   padding-top: .5%;
   z-index: 1;
-  /* border-bottom: #1c3151 2px solid; */
-  color: #1c3151;
+  background: #1c3151;
+  color: white;
+  border-bottom:  #f2f4f7 4px solid;
+  background: linear-gradient(to top right, rgba(28,49,81,0), rgba(28,49,81,1), rgba(28,49,81,1), rgba(28,49,81,1), rgba(28,49,81,1), rgba(28,49,81,1));
+  /* color: #1c3151; */
 }
 
 .form-input-spacer {

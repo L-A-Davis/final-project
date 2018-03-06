@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from "react-redux";
 import ReactHighcharts from 'react-highcharts';
 
-class Contribution extends React.Component {
+class CapitalizationChart extends React.Component {
 
   render() {
 let data = this.props.outputsData
@@ -35,7 +35,7 @@ const config =
         type: 'bar'
     },
      title: {
-        text: 'Year 1 Contribution Analysis'
+        text: 'Year 1 CapitalizationChart Analysis'
     },
     xAxis: {
         categories: ['Revenue', 'NOI', 'EBITDA', 'FFO', 'AFFO']
@@ -70,4 +70,4 @@ const config =
 }
 
 
-export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData, outputsData: state.outputsData }}, )(Contribution)
+export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData, outputsData: state.outputsData }}, )(CapitalizationChart)

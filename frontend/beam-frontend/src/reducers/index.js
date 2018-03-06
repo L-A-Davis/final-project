@@ -1291,7 +1291,7 @@ export default function companyBasicInfoReducer(
        let input = action.payload ? action.payload : ""
         return {
           ...state,
-          tradingData: [...state.tradingData, ...input]
+          tradingData: [...state.tradingData, [...input]]
         }
 
 

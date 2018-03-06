@@ -42,6 +42,15 @@ const calculateMergerMath = (data) => {
         let acquirorAFFOPerShare = acquirorCashFlowInfo.find(item => item.item_name === "AFFO_Per_Share")
         let acquirorFFOPerShareValueYear1 = acquirorFFOPerShare.amount_year1 || 0
         let acquirorAFFOPerShareValueYear1 = acquirorAFFOPerShare.amount_year1 || 0
+
+        let acquirorRevenue = acquirorCashFlowInfo.find(item => item.item_name === "Revenue")
+        let acquirorRevenueValueYear1 = acquirorRevenue.amount_year1 || 0
+        let acquirorNOI = acquirorCashFlowInfo.find(item => item.item_name === "NOI")
+        let acquirorNOIValueYear1 = acquirorNOI.amount_year1 || 0
+        let targetRevenue = targetCashFlowInfo.find(item => item.item_name === "Revenue")
+        let targetRevenueValueYear1 = targetRevenue.amount_year1 || 0
+
+
         let acquirorShares = Math.abs(acquirorEquityData.shares)
 
         let targetShares = Math.abs(targetEquityData.shares)
@@ -469,7 +478,7 @@ const calculateMergerMath = (data) => {
         let ProFormaNDPtoEBITDA = ProFormaNetDebtAndPrefValue / ProFormaEBITDAValue
         let ProFormaNDtoEBITDA = ProFormaNetDebtValue / ProFormaEBITDAValue
 
-debugger
+// debugger
 
 
   return {
@@ -558,7 +567,13 @@ debugger
     transferTaxesCostsInUse,
     employeeCostsInUse,
     otherCostsInUse,
-    acquirorCompany
+    acquirorCompany,
+    targetEBITDAValue,
+    acquirorEBITDAValue,
+    acquirorRevenueValueYear1,
+    acquirorNOIValueYear1,
+    targetNOIValue,
+    targetRevenueValueYear1
 }
 }
 
