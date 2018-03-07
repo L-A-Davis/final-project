@@ -4,57 +4,106 @@ import ReactHighcharts from 'react-highcharts';
 
 class Contribution extends React.Component {
 
-  render() {
-let data = this.props.outputsData
 
- const data3 = [{
-     name: `${data ? data.targetCodename : 'Target' }`,
-     data: [data.AcquirorSharesIssued,
-       data.targetRevenueValueYear1, data.targetNOIValue, data.targetEBITDAValue,
-       data.targetFFOPerShareValueYear1 * data.targetShares , data.targetAFFOPerShareValueYear1 * data.targetShares],
-      color: '#73757a',
-     },
-     {
-        name: `${data ? data.acquirorCodename : 'Acquiror' }`,
-        data: [data.acquirorShares, data.acquirorRevenueValueYear1, data.acquirorNOIValueYear1, data.acquirorEBITDAValue, data.acquirorFFOPerShareValueYear1 * data.acquirorShares , data.acquirorAFFOPerShareValueYear1 * data.acquirorShares ],
-        color: '#1c3151'
-   }]
+state = {
+  config: null
+}
 
-const config =
-{
-    chart: {
-        type: 'bar'
-    },
-     title: {
-        text: 'Year 1 Contribution Analysis'
-    },
-    xAxis: {
-        categories: ['Ownership','Revenue', 'NOI', 'EBITDA', 'FFO', 'AFFO']
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: '% of Combined'
-        }
-    },
-    tooltip: {
-       pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y:,.1f}</b> ({point.percentage:.0f}%)<br/>',
-       shared: true
+getDataForContribution = () => {
+  let data = this.props.outputsData
+
+  let targetCodename =  `${data ? data.targetCodename : 'Target' }`
+  let acquirorCodename = `${data ? data.acquirorCodename : 'Acquiror' }`
+  let targetShares = data ? data.AcquirorSharesIssued : 0
+  let acquirorShares = data ? data.acquirorShares : 0
+
+  let targetRev =  data ? data.targetRevenueValueYear1 : 0
+  let acquirorRev = data ? data.acquirorRevenueValueYear1 : 0
+
+  let targetNOI = data ? data.targetNOIValue : 0
+  let acquirorNOI = data? data.acquirorNOIValueYear1 : 0
+
+  let targetEBITDA = data ? data.targetEBITDAValue : 0
+  let acquirorEBITDA = data ? data.acquirorEBITDAValue : 0
+
+  let acquirorTotalFFO = data ? data.acquirorFFOPerShareValueYear1 * data.acquirorShares : 0
+  let acquirorTotalAFFO = data ? data.acquirorAFFOPerShareValueYear1 * data.acquirorShares : 0
+  let targetTotalFFO =  data ? data.targetFFOPerShareValueYear1 * data.targetShares : 0
+  let targetTotalAFFO = data ? data.targetAFFOPerShareValueYear1 * data.targetShares : 0
+
+
+
+   const data3 = [{
+       name: targetCodename,
+       data: [targetShares, targetRev, targetNOI, targetEBITDA, targetTotalFFO, targetTotalAFFO],
+        color: '#73757a',
+       },
+       {
+          name: acquirorCodename,
+          data: [acquirorShares, acquirorRev, acquirorNOI, acquirorEBITDA, acquirorTotalFFO, acquirorTotalAFFO],
+          color: '#1c3151'
+     }]
+ return data3
+}
+
+handleConfigSetup = (data3) => {
+  const configInUse =
+  {
+      chart: {
+          type: 'bar'
+      },
+       title: {
+          text: 'Year 1 Contribution Analysis'
+      },
+      xAxis: {
+          categories: ['Ownership','Revenue', 'NOI', 'EBITDA', 'FFO', 'AFFO']
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: '% of Combined'
+          }
+      },
+      legend: {
+       reversed: true
    },
-    plotOptions: {
-        series: {
-            stacking: 'percent'
-        }
-    },
-    series: data3
+      tooltip: {
+         pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y:,.1f}</b> ({point.percentage:.0f}%)<br/>',
+         shared: true
+     },
+      plotOptions: {
+          series: {
+              stacking: 'percent'
+          }
+      },
+      series: data3
+    }
+    return configInUse
+}
+
+
+componentDidMount() {
+  let data3 = this.getDataForContribution()
+    let configInUse = this.handleConfigSetup(data3)
+    this.setState({
+      config: configInUse
+    })
   }
 
-
-
-
+  render() {
+    console.log("CONFIG")
+  console.log(this.state.config)
+  if (!this.state.config) {
+    return <div>
+     "TEST"
+    </div>
+  }
+ // debugger
     return (
        <div className="outputholder" id="contrib">
-      <ReactHighcharts config={config} ></ReactHighcharts>
+       {this.state.config  &&
+      <ReactHighcharts config={this.state.config} ></ReactHighcharts>
+      }
        </div>
     )
   }
@@ -62,3 +111,53 @@ const config =
 
 
 export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData, outputsData: state.outputsData }}, )(Contribution)
+
+//
+// {
+//     chart: {
+//         type: 'bar'
+//     },
+//      title: {
+//         text: 'Year 1 Contribution Analysis'
+//     },
+//     xAxis: {
+//         categories: ['Ownership','Revenue', 'NOI', 'EBITDA', 'FFO', 'AFFO']
+//     },
+//     yAxis: {
+//         min: 0,
+//         title: {
+//             text: '% of Combined'
+//         }
+//     },
+//     legend: {
+//      reversed: true
+//  },
+//     tooltip: {
+//        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y:,.1f}</b> ({point.percentage:.0f}%)<br/>',
+//        shared: true
+//    },
+//     plotOptions: {
+//         series: {
+//             stacking: 'percent'
+//         }
+//     },
+//     series: [{
+//       data: [0,0,0,0,0,0]
+//   }, {
+//       data: [0,0,0,0,0,0]
+//   }]
+//   }
+// setTimeout ( () => {
+//   this.setState ({
+//      config: configInUse
+//   })
+// }, 3000)
+// componentDidMount() {
+//   let data3 = this.getDataForContribution()
+//   if (!data3.test) {
+//     let configInUse = this.handleConfigSetup(data3)
+//     this.setState({
+//       config: configInUse
+//     })
+//   }
+// }

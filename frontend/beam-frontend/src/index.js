@@ -12,6 +12,7 @@ import { loadState, saveState } from './localStorage'
 import throttle from 'lodash/throttle'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import 'semantic-ui-css/semantic.min.css'
+import ReactHighcharts from 'react-highcharts';
 
 const persistedState = loadState();
 

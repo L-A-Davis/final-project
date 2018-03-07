@@ -80,7 +80,7 @@ class OfferSummary extends React.Component {
       const offerSummaryColumns = [{
         Header: '',
         accessor: 'label',
-        // minWidth: 150,
+        minWidth: 150,
         // maxWidth: 325,
       }, {
         Header: 'Metric',

@@ -37,12 +37,12 @@ class Outputs extends React.Component {
         <SourcesAndUses />
         <OfferSummary />
         <Accretion />
-        {this.props.modelData.cash_flow_info_datum.length > 1 &&
+        {!this.props.outputsData.hasOwnProperty("test") &&
           <Contribution />
         }
         <Capitalization />
         <CostSummary />
-        {this.props.modelData.capitalization_info_datum.length > 1 &&
+        {this.props.outputsData.hasOwnProperty("acquirorCodename") &&
          <CapitalizationChart />
         }
         {this.props.tradingData.length > 1 &&
@@ -55,7 +55,7 @@ class Outputs extends React.Component {
 }
 
 
-export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData, tradingData: state.tradingData }}, {handleCalculateOutputs, handleGetTradingData, handleHideOutputs } )(Outputs)
+export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData, tradingData: state.tradingData, outputsData: state.outputsData }}, {handleCalculateOutputs, handleGetTradingData, handleHideOutputs } )(Outputs)
 //
 // <button
 // onClick={this.handleBackClick}

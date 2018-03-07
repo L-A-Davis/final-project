@@ -17,7 +17,7 @@ export default function companyBasicInfoReducer(
     tradingData: [],
     showOutputs: false,
     outputsData: {
-      test: ""
+      test: true
     },
     selectedCompany: null, loading: false,
     newProjectFormData: {
@@ -1250,7 +1250,7 @@ export default function companyBasicInfoReducer(
                tradingData: [],
                showOutputs: false,
                outputsData: {
-                 test: ""
+                 test: true
                }
        }
 
