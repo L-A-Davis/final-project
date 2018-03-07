@@ -350,11 +350,13 @@ componentDidMount() {
             className="modelFormButton"
             name="showTransactionAdjustments" onClick={this.handleEditButtonClick}>Edit</button>
             }
+            <br/>
            </div>
            {
              this.state.showBackToOutputs &&
-            <button
-              onClick={this.props.handleShowOutputs}>Back To Outputs </button>
+             <i className="forward icon large grey"
+             onClick={this.props.handleShowOutputs}
+             ></i>
            }
           </div>
 
@@ -402,7 +404,9 @@ componentDidMount() {
 
       {
         this.props.showOutputs &&
+        <div id="allOutputsHolder">
         <Outputs showButtons={this.handleShowButtons}/>
+        </div>
       }
       </div>
 
@@ -460,3 +464,5 @@ componentDidMount() {
 //         <label></label>
 //         </div>
 // </div>
+// <button
+//   onClick={this.props.handleShowOutputs}>Back To Outputs </button>

@@ -209,7 +209,7 @@ class SourcesAndUses extends React.Component {
         const sourcesColumns = [{
           Header: 'Sources',
           accessor: 'label',
-          minWidth: 200,
+          // minWidth: 200,
           // Cell: row => (
           //
           //            <div
@@ -225,21 +225,21 @@ class SourcesAndUses extends React.Component {
           accessor: 'metric',
           Cell: props => <span className='number'>{props.value}</span>,
            // minWidth: 130,
-           // maxWidth: 130,
+           maxWidth: 100,
             className: 'cell-data'
         },{
           Header: '%',
           accessor: 'percentage',
           Cell: props => <span className='number'>{props.value}</span>,
            // minWidth: 130,
-           // maxWidth: 130,
+           maxWidth: 60,
             className: 'cell-data'
         }]
 
         const usesColumns = [{
           Header: 'Uses',
           accessor: 'label',
-          minWidth: 200,
+          // minWidth: 150,
           // maxWidth: 325,
         },
          {
@@ -247,7 +247,7 @@ class SourcesAndUses extends React.Component {
           accessor: 'metric',
           Cell: props => <span className='number'>{props.value}</span>,
            // minWidth: 130,
-           // maxWidth: 130,
+           maxWidth: 100,
            className: 'cell-data'
         },
         {
@@ -255,14 +255,14 @@ class SourcesAndUses extends React.Component {
           accessor: 'percentage',
           Cell: props => <span className='number'>{props.value}</span>,
            // minWidth: 130,
-           // maxWidth: 130,
+           maxWidth: 60,
            className: 'cell-data'
         },
 
       ]
  console.log(adjustedSourcesData)
     return (
-       <div className="outputholder">
+       <div className="outputholder" id="sources-uses">
        <h3>Sources and Uses</h3>
          <div className="multiple-table-holder">
           <div className="single-table-holder">
@@ -271,6 +271,7 @@ class SourcesAndUses extends React.Component {
               columns={usesColumns}
               showPagination={false}
               minRows={3}
+              className="-highlight"
             />
             </div>
               <div className="single-table-holder">
@@ -279,6 +280,7 @@ class SourcesAndUses extends React.Component {
               columns={sourcesColumns}
               showPagination={false}
               minRows={3}
+              className="-highlight"
             />
           </div>
           </div>

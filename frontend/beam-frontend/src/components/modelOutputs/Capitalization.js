@@ -314,8 +314,8 @@ class Capitalization extends React.Component {
   const capitalizationColumns = [{
     Header: '',
     accessor: 'label',
-    minWidth: 250,
-    maxWidth: 325,
+    minWidth: 160,
+    // maxWidth: 325,
   }, {
     Header:  `${data ? data.acquirorCodename : 'Acquiror' }`,
     accessor: 'acquiror',
@@ -348,13 +348,14 @@ class Capitalization extends React.Component {
 ]
 
     return (
-       <div className="outputholder">
+       <div className="outputholder" id="cap-table">
         <h3>Capitalization</h3>
         <ReactTable
         data={capitalizationData}
         columns={capitalizationColumns}
         showPagination={false}
         minRows={12}
+        className="-highlight"
         />
        </div>
     )

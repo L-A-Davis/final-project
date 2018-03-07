@@ -20,13 +20,13 @@ h1.ui.header {
 
 h1.project-header {
   /* background: #0d58a6; */
-  margin-bottom: .5%;
+  margin-bottom: 0%;
   color: black;
 }
 
 h2.model-header {
   /* background: #FFaa00; */
-  margin-top: 0px;
+  margin-top: -.5%;
   margin-bottom: 5px;
 }
 
@@ -54,10 +54,11 @@ h2.ui.center.aligned.header.navy-text, h3.ui.center.aligned.header.navy-text  {
 }
 /* h2.ui.center.aligned.header.navy-text */
 /* #1c3151 */
-.form, .outputholder {
+.form {
     /*border: 3px solid #33BC87;*/
+    /* width: 75%; */
     text-align: left;
-    line-height: 1.7;
+    line-height: 1.4;
     height: auto;
     overflow: auto;
     margin: 3%;
@@ -68,6 +69,19 @@ h2.ui.center.aligned.header.navy-text, h3.ui.center.aligned.header.navy-text  {
   background-color: white;
 }
 
+.outputholder {
+    /*border: 3px solid #33BC87;*/
+    text-align: left;
+    line-height: 1.2;
+    height: auto;
+    overflow: auto;
+    margin: 1% .5%;
+    padding: 2%;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
 
 .form:hover, .outputholder:hover {
   -webkit-box-shadow:0 1px 4px rgba(28, 49, 81, 0.7), 0 0 70px rgba(0, 0, 0, 0.1);
@@ -302,6 +316,12 @@ div.form h3, div.form h2, .single-table-holder h3, .outputholder h3 {
   grid-column-gap: 3%;
 }
 
+.three-table-holder {
+  display: grid;
+  grid-template-columns: 31% 31% 31% ;
+  grid-column-gap: 1%;
+}
+
 /*
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -362,7 +382,7 @@ nav {
   margin-top: -15px;
 }
 
-div .rt-thead.-header {
+div .rt-thead.-header, .highcharts-title {
   background: #0d58a6;
   color: white;
 }
@@ -375,6 +395,76 @@ div .rt-thead.-header {
   font-weight: bold;
   background: yellow;
 }
+
+text.highcharts-title {
+  color: black;
+  font-weight: bold;
+}
+
+#subOutputsHolder {
+  /* background: red; */
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+#offer-summary {
+  width: 40%;
+}
+
+#sources-uses {
+  width: 55%;
+}
+
+#acc-dil {
+  width: 45%
+}
+
+#cap-table {
+  width: 60%;
+}
+
+#contrib {
+  width: 47%;
+}
+
+#cap-charts {
+  width: 100%;
+}
+
+div .highcharts-container .highcharts-root .highcharts-background {
+  width: 100%;
+  height: 100%;
+}
+div .highcharts-container .highcharts-root{
+  width: 100%;
+  height: 100%;
+}
+
+
+
+#cost-sum {
+  width: 35%;
+}
+
+#trading {
+  width: 100%;
+}
+
+#allOutputsHolder {
+  margin-left: 2%;
+  text-align: left;
+  margin-top: 0;
+}
+
+
 /* .formCheckBoxHolder {
   width: 22px;
   height: 22px;

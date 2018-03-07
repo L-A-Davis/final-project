@@ -154,22 +154,22 @@ class CostSummary extends React.Component {
       const costSummaryColumns = [{
         Header: '',
         accessor: 'label',
-        minWidth: 250,
-        maxWidth: 325,
+        // minWidth: 250,
+        // maxWidth: 325,
       }, {
         Header: 'Amount',
         accessor: 'metric',
         Cell: props => <span className='number'>{props.value}</span>,
-         minWidth: 130,
-         maxWidth: 130,
+         // minWidth: 130,
+         maxWidth: 110,
          className: 'cell-data'
       },
       {
         Header: '% of Total',
         accessor: 'percentage',
         Cell: props => <span className='number'>{props.value}</span>,
-         minWidth: 130,
-         maxWidth: 130,
+         // minWidth: 130,
+         maxWidth: 85,
          className: 'cell-data'
       },
 
@@ -179,7 +179,7 @@ class CostSummary extends React.Component {
 
 console.log(dataInUse)
     return (
-       <div className="outputholder">
+       <div className="outputholder" id="cost-sum">
           <div className="single-table-holder">
           <h3>Transaction Cost Summary</h3>
             <ReactTable
@@ -187,6 +187,7 @@ console.log(dataInUse)
             columns={costSummaryColumns}
             showPagination={false}
             minRows={1}
+            className="-highlight"
             />
           </div>
        </div>

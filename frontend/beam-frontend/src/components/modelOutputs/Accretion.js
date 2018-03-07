@@ -235,13 +235,14 @@ class Accretion extends React.Component {
           ]
 
     return (
-       <div className="outputholder">
+       <div className="outputholder" id="acc-dil">
         <h3>Year 1 Accretion / (Dilution) Analysis</h3>
           <ReactTable
           data={accretionData}
           columns={accretionColumns}
           showPagination={false}
           minRows={7}
+          className="-highlight"
           />
        </div>
     )

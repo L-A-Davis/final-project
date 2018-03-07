@@ -31,19 +31,24 @@ class Outputs extends React.Component {
   render() {
     return (
       <div>
-      <i className="backward icon"
+      <i className="backward icon large grey left-side"
       onClick={this.handleBackClick}></i>
-      <button
-      onClick={this.handleBackClick}
-      >back to forms</button>
-      <OfferSummary />
-      <SourcesAndUses />
-      <Accretion />
-      <Capitalization />
-      <CapitalizationChart />
-      <Contribution />
-      <CostSummary />
-      <HistoricalTrading />
+      <div id="subOutputsHolder">
+        <SourcesAndUses />
+        <OfferSummary />
+        <Accretion />
+        {this.props.modelData.cash_flow_info_datum.length > 1 &&
+          <Contribution />
+        }
+        <Capitalization />
+        <CostSummary />
+        {this.props.modelData.capitalization_info_datum.length > 1 &&
+         <CapitalizationChart />
+        }
+        {this.props.tradingData.length > 1 &&
+          <HistoricalTrading />
+        }
+      </div>
       </div>
     )
   }
@@ -51,3 +56,7 @@ class Outputs extends React.Component {
 
 
 export default connect (state => {return {selectedProjectData: state.selectedProjectData, modelData: state.modelData, tradingData: state.tradingData }}, {handleCalculateOutputs, handleGetTradingData, handleHideOutputs } )(Outputs)
+//
+// <button
+// onClick={this.handleBackClick}
+// >back to forms</button>

@@ -4,6 +4,11 @@ import ReactHighcharts from 'react-highcharts';
 
 class CapitalizationChart extends React.Component {
 
+componentDidMount() {
+
+}
+
+
   render() {
 let data = this.props.outputsData
 
@@ -158,10 +163,18 @@ const configAcquiror =
 
 
     return (
-       <div className="outputholder">
-      <ReactHighcharts config={configAcquiror} ></ReactHighcharts>
-        <ReactHighcharts config={configTarget} ></ReactHighcharts>
-        <ReactHighcharts config={configProForma} ></ReactHighcharts>
+       <div className="outputholder" id="cap-charts">
+       <div className="three-table-holder">
+         <div className="single-table-holder">
+          <ReactHighcharts config={configAcquiror} ></ReactHighcharts>
+        </div>
+        <div className="single-table-holder">
+          <ReactHighcharts config={configTarget} ></ReactHighcharts>
+        </div>
+        <div className="single-table-holder">
+          <ReactHighcharts config={configProForma} ></ReactHighcharts>
+        </div>
+        </div>
        </div>
     )
   }

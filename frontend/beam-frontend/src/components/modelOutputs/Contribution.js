@@ -29,7 +29,7 @@ const config =
         text: 'Year 1 Contribution Analysis'
     },
     xAxis: {
-        categories: ['ProForma Ownership','Revenue', 'NOI', 'EBITDA', 'FFO', 'AFFO']
+        categories: ['Ownership','Revenue', 'NOI', 'EBITDA', 'FFO', 'AFFO']
     },
     yAxis: {
         min: 0,
@@ -38,7 +38,7 @@ const config =
         }
     },
     tooltip: {
-       pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>${point.y}</b> ({point.percentage:.0f}%)<br/>',
+       pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y:,.1f}</b> ({point.percentage:.0f}%)<br/>',
        shared: true
    },
     plotOptions: {
@@ -53,7 +53,7 @@ const config =
 
 
     return (
-       <div className="outputholder">
+       <div className="outputholder" id="contrib">
       <ReactHighcharts config={config} ></ReactHighcharts>
        </div>
     )

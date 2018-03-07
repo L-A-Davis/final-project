@@ -80,13 +80,13 @@ class OfferSummary extends React.Component {
       const offerSummaryColumns = [{
         Header: '',
         accessor: 'label',
-        minWidth: 150,
+        // minWidth: 150,
         // maxWidth: 325,
       }, {
-        Header: 'Implied Metric',
+        Header: 'Metric',
         accessor: 'metric',
         Cell: props => <span className='number'>{props.value}</span>,
-         minWidth: 130,
+         // minWidth: 130,
          // maxWidth: 130,
          className: 'cell-data'
       },]
@@ -161,10 +161,10 @@ class OfferSummary extends React.Component {
       const exchangeRatioColumns = [{
         Header: '',
         accessor: 'label',
-        minWidth: 150,
+        // minWidth: 150,
         // maxWidth: 325,
       }, {
-        Header: 'Implied Amount',
+        Header: 'Metric',
         accessor: 'metric',
         Cell: props => <span className='number'>{props.value}</span>,
          // minWidth: 130,
@@ -173,7 +173,7 @@ class OfferSummary extends React.Component {
       },]
 
     return (
-       <div className="outputholder">
+       <div className="outputholder" id="offer-summary">
         <div className="multiple-table-holder">
           <div className="single-table-holder">
           <h3>Offer Summary</h3>
