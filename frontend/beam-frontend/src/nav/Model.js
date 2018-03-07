@@ -11,7 +11,7 @@ import CashFlowForm from '../components/CashFlowForm';
 import TransactionCosts from '../components/TransactionCosts';
 import TransactionAdjustments from '../components/TransactionAdjustments';
 import Outputs from '../components/Outputs'
-import { changeCompletedStatus, handleShowOutputs } from '../actions'
+import { changeCompletedStatus, handleShowOutputs, handleCalculateOutputs } from '../actions'
 import { Grid } from 'semantic-ui-react'
 
 class Model extends React.Component {
@@ -82,7 +82,9 @@ handleEditButtonClick = (e) =>{
      } else {
      }
    }
-     completed.length === array_of_names.length ? this.props.handleShowOutputs() : null
+     completed.length === array_of_names.length ? this.setState({
+       showBackToOutputs: true
+     }): null
  }
 
  handleStatusCheckNoForm = () =>{
@@ -186,6 +188,11 @@ handleShowButtons = () => {
     showButtons: true,
     showBackToOutputs: true
   })
+}
+
+handleGoForward = () => {
+  this.props.handleShowOutputs()
+  this.props.handleCalculateOutputs(this.props.modelData)
 }
 
 componentDidMount() {
@@ -355,7 +362,7 @@ componentDidMount() {
            {
              this.state.showBackToOutputs &&
              <i className="forward icon large grey"
-             onClick={this.props.handleShowOutputs}
+             onClick={this.handleGoForward}
              ></i>
            }
           </div>
@@ -415,7 +422,7 @@ componentDidMount() {
  }
 }
 
- export default connect(state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData, FormCompletedStatus: state.FormCompletedStatus, showOutputs: state.showOutputs, selectedProjectData: state.selectedProjectData }}, { changeCompletedStatus, handleShowOutputs })(WithAuth(Model))
+ export default connect(state => {return {allModelsforProject: state.allModelsforProject, modelData: state.modelData, FormCompletedStatus: state.FormCompletedStatus, showOutputs: state.showOutputs, selectedProjectData: state.selectedProjectData }}, { changeCompletedStatus, handleShowOutputs, handleCalculateOutputs })(WithAuth(Model))
 
 
  // handleSetUp = () => {

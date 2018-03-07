@@ -45,7 +45,7 @@ class Outputs extends React.Component {
         {this.props.outputsData.hasOwnProperty("acquirorCodename") &&
          <CapitalizationChart />
         }
-        {this.props.tradingData.length > 1 &&
+        {this.props.tradingData.length > 1 && this.props.tradingData[1].length > 1 &&
           <HistoricalTrading />
         }
       </div>

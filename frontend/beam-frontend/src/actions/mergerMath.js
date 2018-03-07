@@ -1,4 +1,21 @@
 
+
+const multiplyforMath = (a, b) => {
+  return a * b
+}
+
+const multiplyThreeForMath = (a, b, c) => {
+  return a * b * c
+}
+
+const subtractForMath = (a, b) => {
+  return a - b
+}
+
+const divideForMath = (a, b) => {
+  return (Math.round(a * 10000) / 10000) / b
+}
+
 const calculateMergerMath = (data) => {
 
         let targetInfo = data.basic_info_datum.find(company => company.acquiror === false)
@@ -14,7 +31,23 @@ const calculateMergerMath = (data) => {
         let offerData = data.offer_info_datum[0]
         let stockPercentage = Math.abs(parseFloat(offerData.percentage_stock))
         let cashPercentage = 1 - stockPercentage
-        let allInRatio = targetCurrentPrice / acquirorCurrentPrice
+
+
+        let impliedOffer
+        if (offerData.offer_type === "SetAmount") {
+          impliedOffer = Math.abs(parseFloat(offerData.offer_metric));
+        } else if (offerData.offer_type === "%Premium"){
+          let premium = parseFloat(offerData.offer_metric) > 1 ? parseFloat(offerData.offer_metric)/100 : parseFloat(offerData.offer_metric)
+          impliedOffer = targetCurrentPrice * (1 + premium);
+        } else {
+          let allInRatioForCalc = parseFloat(offerData.offer_metric) > 1 ? parseFloat(offerData.offer_metric)/100 : parseFloat(offerData.offer_metric)
+          let impliedAllInPriceForCalc = multiplyforMath(allInRatioForCalc, acquirorCurrentPrice)
+          let cashPerShareForCalc = multiplyforMath(impliedAllInPriceForCalc,cashPercentage)
+          let stockPerShareForCalc = multiplyThreeForMath(allInRatioForCalc, stockPercentage, acquirorCurrentPrice)
+
+          impliedOffer = (cashPerShareForCalc + stockPerShareForCalc)
+        }
+        let allInRatio = impliedOffer / acquirorCurrentPrice
         let impliedAllInPrice = allInRatio * acquirorCurrentPrice
         let cashPerShare = impliedAllInPrice * cashPercentage
         let remainingStockPerShare = impliedAllInPrice - cashPerShare
@@ -22,16 +55,8 @@ const calculateMergerMath = (data) => {
         let stockPerShare = stockExchangeRatio * acquirorCurrentPrice
 
 
-        let impliedOffer
-        if (offerData.offer_type === "SetAmount") {
-          impliedOffer = Math.abs(parseFloat(offerData.offer_metric));
-        } else if (offerData.offer_type === "%Premium"){
-          impliedOffer = targetCurrentPrice * (1 + parseFloat(offerData.offer_metric));
-        } else {
-          impliedOffer = (cashPerShare + stockPerShare)
-        }
         let premiumToCurrent = (impliedOffer / targetCurrentPrice) - 1
-
+debugger
         let targetCapitalizationInfo = data.capitalization_info_datum.filter(item => item.company === targetCompany)
         let acquirorCapitalizationInfo = data.capitalization_info_datum.filter(item => item.company === acquirorCompany)
         let targetCashFlowInfo = data.cash_flow_info_datum.filter(item => item.company === targetCompany)

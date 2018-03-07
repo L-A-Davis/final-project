@@ -24,7 +24,8 @@ class OfferSummary extends React.Component {
         metric:
         <NumberFormat
         value={
-        this.props.outputsData ? this.props.outputsData.premiumToCurrent : 0} displayType={'text'}
+        this.props.outputsData ?
+        Math.round(this.props.outputsData.premiumToCurrent * 100) / 100 * 100 : 0} displayType={'text'}
         suffix={"%"}
         decimalScale={1}
         fixedDecimalScale={true}
@@ -108,7 +109,7 @@ class OfferSummary extends React.Component {
         metric:
         <NumberFormat
           value={
-          this.props.outputsData ? this.props.outputsData.cashPercentage*100 : 0} displayType={'text'}
+          this.props.outputsData ? Math.round(this.props.outputsData.cashPercentage * 100) / 100 * 100 : 0} displayType={'text'}
           suffix={"%"}
           decimalScale={0}
           fixedDecimalScale={true}

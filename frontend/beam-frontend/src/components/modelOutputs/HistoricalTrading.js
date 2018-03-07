@@ -115,6 +115,7 @@ componentDidMount() {
 }
 
   render() {
+    console.log(this.state)
     return (
        <div className="outputholder" id="trading">
        <h3>1 Year Trading</h3>

@@ -14,7 +14,8 @@ h1.ui.header {
   background: #1c3151;
   color: white;
   border-bottom:  #f2f4f7 4px solid;
-  background: linear-gradient(to top right, rgba(28,49,81,0), rgba(28,49,81,1), rgba(28,49,81,1), rgba(28,49,81,1), rgba(28,49,81,1), rgba(28,49,81,1));
+  background:  rgba(28,49,81,1);
+  /* linear-gradient(to top right, rgba(28,49,81,0), rgba(28,49,81,1), rgba(28,49,81,1), rgba(28,49,81,1), rgba(28,49,81,1), rgba(28,49,81,1)); */
   /* color: #1c3151; */
 }
 
@@ -197,7 +198,8 @@ button:hover, .ui.button.navy-grey-button:hover {
 }
 
 .formCheckBoxHolder input[type=checkbox]:checked + label {
-  background: #00AE68
+  background: #4dffd2
+  /* background: #00AE68 */
 /* background: #00a67c; */
  /* background: #00aa72; */
  /* background: #2fd872; */
@@ -464,7 +466,21 @@ div .highcharts-container .highcharts-root{
   margin-top: 0;
 }
 
+.ReactTable .rt-tr-group:last-child{
+  background: #e6fff9;
+  /* #e7f2fd - light blue for other stlying*/
+  /* #e5e5e6 - light grey for other stlying*/
+  /* background: #FFD473; */
+}
 
+.ReactTable .rt-tbody .rt-td{
+  flex: 100 100 auto;
+  empty-cells: show;
+}
+
+/* .ReactTable .rt-tbody .rt-td:last-child{
+  background: red;
+} */
 /* .formCheckBoxHolder {
   width: 22px;
   height: 22px;

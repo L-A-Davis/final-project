@@ -14,7 +14,7 @@ getDataForContribution = () => {
 
   let targetCodename =  `${data ? data.targetCodename : 'Target' }`
   let acquirorCodename = `${data ? data.acquirorCodename : 'Acquiror' }`
-  let targetShares = data ? data.AcquirorSharesIssued : 0
+  let targetShares = data ? data.allInRatio * data.targetShares: 0
   let acquirorShares = data ? data.acquirorShares : 0
 
   let targetRev =  data ? data.targetRevenueValueYear1 : 0
