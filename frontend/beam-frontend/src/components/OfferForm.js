@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateOfferForm, resetOfferInfo, newOfferInfo } from '../actions'
-import { Form } from 'semantic-ui-react'
+import { Form, Segment, Grid } from 'semantic-ui-react'
 import ReactTable from 'react-table'
 import NumberFormat from 'react-number-format';
 
@@ -98,25 +98,33 @@ render() {
   }]
 
   return (
+    <Grid
+    textAlign='center'
+    style={{ height: '100%' }}
+    verticalAlign='top'
+  >
+  <Grid.Column style={{ maxWidth: 850 }}>
     <div className="form">
        <i onClick={this.props.exit} className="window close outline icon large grey"></i>
     {(equity_info_datum && equity_info_datum.length === 2) ?
         <div>
+        <Segment>
         <ReactTable
         data={offerFormData}
         columns={offerFormColumns}
         showPagination={false}
         minRows={2}
         />
+        </Segment>
          </div>
          : null }
 
-
+        <Segment>
        <h3>Offer Inputs</h3>
        <form onSubmit={this.handleSubmit} className="two-columns-form">
        <label className="form-label">Offer Type:</label>
        <div className="radio form-input-1">
-       <label >
+       <label className="radio-spacing">
        <input
           type="radio"
           name="OfferType"
@@ -127,7 +135,7 @@ render() {
           Set Amount
         </label>
 
-        <label>
+        <label className="radio-spacing">
           <input
              type="radio"
              name="OfferType"
@@ -138,7 +146,7 @@ render() {
           % Premium
         </label>
 
-       <label>
+       <label className="radio-spacing">
          <input
             type="radio"
             name="OfferType"
@@ -177,7 +185,10 @@ render() {
               className="form-input-1" />
 
        </form>
+       </Segment>
     </div>
+    </Grid.Column>
+    </Grid>
   )
 }
 

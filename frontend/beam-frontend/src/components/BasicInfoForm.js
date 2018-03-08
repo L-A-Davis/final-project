@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateBasicInfoForm, resetBasicInfo, newBasicInfo } from '../actions'
-import { Form } from 'semantic-ui-react'
+import { Form, Segment, Grid } from 'semantic-ui-react'
 
 class BasicInfoForm extends React.Component {
 
@@ -46,7 +46,14 @@ class BasicInfoForm extends React.Component {
 
  render() {
    return (
+     <Grid
+     textAlign='center'
+     style={{ height: '100%' }}
+     verticalAlign='top'
+   >
+   <Grid.Column style={{ maxWidth: 800 }}>
      <div className="form">
+     <Segment>
         <i onClick={this.props.exit} className="window close outline icon large grey"></i>
         <h3>Company Inputs</h3>
      <div >
@@ -102,7 +109,10 @@ class BasicInfoForm extends React.Component {
           className="form-input-1" />
       </form>
     </div>
-   </div>
+   </Segment>
+     </div>
+   </Grid.Column>
+   </Grid>
    )
  }
 }

@@ -52,6 +52,7 @@ header {
 
 h2.ui.center.aligned.header.navy-text, h3.ui.center.aligned.header.navy-text  {
   color: #1c3151;
+  background-color: transparent
 }
 /* h2.ui.center.aligned.header.navy-text */
 /* #1c3151 */
@@ -115,7 +116,10 @@ form label {
   font-size: 1.1em;
 }
 
-form input[type=submit], form input[type=submit].form-input-1, form input[type=submit].form-input-submit, form input[type=submit].form-input-transaction-adj {
+form form input[type=submit], form input[type=submit], form input[type=submit].form-input-1, form input[type=submit].form-input-submit, form input[type=submit].form-input-transaction-adj,
+input[type=submit].navy-grey-button,
+.segment form input[type=submit]
+ {
     width: 100%;
     background-color: #73757a;
     color: white;
@@ -152,8 +156,9 @@ button:hover, .ui.button.navy-grey-button:hover {
 
 .modelFormButton {
   width: 100%;
-  font-size: 90%;
+  font-size: 100%;
   padding: 2px 2px;
+  /* margin: 1%; */
   /* text-align: left; */
 
 }
@@ -216,6 +221,7 @@ button:hover, .ui.button.navy-grey-button:hover {
   grid-column-gap: 3%;
   margin-bottom: 7px;
   justify-items: center;
+  line-height: 1.7em;
 }
 
 .buttonAndCheckBoxHolder h4{
@@ -384,9 +390,15 @@ nav {
   margin-top: -15px;
 }
 
-div .rt-thead.-header, .highcharts-title {
+div .rt-thead.-header, .highcharts-title, .segment h3 {
   background: #0d58a6;
   color: white;
+}
+
+.segment h3 {
+  padding: .5%;
+  margin-top: .1%;
+  border-radius: .28571429rem
 }
 
 .cell-data {
@@ -466,16 +478,57 @@ div .highcharts-container .highcharts-root{
   margin-top: 0;
 }
 
-.ReactTable .rt-tr-group:last-child{
-  background: #e6fff9;
-  /* #e7f2fd - light blue for other stlying*/
-  /* #e5e5e6 - light grey for other stlying*/
-  /* background: #FFD473; */
+
+
+.costs-table .ReactTable .rt-tr-group:last-of-type,
+.sources-table .ReactTable .rt-tr-group:last-of-type,
+.uses-table .ReactTable .rt-tr-group:last-of-type{
+  background: #e5e5e6;
+  border-top: 1px solid black;
 }
+
+
+#acc-dil .ReactTable .rt-tr-group:nth-of-type(3),
+#acc-dil .ReactTable .rt-tr-group:nth-of-type(7),
+#acc-dil .ReactTable .rt-tr-group:nth-of-type(13),
+#acc-dil .ReactTable .rt-tr-group:nth-of-type(15),
+#cap-table .ReactTable .rt-tr-group:nth-of-type(3),
+#cap-table .ReactTable .rt-tr-group:nth-of-type(6),
+#cap-table .ReactTable .rt-tr-group:nth-of-type(8)
+{
+  background: #e7f2fd;
+  border-top: 1px solid black
+}
+
+#acc-dil .ReactTable .rt-tr-group:nth-last-of-type(3),
+#cap-table .ReactTable .rt-tr-group:nth-last-of-type(4){
+  border-top: 1px solid black
+}
+
+#acc-dil .ReactTable .rt-tr-group:nth-last-of-type(-n+3),
+#cap-table .ReactTable .rt-tr-group:nth-last-of-type(-n+4),
+.offer-table .ReactTable .rt-tr-group:nth-of-type(3),
+.offer-table .ReactTable .rt-tr-group:nth-of-type(4),
+.ratio-table .ReactTable .rt-tr-group:nth-of-type(4)
+{
+  background: #e6fff9;
+}
+
 
 .ReactTable .rt-tbody .rt-td{
   flex: 100 100 auto;
   empty-cells: show;
+}
+
+.highcharts-root {
+  border: 2px solid #e5e5e6;
+  border-collapse: collapse;
+  margin: .1% .1%;
+}
+
+.radio-spacing {
+  margin-right: 10px;
+  margin-left: 2px;
 }
 
 /* .ReactTable .rt-tbody .rt-td:last-child{
@@ -511,3 +564,10 @@ div .highcharts-container .highcharts-root{
 .formCheckBoxHolder input[type=checkbox]:checked + label {
 	background: #26ca28;
 } */
+
+/* .ReactTable .rt-tr-group:last-child{
+  background: #e6fff9;
+} */
+  /* #e7f2fd - light blue for other stlying*/
+  /* #e5e5e6 - light grey for other stlying*/
+  /* background: #FFD473; */

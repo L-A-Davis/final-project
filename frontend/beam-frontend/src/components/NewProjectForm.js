@@ -47,7 +47,8 @@ class NewProjectForm extends React.Component {
 
         <input
           type="submit"
-          value="Let's Get Started" />
+          value="Let's Get Started"
+          className="navy-grey-button" />
       </form>
 
    </div>

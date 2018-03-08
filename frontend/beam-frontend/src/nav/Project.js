@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Model from './Model'
 import ExistingModelsForProject from '../components/ExistingModelsForProject'
 import { fetchExistingModels } from '../actions'
-import { Form, Header, Button, Grid } from 'semantic-ui-react'
+import { Form, Header, Button, Grid, Segment } from 'semantic-ui-react'
 
 class Project extends React.Component {
 
@@ -69,6 +69,7 @@ class Project extends React.Component {
        <div>
      <Form id="modelForm">
      {(this.state.showExistingModelList) &&
+        <Segment>
         <div>
         <Header as='h3' className='navy-text' textAlign='center'>
            Select an Existing Model:
@@ -79,8 +80,10 @@ class Project extends React.Component {
             history={this.props.history}/>
         <div className="form-input-spacer"></div>
         </div>
+        </Segment>
       }
      {(this.state.showNewModelButton)&&
+       <Segment>
        <div>
        <Header as='h3' className='navy-text' textAlign='center'>
           Or Start a New One:
@@ -91,6 +94,7 @@ class Project extends React.Component {
          fluid={true}
          >Start New Model</Button>
        </div>
+       </Segment>
      }
      </Form>
          </div>

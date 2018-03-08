@@ -56,7 +56,6 @@ const calculateMergerMath = (data) => {
 
 
         let premiumToCurrent = (impliedOffer / targetCurrentPrice) - 1
-debugger
         let targetCapitalizationInfo = data.capitalization_info_datum.filter(item => item.company === targetCompany)
         let acquirorCapitalizationInfo = data.capitalization_info_datum.filter(item => item.company === acquirorCompany)
         let targetCashFlowInfo = data.cash_flow_info_datum.filter(item => item.company === targetCompany)

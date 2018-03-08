@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from "react-redux";
 import { addNewModel, updateNewModelForm } from '../actions'
 import ModelTypeSelect from './ModelTypeSelect';
-import { Form } from 'semantic-ui-react'
+import { Form, Grid, Segment } from 'semantic-ui-react'
 
 class NewModelForm extends React.Component {
 
@@ -25,9 +25,16 @@ class NewModelForm extends React.Component {
 
   render() {
     return (
-      <div className="form">
 
-        <p>Begin a New Model </p>
+        <Grid
+        textAlign='center'
+        style={{ height: '100%' }}
+        verticalAlign='top'
+      >
+      <Grid.Column style={{ maxWidth: 600 }}>
+      <div className="form">
+         <Segment>
+        <h3>Begin a New Model</h3>
         <form onSubmit={this.handleSubmit}>
         <label>Model Name: </label>
         <input
@@ -44,8 +51,11 @@ class NewModelForm extends React.Component {
            type="submit"
            value="Let's Go" />
        </form>
+       </Segment>
+         </div>
+       </Grid.Column>
+       </Grid>
 
-    </div>
     )
   }
 

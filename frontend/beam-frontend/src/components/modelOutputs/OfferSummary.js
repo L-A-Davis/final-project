@@ -176,7 +176,7 @@ class OfferSummary extends React.Component {
     return (
        <div className="outputholder" id="offer-summary">
         <div className="multiple-table-holder">
-          <div className="single-table-holder">
+          <div className="single-table-holder offer-table">
           <h3>Offer Summary</h3>
             <ReactTable
             data={offerSummaryData}
@@ -187,7 +187,7 @@ class OfferSummary extends React.Component {
             />
           </div>
 
-          <div className="single-table-holder">
+          <div className="single-table-holder ratio-table">
           <h3>Exchange Ratio Summary</h3>
             <ReactTable
             data={exchangeRatioData}

@@ -7,7 +7,7 @@ import NewProjectForm from '../components/NewProjectForm';
 import Project from './Project'
 import { fetchExistingProjects, resetModelData, resetFormData } from '../actions'
 import { connect } from 'react-redux'
-import { Form, Header, Button, Grid } from 'semantic-ui-react'
+import { Form, Header, Button, Grid, Segment } from 'semantic-ui-react'
 
 class Profile extends React.Component {
 
@@ -45,6 +45,7 @@ class Profile extends React.Component {
 
 
     <Form>
+     <Segment>
       <div>
       {!this.state.showNewProjectForm &&
       <Header as='h3' className='navy-text' textAlign='center'>
@@ -72,6 +73,7 @@ class Profile extends React.Component {
       }
 
       </div>
+      </Segment>
       </Form>
       </Grid.Column>
       </Grid>

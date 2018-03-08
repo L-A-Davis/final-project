@@ -1,6 +1,6 @@
 import React from 'react'
 import { Header, Image } from 'semantic-ui-react'
-import logo from '../DALogoInverse2.png'
+import logo from '../DAlogoBlue2.png'
 
 const HeaderForPage = (props) => {
   return (

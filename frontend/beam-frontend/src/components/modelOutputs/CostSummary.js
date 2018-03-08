@@ -180,7 +180,7 @@ class CostSummary extends React.Component {
 console.log(dataInUse)
     return (
        <div className="outputholder" id="cost-sum">
-          <div className="single-table-holder">
+          <div className="single-table-holder costs-table">
           <h3>Transaction Cost Summary</h3>
             <ReactTable
             data={dataInUse}

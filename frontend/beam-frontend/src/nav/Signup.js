@@ -40,7 +40,7 @@ class Signup extends React.Component {
    }
 
   render(){
-  
+
     return (
       <div className="login-form">
       <style>{`
@@ -62,7 +62,7 @@ class Signup extends React.Component {
 
 
       <Form size='large' onSubmit={this.handleSignup}>
-       <Segment stacked>
+       <Segment>
 
        <Form.Input
        fluid

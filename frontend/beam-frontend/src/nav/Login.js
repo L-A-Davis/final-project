@@ -48,7 +48,7 @@ render(){
        Log-in to your account
     </Header>
     <Form size='large' onSubmit={this.handleLogin}>
-     <Segment stacked>
+     <Segment>
      <Form.Input
      fluid
      icon='user'

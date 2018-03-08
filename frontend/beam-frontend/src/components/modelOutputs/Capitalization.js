@@ -8,7 +8,7 @@ class Capitalization extends React.Component {
   render() {
     let data = this.props.outputsData
   const capitalizationData = [{
-    label: `Price as of [toCome] Date`,
+    label: `Share Price`,
     acquiror:
       <NumberFormat value={data? data.acquirorCurrentPrice : 0} displayType={'text'} thousandSeparator={true} prefix={'$'}
       decimalSeparator={"."}

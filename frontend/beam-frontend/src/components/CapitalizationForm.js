@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateCapitalizationForm, resetCapitalizationInfo, newCapitalizationInfo } from '../actions'
-import { Form } from 'semantic-ui-react'
+import { Form, Segment, Grid } from 'semantic-ui-react'
 
 class CapitalizationForm extends React.Component {
 
@@ -193,7 +193,14 @@ class CapitalizationForm extends React.Component {
 
  render() {
    return (
+     <Grid
+     textAlign='center'
+     style={{ height: '100%' }}
+     verticalAlign='top'
+   >
+   <Grid.Column style={{ maxWidth: 1000 }}>
      <div className="form">
+        <Segment>
       <i onClick={this.props.exit} className="window close outline icon large grey"></i>
         <h3>Capitalization Inputs</h3>
      <div >
@@ -699,7 +706,10 @@ class CapitalizationForm extends React.Component {
           className="form-input-submit" />
       </form>
     </div>
+    </Segment>
    </div>
+   </Grid.Column>
+   </Grid>
    )
  }
 }

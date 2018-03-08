@@ -31,7 +31,7 @@ class Outputs extends React.Component {
   render() {
     return (
       <div>
-      <i className="backward icon large grey left-side"
+      <i className="arrow alternate circle left outline icon big grey left-side"
       onClick={this.handleBackClick}></i>
       <div id="subOutputsHolder">
         <SourcesAndUses />
@@ -46,6 +46,7 @@ class Outputs extends React.Component {
          <CapitalizationChart />
         }
         {this.props.tradingData.length > 1 && this.props.tradingData[1].length > 1 &&
+          this.props.tradingData[0].length > 1 &&
           <HistoricalTrading />
         }
       </div>

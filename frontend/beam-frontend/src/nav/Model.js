@@ -12,7 +12,7 @@ import TransactionCosts from '../components/TransactionCosts';
 import TransactionAdjustments from '../components/TransactionAdjustments';
 import Outputs from '../components/Outputs'
 import { changeCompletedStatus, handleShowOutputs, handleCalculateOutputs } from '../actions'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Segment } from 'semantic-ui-react'
 
 class Model extends React.Component {
 
@@ -118,7 +118,7 @@ handleEditButtonClick = (e) =>{
     this.handleStatusCheck(form)
     this.setState({
       showBasicInfoForm: false,
-      showEquityForm: true
+      showButtons: true
     })
   }
 
@@ -128,7 +128,7 @@ handleEditButtonClick = (e) =>{
     this.handleStatusCheck(form)
     this.setState({
       showEquityForm: false,
-      showOfferForm: true
+      showButtons: true
     })
   }
 
@@ -138,7 +138,7 @@ handleEditButtonClick = (e) =>{
     this.handleStatusCheck(form)
     this.setState({
       showOfferForm: false,
-      showCapitalizationForm: true
+      showButtons: true
     })
   }
 
@@ -148,7 +148,7 @@ handleEditButtonClick = (e) =>{
     this.handleStatusCheck(form)
     this.setState({
       showCapitalizationForm: false,
-      showCashFlowForm: true
+      showButtons: true
     })
   }
 
@@ -158,7 +158,7 @@ handleEditButtonClick = (e) =>{
     this.handleStatusCheck(form)
     this.setState({
       showCashFlowForm: false,
-      showTransactionCosts: true
+      showButtons: true
     })
   }
 
@@ -168,7 +168,7 @@ handleEditButtonClick = (e) =>{
     this.handleStatusCheck(form)
     this.setState({
       showTransactionCosts: false,
-      showTransactionAdjustments: true
+      showButtons: true
     })
   }
 
@@ -222,9 +222,11 @@ componentDidMount() {
           verticalAlign='top'
         >
         <Grid.Column style={{ maxWidth: 600 }}>
+        <div className="form">
+        <Segment>
+        <h3> Input Status </h3>
+        <div className="allButtonHolder">
 
-        <div className="allButtonHolder form">
-             <h3> Input Status </h3>
             <div className="buttonAndCheckBoxHolder">
                 <h4>Form</h4>
                 <h4>Completed?</h4>
@@ -361,12 +363,13 @@ componentDidMount() {
            </div>
            {
              this.state.showBackToOutputs &&
-             <i className="forward icon large grey"
+             <i className="arrow alternate circle right outline icon big grey"
              onClick={this.handleGoForward}
              ></i>
            }
           </div>
-
+          </Segment>
+          </div>
           </Grid.Column>
           </Grid>
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { updateTransactionCostForm, resetTransactionCostInfo, newTransactionCostInfo } from '../actions'
-import { Form } from 'semantic-ui-react'
+import { Form, Segment, Grid } from 'semantic-ui-react'
 
 let input_types = [{id: "percentage", name: "Percentage of Item"}, {id: "setAmount", name: "Set Dollar Amount"}]
 
@@ -132,7 +132,15 @@ class TransactionCosts extends React.Component {
 
  render() {
    return (
+     <Grid
+     textAlign='center'
+     style={{ height: '100%' }}
+     verticalAlign='top'
+   >
+   <Grid.Column style={{ maxWidth: 1000 }}>
+
      <div className="form">
+      <Segment>
      <i onClick={this.props.exit} className="window close outline icon large grey"></i>
         <h3>Transaction Costs Info</h3>
      <div >
@@ -365,7 +373,10 @@ class TransactionCosts extends React.Component {
 
       </form>
     </div>
+    </Segment>
    </div>
+   </Grid.Column>
+   </Grid>
    )
  }
 }

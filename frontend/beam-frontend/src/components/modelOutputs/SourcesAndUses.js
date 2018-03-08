@@ -29,6 +29,7 @@ class SourcesAndUses extends React.Component {
           fixedDecimalScale={true} /> : '',
     })) : tableInfo = []
     return tableInfo
+
   }
 
   handleRepaidItems = (array, dataInput) => {
@@ -265,7 +266,7 @@ class SourcesAndUses extends React.Component {
        <div className="outputholder" id="sources-uses">
        <h3>Sources and Uses</h3>
          <div className="multiple-table-holder">
-          <div className="single-table-holder">
+          <div className="single-table-holder uses-table">
               <ReactTable
               data={adjustedUsesData}
               columns={usesColumns}
@@ -274,7 +275,7 @@ class SourcesAndUses extends React.Component {
               className="-highlight"
             />
             </div>
-              <div className="single-table-holder">
+              <div className="single-table-holder sources-table">
               <ReactTable
               data={adjustedSourcesData}
               columns={sourcesColumns}
