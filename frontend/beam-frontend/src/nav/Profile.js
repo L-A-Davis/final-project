@@ -35,18 +35,15 @@ class Profile extends React.Component {
 
   render () {
   return (
-    <div>
     <Grid
       textAlign='center'
       style={{ height: '100%' }}
       verticalAlign='top'
     >
     <Grid.Column style={{ maxWidth: 500 }}>
-
-
-    <Form>
+    <div className="form">
      <Segment>
-      <div>
+
       {!this.state.showNewProjectForm &&
       <Header as='h3' className='navy-text' textAlign='center'>
          Select an existing project or start a new one:
@@ -71,13 +68,11 @@ class Profile extends React.Component {
       history={this.props.history}
       />
       }
-
+  </Segment>
       </div>
-      </Segment>
-      </Form>
+
       </Grid.Column>
       </Grid>
-    </div>
   )
  }
 }

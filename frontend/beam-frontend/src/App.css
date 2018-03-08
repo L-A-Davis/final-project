@@ -531,6 +531,11 @@ div .highcharts-container .highcharts-root{
   margin-left: 2px;
 }
 
+#project-list {
+  width: 100%;
+  text-align: center;
+}
+
 /* .ReactTable .rt-tbody .rt-td:last-child{
   background: red;
 } */

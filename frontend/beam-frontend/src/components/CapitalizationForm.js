@@ -198,7 +198,7 @@ class CapitalizationForm extends React.Component {
      style={{ height: '100%' }}
      verticalAlign='top'
    >
-   <Grid.Column style={{ maxWidth: 1000 }}>
+   <Grid.Column style={{ maxWidth: 1200 }}>
      <div className="form">
         <Segment>
       <i onClick={this.props.exit} className="window close outline icon large grey"></i>

@@ -95,10 +95,10 @@ componentDidMount() {
   console.log(this.state.config)
   if (!this.state.config) {
     return <div>
-     "TEST"
+     "Loading"
     </div>
   }
- // debugger
+
     return (
        <div className="outputholder" id="contrib">
        {this.state.config  &&

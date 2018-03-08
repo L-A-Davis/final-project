@@ -15,7 +15,7 @@ class MyProjects extends React.Component {
 
   render() {
   return (
-    <div>
+    <div id="project-list">
     <select
     defaultValue=""
     onChange={this.handleSelection}

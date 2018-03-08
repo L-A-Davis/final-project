@@ -62,7 +62,7 @@ class TransactionAdjustments extends React.Component {
          model_id: this.props.modelData.id,
          item_name: "New_financing_1",
          form_for: "newFinancing",
-         item_type: form.New_financing_1_type_of,
+         item_type: form.New_financing_1_type_of || "debt",
          amount: form.New_financing_1_amount || 0,
          rate: form.New_financing_1_rate || 0,
          plug: form.New_financing_1_plug || false
@@ -73,7 +73,7 @@ class TransactionAdjustments extends React.Component {
          model_id: this.props.modelData.id,
          item_name: "New_financing_2",
          form_for: "newFinancing",
-         item_type: form.New_financing_2_type_of,
+         item_type: form.New_financing_2_type_of || "debt",
          amount: form.New_financing_2_amount || 0,
          rate: form.New_financing_2_rate || 0,
          plug: form.New_financing_2_plug || false
@@ -84,7 +84,7 @@ class TransactionAdjustments extends React.Component {
          model_id: this.props.modelData.id,
          item_name: "New_financing_3",
          form_for: "newFinancing",
-         item_type: form.New_financing_3_type_of,
+         item_type: form.New_financing_3_type_of || "debt",
          amount: form.New_financing_3_amount || 0,
          rate: form.New_financing_3_rate || 0,
          plug : form.New_financing_3_plug || false
@@ -267,7 +267,7 @@ class TransactionAdjustments extends React.Component {
     </Segment>
    </div>
    </Grid.Column>
-   </Grid>   
+   </Grid>
    )
  }
 }

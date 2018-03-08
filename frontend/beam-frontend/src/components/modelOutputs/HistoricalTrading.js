@@ -72,7 +72,6 @@ handleGetChart2Data = () => {
 
 handleExchangeRatioCalc = (stockprices1, stockprices2, dates) => {
   let exchangeRatioHist = []
-
   if (this.props.modelData.basic_info_datum[0].acquiror) {
     for (let i = 0; i< stockprices1.length; i++){
       exchangeRatioHist.push(stockprices2[i] / stockprices1[i])
